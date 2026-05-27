@@ -1,11 +1,87 @@
-# pkgbuild-template-translator
+<p align="center">
+  <img src="usr/share/icons/hicolor/scalable/apps/org.communitybig.bigrecord.svg" width="128" height="128" alt="BigRecord icon">
+</p>
 
-Template for Arch Linux packages with automatic translation support.
+<h1 align="center">BigRecord</h1>
 
-## Description
+<p align="center">Modern local voice recorder for Linux, built with Rust, GTK4, libadwaita, and GStreamer.</p>
 
-Package description
+<p align="center">
+  <code>Rust</code>
+  <code>GTK4</code>
+  <code>libadwaita</code>
+  <code>GStreamer</code>
+  <code>Gettext</code>
+  <code>Linux</code>
+</p>
+
+## Features
+
+- Local microphone recording with pause, resume, and stop.
+- Live waveform animation while recording.
+- Saved recordings list with in-app playback and progress display.
+- Fixed tools footer for quick access to editing actions.
+- Audio tools: trim, volume, speed, pitch, voice effects, 10-band equalizer, reverse, merge, and export.
+- Export formats: WAV, MP3, Opus, and FLAC.
+- Gettext-ready interface with English source strings and external translations.
+
+## Build
+
+Native requirements:
+
+- Rust toolchain
+- GTK4 development files
+- libadwaita development files
+- GStreamer development files
+- GStreamer audio plugins: good, bad, ugly, libav
+
+```sh
+cargo build
+```
+
+```sh
+cargo run
+```
+
+## Runtime Data
+
+Recordings are stored in:
+
+```text
+~/Music/BigRecord
+```
+
+Application ID:
+
+```text
+org.communitybig.bigrecord
+```
+
+Binary name:
+
+```text
+bigrecord
+```
+
+## Project Layout
+
+```text
+src/audio/      Recording, playback, processing, export
+src/ui/         GTK4/libadwaita interface and drawing widgets
+po/             Gettext catalogs
+usr/share/      Desktop file, icon, metainfo
+pkgbuild/       BigCommunity package files
+```
+
+## Validation
+
+```sh
+cargo fmt --check
+cargo clippy --offline -- -D warnings
+cargo test --offline
+desktop-file-validate usr/share/applications/org.communitybig.bigrecord.desktop
+```
 
 ## License
 
-This project is under the MIT License - see the [LICENSE](LICENSE) file for details.
+GPL-3.0-or-later

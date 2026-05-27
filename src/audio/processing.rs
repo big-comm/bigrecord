@@ -1,0 +1,929 @@
+use std::io::{BufWriter, Write};
+use std::ops::Range;
+use std::path::{Path, PathBuf};
+use std::process;
+use std::time::{Duration, SystemTime};
+use std::{env, fs};
+
+use anyhow::{Context, Result, anyhow};
+use gst::prelude::*;
+
+#[derive(Clone, Debug)]
+pub struct AudioBuffer {
+    sample_rate: u32,
+    channels: u16,
+    samples: Vec<f32>,
+}
+
+impl AudioBuffer {
+    pub fn duration(&self) -> Duration {
+        if self.sample_rate == 0 || self.channels == 0 {
+            return Duration::ZERO;
+        }
+
+        Duration::from_secs_f64(self.frame_count() as f64 / f64::from(self.sample_rate))
+    }
+
+    fn frame_count(&self) -> usize {
+        self.samples.len() / usize::from(self.channels)
+    }
+}
+
+#[derive(Clone, Copy)]
+enum AudioFormat {
+    Pcm,
+    Float,
+}
+
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub enum ExportFormat {
+    Wav,
+    Mp3,
+    OggOpus,
+    Flac,
+}
+
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub enum ExportQuality {
+    Low,
+    Medium,
+    High,
+}
+
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub enum ExportChannelMode {
+    Original,
+    Mono,
+    Stereo,
+}
+
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub enum ExportSampleRate {
+    Original,
+    Hz(u32),
+}
+
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub struct ExportOptions {
+    pub format: ExportFormat,
+    pub quality: ExportQuality,
+    pub channel_mode: ExportChannelMode,
+    pub sample_rate: ExportSampleRate,
+}
+
+pub const EQUALIZER_BANDS: [f32; 10] = [
+    31.0, 62.0, 125.0, 250.0, 500.0, 1_000.0, 2_000.0, 4_000.0, 8_000.0, 16_000.0,
+];
+
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub enum VoiceEffectPreset {
+    Child,
+    Deep,
+    Robot,
+    Radio,
+    Echo,
+}
+
+impl ExportFormat {
+    pub fn extension(self) -> &'static str {
+        match self {
+            Self::Wav => "wav",
+            Self::Mp3 => "mp3",
+            Self::OggOpus => "opus",
+            Self::Flac => "flac",
+        }
+    }
+}
+
+impl VoiceEffectPreset {
+    fn output_suffix(self) -> &'static str {
+        match self {
+            Self::Child => "Child Voice",
+            Self::Deep => "Deep Voice",
+            Self::Robot => "Robot Voice",
+            Self::Radio => "Radio Voice",
+            Self::Echo => "Echo Voice",
+        }
+    }
+
+    fn filters(self, amount: f32) -> Result<Vec<gst::Element>> {
+        let amount = amount.clamp(0.0, 1.0);
+        match self {
+            Self::Child => Ok(vec![
+                pitch_filter(2.0_f32.powf((4.0 + 5.0 * amount) / 12.0))?,
+                equalizer_filter([-4.0, -3.0, -2.0, 0.0, 1.0, 2.5, 3.5, 4.0, 2.0, 0.0])?,
+            ]),
+            Self::Deep => Ok(vec![
+                pitch_filter(2.0_f32.powf((-4.0 - 4.0 * amount) / 12.0))?,
+                equalizer_filter([4.0, 3.5, 2.0, 0.5, -1.0, -1.5, -2.0, -2.5, -3.0, -3.0])?,
+            ]),
+            Self::Robot => Ok(vec![
+                pitch_filter(0.98)?,
+                equalizer_filter([-8.0, -7.0, -5.0, -2.0, 2.0, 4.0, 5.0, 3.0, -2.0, -6.0])?,
+                echo_filter(22_000_000, 0.18 + amount * 0.22, 0.25 + amount * 0.35)?,
+            ]),
+            Self::Radio => Ok(vec![
+                chebyshev_filter("high-pass", 260.0 + amount * 120.0)?,
+                chebyshev_filter("low-pass", 3_800.0 - amount * 700.0)?,
+                equalizer_filter([-12.0, -12.0, -9.0, -4.0, 1.0, 3.0, 3.0, 1.0, -6.0, -12.0])?,
+            ]),
+            Self::Echo => Ok(vec![echo_filter(
+                90_000_000 + (amount * 180_000_000.0) as u64,
+                0.20 + amount * 0.35,
+                0.35 + amount * 0.35,
+            )?]),
+        }
+    }
+}
+
+struct WaveFormat {
+    audio_format: AudioFormat,
+    channels: u16,
+    sample_rate: u32,
+    bits_per_sample: u16,
+}
+
+pub fn duration(path: &Path) -> Result<Duration> {
+    Ok(read_wav(path)?.duration())
+}
+
+pub fn trim(path: &Path, start: Duration, end: Duration) -> Result<PathBuf> {
+    let mut audio = read_wav(path)?;
+    let start_frame = duration_to_frame(start, audio.sample_rate);
+    let end_frame = duration_to_frame(end, audio.sample_rate).min(audio.frame_count());
+    if start_frame >= end_frame {
+        return Err(anyhow!("Trim start must be before trim end"));
+    }
+
+    let channels = usize::from(audio.channels);
+    audio.samples = audio.samples[start_frame * channels..end_frame * channels].to_vec();
+    write_processed(path, "Trimmed", &audio)
+}
+
+pub fn change_volume(path: &Path, gain: f32) -> Result<PathBuf> {
+    let mut audio = read_wav(path)?;
+    for sample in &mut audio.samples {
+        *sample = (*sample * gain).clamp(-1.0, 1.0);
+    }
+
+    write_processed(path, "Volume", &audio)
+}
+
+pub fn change_speed(path: &Path, factor: f32) -> Result<PathBuf> {
+    if factor <= 0.0 {
+        return Err(anyhow!("Speed factor must be greater than zero"));
+    }
+
+    let mut audio = read_wav(path)?;
+    let frames = audio.frame_count();
+    let new_frames = ((frames as f32 / factor).round() as usize).max(1);
+    audio.samples = resample_frames(&audio.samples, audio.channels, new_frames);
+    write_processed(path, "Speed", &audio)
+}
+
+pub fn change_pitch(path: &Path, semitones: f32) -> Result<PathBuf> {
+    let factor = 2.0_f32.powf(semitones / 12.0);
+    let output_path = next_processed_path(path, "Pitch")?;
+    process_wav_with_filters(path, &output_path, vec![pitch_filter(factor)?])?;
+    Ok(output_path)
+}
+
+pub fn equalize(path: &Path, gains_db: [f32; EQUALIZER_BANDS.len()]) -> Result<PathBuf> {
+    let output_path = next_processed_path(path, "Equalized")?;
+    process_wav_with_filters(path, &output_path, vec![equalizer_filter(gains_db)?])?;
+    Ok(output_path)
+}
+
+pub fn apply_voice_effect(path: &Path, preset: VoiceEffectPreset, amount: f32) -> Result<PathBuf> {
+    let amount = amount.clamp(0.0, 1.0);
+    let output_path = next_processed_path(path, preset.output_suffix())?;
+    process_wav_with_filters(path, &output_path, preset.filters(amount)?)?;
+    Ok(output_path)
+}
+
+pub fn reverse(path: &Path) -> Result<PathBuf> {
+    let mut audio = read_wav(path)?;
+    reverse_frames(&mut audio.samples, audio.channels);
+    write_processed(path, "Reversed", &audio)
+}
+
+pub fn merge(first_path: &Path, second_path: &Path) -> Result<PathBuf> {
+    let mut first = read_wav(first_path)?;
+    let mut second = read_wav(second_path)?;
+    second = convert_for_merge(second, first.sample_rate, first.channels);
+    first.samples.extend(second.samples);
+    write_processed(first_path, "Merged", &first)
+}
+
+pub fn export(path: &Path, destination: &Path, options: ExportOptions) -> Result<()> {
+    let audio = prepare_for_export(read_wav(path)?, options);
+    match options.format {
+        ExportFormat::Wav => write_wav(destination, &audio),
+        ExportFormat::Mp3 | ExportFormat::OggOpus | ExportFormat::Flac => {
+            let temp_path = temporary_wav_path()?;
+            let result = (|| {
+                write_wav(&temp_path, &audio)?;
+                transcode_wav(&temp_path, destination, options)
+            })();
+            let _ = fs::remove_file(&temp_path);
+            result
+        }
+    }
+    .with_context(|| {
+        format!(
+            "Failed to export recording from {} to {}",
+            path.display(),
+            destination.display()
+        )
+    })
+}
+
+fn read_wav(path: &Path) -> Result<AudioBuffer> {
+    let bytes = fs::read(path).with_context(|| format!("Failed to read {}", path.display()))?;
+    parse_wav(&bytes).with_context(|| format!("Unsupported WAV file: {}", path.display()))
+}
+
+fn parse_wav(bytes: &[u8]) -> Result<AudioBuffer> {
+    if bytes.len() < 12 || &bytes[0..4] != b"RIFF" || &bytes[8..12] != b"WAVE" {
+        return Err(anyhow!("File is not a RIFF/WAVE file"));
+    }
+
+    let mut format = None;
+    let mut data_range = None;
+    let mut offset = 12;
+
+    while offset + 8 <= bytes.len() {
+        let chunk_id = &bytes[offset..offset + 4];
+        let chunk_size = read_u32(bytes, offset + 4)? as usize;
+        let chunk_start = offset + 8;
+        let chunk_end = chunk_start
+            .checked_add(chunk_size)
+            .ok_or_else(|| anyhow!("Invalid WAV chunk size"))?;
+        if chunk_end > bytes.len() {
+            return Err(anyhow!("WAV chunk extends past end of file"));
+        }
+
+        match chunk_id {
+            b"fmt " => format = Some(parse_format(&bytes[chunk_start..chunk_end])?),
+            b"data" => data_range = Some(chunk_start..chunk_end),
+            _ => {}
+        }
+
+        offset = chunk_end + (chunk_size % 2);
+    }
+
+    let format = format.ok_or_else(|| anyhow!("Missing WAV format chunk"))?;
+    let data = &bytes[data_range.ok_or_else(|| anyhow!("Missing WAV data chunk"))?];
+    if format.channels == 0 || format.sample_rate == 0 {
+        return Err(anyhow!("Invalid WAV format"));
+    }
+
+    let bytes_per_sample = usize::from(format.bits_per_sample / 8);
+    let frame_size = bytes_per_sample
+        .checked_mul(usize::from(format.channels))
+        .ok_or_else(|| anyhow!("Invalid WAV frame size"))?;
+    if bytes_per_sample == 0 || frame_size == 0 {
+        return Err(anyhow!("Invalid WAV sample size"));
+    }
+
+    let mut samples = Vec::with_capacity(data.len() / bytes_per_sample);
+    for sample_bytes in data[..data.len() - data.len() % frame_size].chunks_exact(bytes_per_sample)
+    {
+        samples.push(decode_sample(sample_bytes, format.audio_format)?);
+    }
+
+    Ok(AudioBuffer {
+        sample_rate: format.sample_rate,
+        channels: format.channels,
+        samples,
+    })
+}
+
+fn parse_format(bytes: &[u8]) -> Result<WaveFormat> {
+    if bytes.len() < 16 {
+        return Err(anyhow!("Invalid WAV format chunk"));
+    }
+
+    let raw_format = read_u16(bytes, 0)?;
+    let channels = read_u16(bytes, 2)?;
+    let sample_rate = read_u32(bytes, 4)?;
+    let bits_per_sample = read_u16(bytes, 14)?;
+    let audio_format = match raw_format {
+        1 => AudioFormat::Pcm,
+        3 => AudioFormat::Float,
+        0xfffe => extensible_audio_format(bytes)?,
+        _ => return Err(anyhow!("Unsupported WAV audio format {raw_format}")),
+    };
+
+    Ok(WaveFormat {
+        audio_format,
+        channels,
+        sample_rate,
+        bits_per_sample,
+    })
+}
+
+fn extensible_audio_format(bytes: &[u8]) -> Result<AudioFormat> {
+    if bytes.len() < 40 {
+        return Err(anyhow!("Invalid WAV extensible format"));
+    }
+
+    match &bytes[24..40] {
+        [1, 0, 0, 0, 0, 0, 16, 0, 128, 0, 0, 170, 0, 56, 155, 113] => Ok(AudioFormat::Pcm),
+        [3, 0, 0, 0, 0, 0, 16, 0, 128, 0, 0, 170, 0, 56, 155, 113] => Ok(AudioFormat::Float),
+        _ => Err(anyhow!("Unsupported WAV extensible subtype")),
+    }
+}
+
+fn decode_sample(bytes: &[u8], format: AudioFormat) -> Result<f32> {
+    let sample = match (format, bytes.len()) {
+        (AudioFormat::Float, 4) => f32::from_le_bytes(bytes.try_into()?),
+        (AudioFormat::Float, 8) => f64::from_le_bytes(bytes.try_into()?) as f32,
+        (AudioFormat::Pcm, 1) => (f32::from(bytes[0]) - 128.0) / 128.0,
+        (AudioFormat::Pcm, 2) => {
+            f32::from(i16::from_le_bytes(bytes.try_into()?)) / f32::from(i16::MAX)
+        }
+        (AudioFormat::Pcm, 3) => {
+            let value =
+                i32::from(bytes[0]) | (i32::from(bytes[1]) << 8) | (i32::from(bytes[2]) << 16);
+            ((value << 8) >> 8) as f32 / 8_388_608.0
+        }
+        (AudioFormat::Pcm, 4) => i32::from_le_bytes(bytes.try_into()?) as f32 / i32::MAX as f32,
+        _ => return Err(anyhow!("Unsupported WAV sample size")),
+    };
+
+    Ok(if sample.is_finite() {
+        sample.clamp(-1.0, 1.0)
+    } else {
+        0.0
+    })
+}
+
+fn write_processed(source: &Path, suffix: &str, audio: &AudioBuffer) -> Result<PathBuf> {
+    let output_path = next_processed_path(source, suffix)?;
+    write_wav(&output_path, audio)?;
+    Ok(output_path)
+}
+
+fn write_wav(path: &Path, audio: &AudioBuffer) -> Result<()> {
+    if audio.channels == 0 || audio.sample_rate == 0 {
+        return Err(anyhow!("Cannot write invalid audio format"));
+    }
+
+    let data_size = audio
+        .samples
+        .len()
+        .checked_mul(4)
+        .ok_or_else(|| anyhow!("Audio file is too large"))?;
+    let data_size = u32::try_from(data_size).context("Audio file is too large")?;
+    let block_align = audio.channels * 4;
+    let byte_rate = audio.sample_rate * u32::from(block_align);
+
+    let file =
+        fs::File::create(path).with_context(|| format!("Failed to write {}", path.display()))?;
+    let mut writer = BufWriter::new(file);
+    writer.write_all(b"RIFF")?;
+    writer.write_all(&(36 + data_size).to_le_bytes())?;
+    writer.write_all(b"WAVE")?;
+    writer.write_all(b"fmt ")?;
+    writer.write_all(&16_u32.to_le_bytes())?;
+    writer.write_all(&3_u16.to_le_bytes())?;
+    writer.write_all(&audio.channels.to_le_bytes())?;
+    writer.write_all(&audio.sample_rate.to_le_bytes())?;
+    writer.write_all(&byte_rate.to_le_bytes())?;
+    writer.write_all(&block_align.to_le_bytes())?;
+    writer.write_all(&32_u16.to_le_bytes())?;
+    writer.write_all(b"data")?;
+    writer.write_all(&data_size.to_le_bytes())?;
+    for sample in &audio.samples {
+        writer.write_all(&sample.clamp(-1.0, 1.0).to_le_bytes())?;
+    }
+
+    writer
+        .flush()
+        .with_context(|| format!("Failed to write {}", path.display()))
+}
+
+fn prepare_for_export(mut audio: AudioBuffer, options: ExportOptions) -> AudioBuffer {
+    let target_channels = match options.channel_mode {
+        ExportChannelMode::Original => audio.channels,
+        ExportChannelMode::Mono => 1,
+        ExportChannelMode::Stereo => 2,
+    };
+    if target_channels != audio.channels {
+        audio.samples = convert_channels(&audio.samples, audio.channels, target_channels);
+        audio.channels = target_channels;
+    }
+
+    let target_rate = match options.sample_rate {
+        ExportSampleRate::Original => audio.sample_rate,
+        ExportSampleRate::Hz(sample_rate) => sample_rate,
+    };
+    let target_rate = supported_export_sample_rate(options.format, target_rate);
+    if target_rate != audio.sample_rate {
+        let target_frames = (audio.frame_count() as f64 * f64::from(target_rate)
+            / f64::from(audio.sample_rate))
+        .round()
+        .max(1.0) as usize;
+        audio.samples = resample_frames(&audio.samples, audio.channels, target_frames);
+        audio.sample_rate = target_rate;
+    }
+
+    audio
+}
+
+fn supported_export_sample_rate(format: ExportFormat, sample_rate: u32) -> u32 {
+    if format != ExportFormat::OggOpus {
+        return sample_rate;
+    }
+
+    match sample_rate {
+        8_000 | 12_000 | 16_000 | 24_000 | 48_000 => sample_rate,
+        _ => 48_000,
+    }
+}
+
+fn process_wav_with_filters(
+    source: &Path,
+    destination: &Path,
+    filters: Vec<gst::Element>,
+) -> Result<()> {
+    let pipeline = gst::Pipeline::new();
+    let source_element = make_gst_element("filesrc")?;
+    let wav_parser = make_gst_element("wavparse")?;
+    let convert = make_gst_element("audioconvert")?;
+    let resample = make_gst_element("audioresample")?;
+    let caps_filter = gst::ElementFactory::make("capsfilter")
+        .property(
+            "caps",
+            gst::Caps::builder("audio/x-raw")
+                .field("format", "F32LE")
+                .build(),
+        )
+        .build()
+        .context("Missing GStreamer element: capsfilter")?;
+    let output_convert = make_gst_element("audioconvert")?;
+    let encoder = make_gst_element("wavenc")?;
+    let sink = make_gst_element("filesink")?;
+
+    source_element.set_property("location", source.to_string_lossy().as_ref());
+    sink.set_property("location", destination.to_string_lossy().as_ref());
+
+    let mut elements = vec![source_element, wav_parser, convert, resample, caps_filter];
+    elements.extend(filters);
+    elements.extend([output_convert, encoder, sink]);
+
+    for element in &elements {
+        pipeline
+            .add(element)
+            .context("Failed to add processing element to pipeline")?;
+    }
+
+    for pair in elements.windows(2) {
+        pair[0]
+            .link(&pair[1])
+            .context("Failed to link processing pipeline")?;
+    }
+
+    pipeline
+        .set_state(gst::State::Playing)
+        .map_err(|err| anyhow!("Failed to start processing pipeline: {err:?}"))?;
+
+    let result = wait_for_pipeline_end(&pipeline);
+    let stop_result = pipeline
+        .set_state(gst::State::Null)
+        .map_err(|err| anyhow!("Failed to stop processing pipeline: {err:?}"));
+
+    result?;
+    stop_result?;
+    Ok(())
+}
+
+fn pitch_filter(factor: f32) -> Result<gst::Element> {
+    let pitch = make_gst_element("pitch")
+        .context("Install the GStreamer SoundTouch plugin to change pitch")?;
+    pitch.set_property("pitch", factor.clamp(0.1, 10.0));
+    pitch.set_property("tempo", 1.0_f32);
+    pitch.set_property("rate", 1.0_f32);
+    Ok(pitch)
+}
+
+fn equalizer_filter(gains_db: [f32; EQUALIZER_BANDS.len()]) -> Result<gst::Element> {
+    let equalizer = make_gst_element("equalizer-10bands")
+        .context("Install the GStreamer equalizer plugin to use the equalizer")?;
+    for (index, gain) in gains_db.iter().enumerate() {
+        equalizer.set_property(&format!("band{index}"), f64::from(gain.clamp(-24.0, 12.0)));
+    }
+    Ok(equalizer)
+}
+
+fn chebyshev_filter(mode: &str, cutoff: f32) -> Result<gst::Element> {
+    let filter = make_gst_element("audiocheblimit")
+        .context("Install the GStreamer audio effects plugin to use voice effects")?;
+    filter.set_property_from_str("mode", mode);
+    filter.set_property("cutoff", cutoff);
+    filter.set_property("poles", 4_i32);
+    filter.set_property("ripple", 0.25_f32);
+    Ok(filter)
+}
+
+fn echo_filter(delay: u64, feedback: f32, intensity: f32) -> Result<gst::Element> {
+    let echo = make_gst_element("audioecho")
+        .context("Install the GStreamer audio effects plugin to use echo effects")?;
+    echo.set_property("max-delay", delay.max(1));
+    echo.set_property("delay", delay.max(1));
+    echo.set_property("feedback", feedback.clamp(0.0, 0.95));
+    echo.set_property("intensity", intensity.clamp(0.0, 1.0));
+    Ok(echo)
+}
+
+fn temporary_wav_path() -> Result<PathBuf> {
+    let nanos = SystemTime::now()
+        .duration_since(SystemTime::UNIX_EPOCH)
+        .map(|duration| duration.as_nanos())
+        .unwrap_or(0);
+
+    for index in 0..1000 {
+        let candidate = env::temp_dir().join(format!(
+            "bigrecord-export-{}-{nanos}-{index}.wav",
+            process::id()
+        ));
+        if !candidate.exists() {
+            return Ok(candidate);
+        }
+    }
+
+    Err(anyhow!("Could not create a temporary export file"))
+}
+
+fn transcode_wav(source: &Path, destination: &Path, options: ExportOptions) -> Result<()> {
+    let pipeline = gst::Pipeline::new();
+    let source_element = make_gst_element("filesrc")?;
+    let wav_parser = make_gst_element("wavparse")?;
+    let convert = make_gst_element("audioconvert")?;
+    let resample = make_gst_element("audioresample")?;
+    let encoder = export_encoder(options.format, options.quality)?;
+    let sink = make_gst_element("filesink")?;
+
+    source_element.set_property("location", source.to_string_lossy().as_ref());
+    sink.set_property("location", destination.to_string_lossy().as_ref());
+
+    match options.format {
+        ExportFormat::Mp3 | ExportFormat::Flac => {
+            pipeline
+                .add_many([
+                    &source_element,
+                    &wav_parser,
+                    &convert,
+                    &resample,
+                    &encoder,
+                    &sink,
+                ])
+                .context("Failed to add export elements to pipeline")?;
+            gst::Element::link_many([
+                &source_element,
+                &wav_parser,
+                &convert,
+                &resample,
+                &encoder,
+                &sink,
+            ])
+            .context("Failed to link export pipeline")?;
+        }
+        ExportFormat::OggOpus => {
+            let muxer = make_gst_element("oggmux")?;
+            pipeline
+                .add_many([
+                    &source_element,
+                    &wav_parser,
+                    &convert,
+                    &resample,
+                    &encoder,
+                    &muxer,
+                    &sink,
+                ])
+                .context("Failed to add export elements to pipeline")?;
+            gst::Element::link_many([
+                &source_element,
+                &wav_parser,
+                &convert,
+                &resample,
+                &encoder,
+                &muxer,
+                &sink,
+            ])
+            .context("Failed to link export pipeline")?;
+        }
+        ExportFormat::Wav => return Err(anyhow!("WAV export does not use the transcoder")),
+    }
+
+    pipeline
+        .set_state(gst::State::Playing)
+        .map_err(|err| anyhow!("Failed to start export pipeline: {err:?}"))?;
+
+    let result = wait_for_pipeline_end(&pipeline);
+    let stop_result = pipeline
+        .set_state(gst::State::Null)
+        .map_err(|err| anyhow!("Failed to stop export pipeline: {err:?}"));
+
+    result?;
+    stop_result?;
+    Ok(())
+}
+
+fn wait_for_pipeline_end(pipeline: &gst::Pipeline) -> Result<()> {
+    let bus = pipeline
+        .bus()
+        .ok_or_else(|| anyhow!("Export pipeline has no message bus"))?;
+    loop {
+        let Some(message) = bus.timed_pop_filtered(
+            gst::ClockTime::NONE,
+            &[gst::MessageType::Eos, gst::MessageType::Error],
+        ) else {
+            continue;
+        };
+
+        match message.view() {
+            gst::MessageView::Eos(_) => return Ok(()),
+            gst::MessageView::Error(error) => {
+                return Err(anyhow!(
+                    "Export pipeline error: {} ({})",
+                    error.error(),
+                    error
+                        .debug()
+                        .map(|debug| debug.to_string())
+                        .unwrap_or_else(|| "no debug details".to_string())
+                ));
+            }
+            _ => {}
+        }
+    }
+}
+
+fn export_encoder(format: ExportFormat, quality: ExportQuality) -> Result<gst::Element> {
+    match format {
+        ExportFormat::Mp3 => {
+            let encoder = make_gst_element("lamemp3enc")
+                .context("Install the GStreamer LAME MP3 plugin to export MP3 files")?;
+            encoder.set_property_from_str("target", "bitrate");
+            encoder.set_property("cbr", true);
+            encoder.set_property("bitrate", mp3_bitrate(quality));
+            Ok(encoder)
+        }
+        ExportFormat::OggOpus => {
+            let encoder = make_gst_element("opusenc")
+                .context("Install the GStreamer Opus plugin to export Opus files")?;
+            encoder.set_property_from_str("audio-type", "voice");
+            encoder.set_property_from_str("bitrate-type", "constrained-vbr");
+            encoder.set_property("bitrate", opus_bitrate(quality));
+            encoder.set_property("dtx", true);
+            Ok(encoder)
+        }
+        ExportFormat::Flac => {
+            let encoder = make_gst_element("flacenc")
+                .context("Install the GStreamer FLAC plugin to export FLAC files")?;
+            encoder.set_property_from_str("quality", flac_quality(quality));
+            Ok(encoder)
+        }
+        ExportFormat::Wav => Err(anyhow!("WAV export does not need an encoder")),
+    }
+}
+
+fn make_gst_element(name: &str) -> Result<gst::Element> {
+    gst::ElementFactory::make(name)
+        .build()
+        .with_context(|| format!("Missing GStreamer element: {name}"))
+}
+
+fn mp3_bitrate(quality: ExportQuality) -> i32 {
+    match quality {
+        ExportQuality::Low => 96,
+        ExportQuality::Medium => 160,
+        ExportQuality::High => 256,
+    }
+}
+
+fn opus_bitrate(quality: ExportQuality) -> i32 {
+    match quality {
+        ExportQuality::Low => 32_000,
+        ExportQuality::Medium => 64_000,
+        ExportQuality::High => 128_000,
+    }
+}
+
+fn flac_quality(quality: ExportQuality) -> &'static str {
+    match quality {
+        ExportQuality::Low => "3",
+        ExportQuality::Medium => "5",
+        ExportQuality::High => "8",
+    }
+}
+
+fn next_processed_path(source: &Path, suffix: &str) -> Result<PathBuf> {
+    let parent = source
+        .parent()
+        .ok_or_else(|| anyhow!("Recording does not have a parent directory"))?;
+    let stem = source
+        .file_stem()
+        .and_then(|name| name.to_str())
+        .unwrap_or("Recording");
+
+    for index in 1..1000 {
+        let candidate = if index == 1 {
+            parent.join(format!("{stem} - {suffix}.wav"))
+        } else {
+            parent.join(format!("{stem} - {suffix} {index}.wav"))
+        };
+        if !candidate.exists() {
+            return Ok(candidate);
+        }
+    }
+
+    Err(anyhow!("Could not create a unique output file"))
+}
+
+fn duration_to_frame(duration: Duration, sample_rate: u32) -> usize {
+    (duration.as_secs_f64() * f64::from(sample_rate)).round() as usize
+}
+
+fn resample_frames(samples: &[f32], channels: u16, target_frames: usize) -> Vec<f32> {
+    let channels = usize::from(channels);
+    let source_frames = samples.len() / channels;
+    if source_frames == 0 || target_frames == 0 {
+        return Vec::new();
+    }
+    if source_frames == target_frames {
+        return samples.to_vec();
+    }
+
+    let mut output = vec![0.0_f32; target_frames * channels];
+    let scale = if target_frames == 1 {
+        0.0
+    } else {
+        (source_frames - 1) as f32 / (target_frames - 1) as f32
+    };
+
+    for target_frame in 0..target_frames {
+        let source_position = target_frame as f32 * scale;
+        let left_frame = source_position.floor() as usize;
+        let right_frame = (left_frame + 1).min(source_frames - 1);
+        let blend = source_position - left_frame as f32;
+
+        for channel in 0..channels {
+            let left = samples[left_frame * channels + channel];
+            let right = samples[right_frame * channels + channel];
+            output[target_frame * channels + channel] = left + (right - left) * blend;
+        }
+    }
+
+    output
+}
+
+fn reverse_frames(samples: &mut [f32], channels: u16) {
+    let channels = usize::from(channels);
+    let frames = samples.len() / channels;
+    for frame in 0..frames / 2 {
+        let opposite = frames - frame - 1;
+        for channel in 0..channels {
+            samples.swap(frame * channels + channel, opposite * channels + channel);
+        }
+    }
+}
+
+fn convert_for_merge(mut audio: AudioBuffer, sample_rate: u32, channels: u16) -> AudioBuffer {
+    if audio.sample_rate != sample_rate {
+        let target_frames = (audio.frame_count() as f64 * f64::from(sample_rate)
+            / f64::from(audio.sample_rate))
+        .round()
+        .max(1.0) as usize;
+        audio.samples = resample_frames(&audio.samples, audio.channels, target_frames);
+        audio.sample_rate = sample_rate;
+    }
+
+    if audio.channels != channels {
+        audio.samples = convert_channels(&audio.samples, audio.channels, channels);
+        audio.channels = channels;
+    }
+
+    audio
+}
+
+fn convert_channels(samples: &[f32], source_channels: u16, target_channels: u16) -> Vec<f32> {
+    let source_channels = usize::from(source_channels);
+    let target_channels = usize::from(target_channels);
+    let frames = samples.len() / source_channels;
+    let mut output = vec![0.0_f32; frames * target_channels];
+
+    for frame in 0..frames {
+        for channel in 0..target_channels {
+            output[frame * target_channels + channel] = if source_channels == 1 {
+                samples[frame * source_channels]
+            } else if target_channels == 1 {
+                let start = frame * source_channels;
+                samples[start..start + source_channels].iter().sum::<f32>() / source_channels as f32
+            } else {
+                samples[frame * source_channels + channel.min(source_channels - 1)]
+            };
+        }
+    }
+
+    output
+}
+
+fn read_u16(bytes: &[u8], offset: usize) -> Result<u16> {
+    Ok(u16::from_le_bytes(
+        bytes
+            .get(range(offset, 2)?)
+            .ok_or_else(|| anyhow!("Unexpected end of WAV file"))?
+            .try_into()?,
+    ))
+}
+
+fn read_u32(bytes: &[u8], offset: usize) -> Result<u32> {
+    Ok(u32::from_le_bytes(
+        bytes
+            .get(range(offset, 4)?)
+            .ok_or_else(|| anyhow!("Unexpected end of WAV file"))?
+            .try_into()?,
+    ))
+}
+
+fn range(offset: usize, len: usize) -> Result<Range<usize>> {
+    Ok(offset
+        ..offset
+            .checked_add(len)
+            .ok_or_else(|| anyhow!("Invalid WAV offset"))?)
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn reverse_flips_frames_without_swapping_channels() {
+        let mut samples = vec![1.0, 2.0, 3.0, 4.0, 5.0, 6.0];
+        reverse_frames(&mut samples, 2);
+        assert_eq!(samples, vec![5.0, 6.0, 3.0, 4.0, 1.0, 2.0]);
+    }
+
+    #[test]
+    fn speed_resampling_changes_frame_count() {
+        let samples = vec![0.0, 0.5, 1.0, 0.5];
+        let output = resample_frames(&samples, 1, 2);
+        assert_eq!(output.len(), 2);
+        assert_eq!(output[0], 0.0);
+        assert_eq!(output[1], 0.5);
+    }
+
+    #[test]
+    fn channel_conversion_mixes_to_mono() {
+        let output = convert_channels(&[0.2, 0.6, 0.4, 0.8], 2, 1);
+        assert_eq!(output, vec![0.4, 0.6]);
+    }
+
+    #[test]
+    fn export_format_extensions_are_stable() {
+        assert_eq!(ExportFormat::Wav.extension(), "wav");
+        assert_eq!(ExportFormat::Mp3.extension(), "mp3");
+        assert_eq!(ExportFormat::OggOpus.extension(), "opus");
+        assert_eq!(ExportFormat::Flac.extension(), "flac");
+    }
+
+    #[test]
+    fn export_preparation_changes_channels_and_sample_rate() {
+        let audio = AudioBuffer {
+            sample_rate: 48_000,
+            channels: 1,
+            samples: vec![0.0, 0.25, 0.5, 0.75],
+        };
+        let output = prepare_for_export(
+            audio,
+            ExportOptions {
+                format: ExportFormat::Wav,
+                quality: ExportQuality::Medium,
+                channel_mode: ExportChannelMode::Stereo,
+                sample_rate: ExportSampleRate::Hz(24_000),
+            },
+        );
+
+        assert_eq!(output.sample_rate, 24_000);
+        assert_eq!(output.channels, 2);
+        assert_eq!(output.frame_count(), 2);
+    }
+
+    #[test]
+    fn opus_export_uses_supported_sample_rate() {
+        assert_eq!(
+            supported_export_sample_rate(ExportFormat::OggOpus, 44_100),
+            48_000
+        );
+        assert_eq!(
+            supported_export_sample_rate(ExportFormat::OggOpus, 24_000),
+            24_000
+        );
+        assert_eq!(
+            supported_export_sample_rate(ExportFormat::Mp3, 44_100),
+            44_100
+        );
+    }
+}

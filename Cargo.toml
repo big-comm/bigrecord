@@ -1,0 +1,20 @@
+[package]
+name = "bigrecord"
+version = "0.1.0"
+edition = "2024"
+license = "GPL-3.0-or-later"
+description = "Modern local voice recorder built with Rust, GTK4, and libadwaita."
+
+[dependencies]
+adw = { package = "libadwaita", version = "0.9", features = ["v1_5"] }
+anyhow = "1.0"
+glib = "0.22"
+gst = { package = "gstreamer", version = "0.25" }
+gst_app = { package = "gstreamer-app", version = "0.25" }
+gtk = { package = "gtk4", version = "0.11" }
+gettextrs = { package = "gettext-rs", version = "0.7", features = ["gettext-system"] }
+
+[profile.release]
+lto = "thin"
+codegen-units = 1
+strip = "symbols"

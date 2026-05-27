@@ -1,0 +1,15 @@
+# Rust and local build artifacts
+/target/
+/build/
+/.flatpak-builder/
+
+
+# Editor, OS, and temporary files
+*.swp
+*~
+*.tmp
+*.bak
+*.log
+.DS_Store
+core
+core.*

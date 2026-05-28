@@ -7,6 +7,8 @@ use gst::prelude::*;
 
 pub const WAVEFORM_BINS: usize = 48;
 
+const RECORDINGS_DIRECTORY_NAME: &str = "BigRecorder";
+
 #[derive(Clone, Copy, Debug)]
 pub struct AudioFrame {
     pub level: f64,
@@ -296,7 +298,7 @@ fn next_recording_path() -> Result<PathBuf> {
 pub fn recordings_directory() -> PathBuf {
     let mut directory =
         glib::user_special_dir(glib::UserDirectory::Music).unwrap_or_else(|| PathBuf::from("."));
-    directory.push("BigRecord");
+    directory.push(RECORDINGS_DIRECTORY_NAME);
     directory
 }
 

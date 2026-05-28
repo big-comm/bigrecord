@@ -545,7 +545,7 @@ fn temporary_wav_path() -> Result<PathBuf> {
 
     for index in 0..1000 {
         let candidate = env::temp_dir().join(format!(
-            "bigrecord-export-{}-{nanos}-{index}.wav",
+            "bigrecorder-export-{}-{nanos}-{index}.wav",
             process::id()
         ));
         if !candidate.exists() {

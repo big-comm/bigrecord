@@ -1,6 +1,6 @@
 # Maintainer: Tales A. Mendonça <talesam@gmail.com>
 
-pkgname=bigrecord
+pkgname=bigrecorder
 pkgdesc="Modern local voice recorder built with Rust, GTK4, and libadwaita"
 depends=(
     'gtk4'
@@ -42,7 +42,7 @@ build() {
     cd "${srcdir}/${pkgname}"
     export RUSTUP_TOOLCHAIN=stable
     export CARGO_TARGET_DIR=target
-    cargo build --release --locked --bin bigrecord
+    cargo build --release --locked --bin bigrecorder
 }
 
 check() {
@@ -55,7 +55,7 @@ check() {
 package() {
     cd "${srcdir}/${pkgname}"
 
-    install -Dm755 "target/release/bigrecord" "${pkgdir}/usr/bin/bigrecord"
+    install -Dm755 "target/release/bigrecorder" "${pkgdir}/usr/bin/bigrecorder"
 
     if [ -d "usr/share" ]; then
         cp -a usr/share "${pkgdir}/usr/"
@@ -66,7 +66,7 @@ package() {
             [ -f "$po" ] || continue
             lang=$(basename "$po" .po)
             install -d "${pkgdir}/usr/share/locale/${lang}/LC_MESSAGES"
-            msgfmt "$po" -o "${pkgdir}/usr/share/locale/${lang}/LC_MESSAGES/bigrecord.mo"
+            msgfmt "$po" -o "${pkgdir}/usr/share/locale/${lang}/LC_MESSAGES/bigrecorder.mo"
         done
     fi
 

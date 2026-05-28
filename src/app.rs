@@ -1,6 +1,6 @@
 use adw::prelude::*;
 
-pub const APP_ID: &str = "org.communitybig.bigrecord";
+pub const APP_ID: &str = "org.communitybig.bigrecorder";
 pub const APP_VERSION: &str = env!("CARGO_PKG_VERSION");
 
 pub fn new() -> adw::Application {

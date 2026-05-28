@@ -4,6 +4,8 @@ use std::rc::Rc;
 use std::time::{Duration, Instant};
 
 use adw::prelude::*;
+use anyhow::Context;
+use gtk::gio;
 use gtk::glib;
 
 use crate::audio::player::{PlaybackStatus, Player};
@@ -340,7 +342,7 @@ pub fn build(app: &adw::Application) {
     controls.append(&record_button);
     controls.append(&stop_button);
 
-    let path_label = gtk::Label::new(Some(&gettext("Recordings are saved in Music/BigRecord")));
+    let path_label = gtk::Label::new(Some(&gettext("Recordings are saved in Music/BigRecorder")));
     path_label.add_css_class("muted");
     path_label.set_wrap(true);
     path_label.set_justify(gtk::Justification::Center);
@@ -823,6 +825,19 @@ fn append_recording_row(
     play_button.add_css_class("row-play-button");
     play_button.set_child(Some(&playback_symbol));
 
+    let delete_icon = gtk::Image::from_icon_name("user-trash-symbolic");
+    delete_icon.set_pixel_size(18);
+    delete_icon.set_halign(gtk::Align::Center);
+    delete_icon.set_valign(gtk::Align::Center);
+
+    let delete_button = gtk::Button::builder()
+        .tooltip_text(gettext("Move to Trash"))
+        .halign(gtk::Align::End)
+        .valign(gtk::Align::Center)
+        .build();
+    delete_button.add_css_class("row-delete-button");
+    delete_button.set_child(Some(&delete_icon));
+
     let playback_bar = PlaybackBar::new(&path);
 
     row_content.append(&text_box);
@@ -830,6 +845,7 @@ fn append_recording_row(
     row_body.append(&row_content);
     row_body.append(playback_bar.widget());
     row.append(&row_body);
+    row.append(&delete_button);
     row.append(&play_button);
     context.recordings_box.prepend(&row);
 
@@ -848,6 +864,17 @@ fn append_recording_row(
         select_recording(&select_rows, &select_recording_ref, &select_path);
     });
     row.add_controller(gesture);
+
+    let delete_context = context.clone();
+    let delete_path = path.clone();
+    delete_button.connect_clicked(move |_| {
+        select_recording(
+            &delete_context.recording_rows,
+            &delete_context.selected_recording,
+            &delete_path,
+        );
+        confirm_trash_recording(&delete_context, delete_path.clone());
+    });
 
     let player_clone = Rc::clone(&context.player);
     let recording_rows_clone = Rc::clone(&context.recording_rows);
@@ -871,6 +898,89 @@ fn append_recording_row(
     });
 
     if auto_select {
+        select_recording(&context.recording_rows, &context.selected_recording, &path);
+    }
+}
+
+fn confirm_trash_recording(context: &ToolContext, path: PathBuf) {
+    let dialog = adw::AlertDialog::new(
+        Some(&gettext("Move recording to trash?")),
+        Some(&format_message(
+            &gettext("{recording} will be moved to the system trash."),
+            &[("{recording}", &recording_title(&path))],
+        )),
+    );
+    dialog.add_response("cancel", &gettext("Cancel"));
+    dialog.add_response("trash", &gettext("Move to Trash"));
+    dialog.set_default_response(Some("cancel"));
+    dialog.set_close_response("cancel");
+    dialog.set_response_appearance("trash", adw::ResponseAppearance::Destructive);
+
+    let action_context = context.clone();
+    dialog.connect_response(None, move |_, response| {
+        if response == "trash" {
+            trash_recording(&action_context, &path);
+        }
+    });
+    dialog.present(Some(&context.window));
+}
+
+fn trash_recording(context: &ToolContext, path: &Path) {
+    if let Err(err) = context.player.borrow_mut().stop() {
+        show_error(&context.window, &gettext("Could not stop playback"), &err);
+        return;
+    }
+    refresh_playback_rows(&context.recording_rows, None);
+
+    match move_recording_to_trash(path) {
+        Ok(()) => remove_recording_row(context, path),
+        Err(err) => show_error(
+            &context.window,
+            &gettext("Could not move recording to trash"),
+            &err,
+        ),
+    }
+}
+
+fn move_recording_to_trash(path: &Path) -> anyhow::Result<()> {
+    let file = gio::File::for_path(path);
+    file.trash(gio::Cancellable::NONE)
+        .with_context(|| format!("Failed to move recording to trash: {}", path.display()))
+}
+
+fn remove_recording_row(context: &ToolContext, path: &Path) {
+    let deleted_selected = context
+        .selected_recording
+        .borrow()
+        .as_ref()
+        .is_some_and(|selected_path| selected_path == path);
+
+    let Some((row_widget, replacement_path, list_is_empty)) = ({
+        let mut rows = context.recording_rows.borrow_mut();
+        if let Some(index) = rows.iter().position(|row| row.path == path) {
+            let removed_row = rows.remove(index);
+            let replacement_path = if deleted_selected {
+                rows.get(index)
+                    .or_else(|| rows.last())
+                    .map(|row| row.path.clone())
+            } else {
+                None
+            };
+
+            Some((removed_row.row_widget, replacement_path, rows.is_empty()))
+        } else {
+            None
+        }
+    }) else {
+        return;
+    };
+
+    context.recordings_box.remove(&row_widget);
+
+    if list_is_empty {
+        context.empty_recordings_label.set_visible(true);
+        context.selected_recording.replace(None);
+    } else if let Some(path) = replacement_path {
         select_recording(&context.recording_rows, &context.selected_recording, &path);
     }
 }

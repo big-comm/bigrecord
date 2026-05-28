@@ -191,18 +191,30 @@ windowhandle,
   font-feature-settings: "tnum";
 }
 
-.row-play-button {
-  min-width: 52px;
+.row-play-button,
+.row-delete-button {
+  min-width: 44px;
   min-height: 52px;
   padding: 0;
-  color: @accent_color;
   border-radius: 8px;
   background-color: transparent;
   border: 0;
 }
 
+.row-play-button {
+  color: @accent_color;
+}
+
+.row-delete-button {
+  color: @destructive_color;
+}
+
 .row-play-button:hover {
   background-color: alpha(@accent_bg_color, 0.12);
+}
+
+.row-delete-button:hover {
+  background-color: alpha(@destructive_bg_color, 0.12);
 }
 
 .playback-progress {

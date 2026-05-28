@@ -8,5 +8,5 @@ reset="\e[0m"
 
 printMsg() {
     local message=$1
-    echo -e "${blueDark}[${lightBlue}bigrecord${blueDark}]${reset} ${cyan}→${reset} ${white}${message}${reset}"
+    echo -e "${blueDark}[${lightBlue}bigrecorder${blueDark}]${reset} ${cyan}→${reset} ${white}${message}${reset}"
 }

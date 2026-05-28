@@ -1,7 +1,7 @@
 use std::env;
 use std::path::PathBuf;
 
-pub const GETTEXT_PACKAGE: &str = "bigrecord";
+pub const GETTEXT_PACKAGE: &str = "bigrecorder";
 
 pub fn init() {
     let _ = gettextrs::setlocale(gettextrs::LocaleCategory::LcAll, "");

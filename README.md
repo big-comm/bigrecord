@@ -1,8 +1,8 @@
 <p align="center">
-  <img src="usr/share/icons/hicolor/scalable/apps/org.communitybig.bigrecord.svg" width="128" height="128" alt="BigRecord icon">
+  <img src="usr/share/icons/hicolor/scalable/apps/org.communitybig.bigrecorder.svg" width="128" height="128" alt="Big Recorder icon">
 </p>
 
-<h1 align="center">BigRecord</h1>
+<h1 align="center">Big Recorder</h1>
 
 <p align="center">Modern local voice recorder for Linux, built with Rust, GTK4, libadwaita, and GStreamer.</p>
 
@@ -48,19 +48,19 @@ cargo run
 Recordings are stored in:
 
 ```text
-~/Music/BigRecord
+~/Music/BigRecorder
 ```
 
 Application ID:
 
 ```text
-org.communitybig.bigrecord
+org.communitybig.bigrecorder
 ```
 
 Binary name:
 
 ```text
-bigrecord
+bigrecorder
 ```
 
 ## Project Layout
@@ -79,7 +79,7 @@ pkgbuild/       BigCommunity package files
 cargo fmt --check
 cargo clippy --offline -- -D warnings
 cargo test --offline
-desktop-file-validate usr/share/applications/org.communitybig.bigrecord.desktop
+desktop-file-validate usr/share/applications/org.communitybig.bigrecorder.desktop
 ```
 
 ## License

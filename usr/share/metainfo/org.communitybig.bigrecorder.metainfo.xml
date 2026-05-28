@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>org.communitybig.bigrecorder</id>
+  <name>Big Recorder</name>
+  <summary>Record and edit voice notes locally</summary>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>GPL-3.0-or-later</project_license>
+  <developer id="org.communitybig">
+    <name>Big Community</name>
+  </developer>
+  <description>
+    <p>
+      Big Recorder records microphone audio locally with a modern GTK
+      interface. It is designed for quick voice notes, recording sessions,
+      and basic local audio editing without uploading audio to an external
+      service.
+    </p>
+    <p>Main features:</p>
+    <ul>
+      <li>Record microphone audio to WAV files.</li>
+      <li>Pause, resume, and stop recording sessions.</li>
+      <li>Play saved recordings inside the app.</li>
+      <li>Trim, adjust volume, change speed, change pitch, equalize, reverse, merge, and export recordings.</li>
+      <li>Save recordings in the user's Music directory under BigRecorder.</li>
+    </ul>
+  </description>
+  <categories>
+    <category>AudioVideo</category>
+    <category>Audio</category>
+    <category>Recorder</category>
+  </categories>
+  <keywords>
+    <keyword>audio</keyword>
+    <keyword>voice</keyword>
+    <keyword>recorder</keyword>
+    <keyword>microphone</keyword>
+  </keywords>
+  <url type="homepage">https://github.com/big-comm/bigrecorder</url>
+  <launchable type="desktop-id">org.communitybig.bigrecorder.desktop</launchable>
+  <content_rating type="oars-1.1" />
+</component>

@@ -1,9 +1,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: bigrecord 0.1.0\n"
+"Project-Id-Version: bigrecorder 0.1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-27 20:46\n"
+"POT-Creation-Date: 2026-05-27 22:09-0300\n"
 "PO-Revision-Date: 2026-05-27 20:46\n"
 "Last-Translator: BigLinux Team\n"
 "Language-Team: Finnish <fi@li.org>\n"
@@ -12,499 +12,492 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/ui/window.rs:164
+#: src/ui/window.rs:167
 msgid "Local voice recorder"
 msgstr "Paikallinen ääninauhuri"
 
-#: src/ui/window.rs:169
+#: src/ui/window.rs:172
 msgid "Menu"
 msgstr "Valikko"
 
-#: src/ui/window.rs:172
+#: src/ui/window.rs:175
 msgid "About"
 msgstr "Tietoja"
 
-#: src/ui/window.rs:173
+#: src/ui/window.rs:176
 msgid "Close"
 msgstr "Sulje"
 
-#: src/ui/window.rs:210
+#: src/ui/window.rs:213
 msgid "Recordings"
 msgstr "Tallenteet"
 
-#: src/ui/window.rs:217
+#: src/ui/window.rs:220
 msgid "No recordings yet"
 msgstr "Ei tallenteita vielä"
 
-#: src/ui/window.rs:234
-#: src/ui/window.rs:302
-#: src/ui/window.rs:313
-#: src/ui/window.rs:719
+#: src/ui/window.rs:237 src/ui/window.rs:305 src/ui/window.rs:316
+#: src/ui/window.rs:722
 msgid "Record"
 msgstr "Nauhoita"
 
-#: src/ui/window.rs:264
-#: src/ui/window.rs:716
+#: src/ui/window.rs:267 src/ui/window.rs:719
 msgid "Ready"
 msgstr "Valmis"
 
-#: src/ui/window.rs:323
-#: src/ui/window.rs:333
+#: src/ui/window.rs:326 src/ui/window.rs:336
 msgid "Stop"
 msgstr "Pysäytä"
 
-#: src/ui/window.rs:343
-msgid "Recordings are saved in Music/BigRecord"
-msgstr "Tallenteet tallennetaan kansioon Music/BigRecord"
+#: src/ui/window.rs:346
+msgid "Recordings are saved in Music/BigRecorder"
+msgstr "Tallenteet tallennetaan kansioon Music/BigRecorder"
 
-#: src/ui/window.rs:375
-#: src/ui/window.rs:438
-#: src/ui/window.rs:444
+#: src/ui/window.rs:378 src/ui/window.rs:441 src/ui/window.rs:447
 msgid "Tools"
 msgstr "Työkalut"
 
-#: src/ui/window.rs:389
+#: src/ui/window.rs:392
 msgid "Trim"
 msgstr "Leikkaa"
 
-#: src/ui/window.rs:392
+#: src/ui/window.rs:395
 msgid "Volume"
 msgstr "Äänenvoimakkuus"
 
-#: src/ui/window.rs:397
+#: src/ui/window.rs:400
 msgid "Speed"
 msgstr "Nopeus"
 
-#: src/ui/window.rs:402
+#: src/ui/window.rs:405
 msgid "Pitch"
 msgstr "Äänenkorkeus"
 
-#: src/ui/window.rs:407
+#: src/ui/window.rs:410
 msgid "Effects"
 msgstr "Tehosteet"
 
-#: src/ui/window.rs:412
-#: src/ui/window.rs:1154
+#: src/ui/window.rs:415 src/ui/window.rs:1265
 msgid "Equalizer"
 msgstr "Taajuuskorjain"
 
-#: src/ui/window.rs:417
-#: src/ui/window.rs:1188
+#: src/ui/window.rs:420 src/ui/window.rs:1299
 msgid "Reverse"
 msgstr "Käänteinen"
 
-#: src/ui/window.rs:420
+#: src/ui/window.rs:423
 msgid "Merge"
 msgstr "Yhdistä"
 
-#: src/ui/window.rs:423
-#: src/ui/window.rs:1313
-#: src/ui/window.rs:1340
+#: src/ui/window.rs:426 src/ui/window.rs:1424 src/ui/window.rs:1451
 msgid "Export"
 msgstr "Vie"
 
-#: src/ui/window.rs:512
+#: src/ui/window.rs:515
 msgid "Local voice recorder built with Rust, GTK4, libadwaita, and GStreamer."
 msgstr ""
 "Paikallinen ääninauhuri, rakennettu Rustilla, GTK4:llä, libadwaitalla ja "
 "GStreamerilla."
 
-#: src/ui/window.rs:612
-#: src/ui/window.rs:1590
-#: src/ui/window.rs:1609
+#: src/ui/window.rs:615 src/ui/window.rs:931 src/ui/window.rs:1701
+#: src/ui/window.rs:1720
 msgid "Could not stop playback"
 msgstr "Toiston pysäyttäminen epäonnistui"
 
-#: src/ui/window.rs:622
+#: src/ui/window.rs:625
 #, rust-format
 msgid "Recording to {path}"
 msgstr "Tallennetaan kohteeseen {path}"
 
-#: src/ui/window.rs:627
+#: src/ui/window.rs:630
 msgid "Could not start recording"
 msgstr "Tallennuksen aloittaminen epäonnistui"
 
-#: src/ui/window.rs:648
+#: src/ui/window.rs:651
 msgid "Could not pause"
 msgstr "Tauottaminen epäonnistui"
 
-#: src/ui/window.rs:655
+#: src/ui/window.rs:658
 msgid "Could not resume"
 msgstr "Jatkaminen epäonnistui"
 
-#: src/ui/window.rs:680
+#: src/ui/window.rs:683
 #, rust-format
 msgid "Saved to {path}"
 msgstr "Tallennettu kohteeseen {path}"
 
-#: src/ui/window.rs:691
+#: src/ui/window.rs:694
 msgid "Could not finish recording"
 msgstr "Tallennuksen lopettaminen epäonnistui"
 
-#: src/ui/window.rs:727
-#: src/ui/window.rs:2095
+#: src/ui/window.rs:730 src/ui/window.rs:2206
 msgid "Recording"
 msgstr "Tallennetaan"
 
-#: src/ui/window.rs:730
-#: src/ui/window.rs:732
+#: src/ui/window.rs:733 src/ui/window.rs:735
 msgid "Pause"
 msgstr "Tauko"
 
-#: src/ui/window.rs:740
+#: src/ui/window.rs:743
 msgid "Paused"
 msgstr "Keskeytetty"
 
-#: src/ui/window.rs:743
-#: src/ui/window.rs:745
+#: src/ui/window.rs:746 src/ui/window.rs:748
 msgid "Resume"
 msgstr "Jatka"
 
-#: src/ui/window.rs:819
+#: src/ui/window.rs:822
 msgid "Play"
 msgstr "Toista"
 
-#: src/ui/window.rs:869
+#: src/ui/window.rs:835 src/ui/window.rs:915
+msgid "Move to Trash"
+msgstr "Siirrä roskakoriin"
+
+#: src/ui/window.rs:897
 msgid "Could not play recording"
 msgstr "Tallennetta ei voitu toistaa"
 
-#: src/ui/window.rs:931
-msgid "Select a recording first"
-msgstr "Valitse ensin tallenne"
+#: src/ui/window.rs:908
+msgid "Move recording to trash?"
+msgstr "Siirretäänkö tallenne roskakoriin?"
 
-#: src/ui/window.rs:932
-msgid "Click a recording in the list before using a tool."
-msgstr "Napsauta tallennetta listassa ennen työkalun käyttöä."
+#: src/ui/window.rs:910
+#, rust-format
+msgid "{recording} will be moved to the system trash."
+msgstr "{recording} siirretään järjestelmän roskakoriin."
 
-#: src/ui/window.rs:948
-#: src/ui/window.rs:954
-#: src/ui/window.rs:987
-msgid "Could not trim recording"
-msgstr "Tallennetta ei voitu leikata"
-
-#: src/ui/window.rs:949
-msgid "This recording has no audio data."
-msgstr "Tässä tallenteessa ei ole äänidataa."
-
-#: src/ui/window.rs:965
-msgid "Start seconds"
-msgstr "Aloitussekunnit"
-
-#: src/ui/window.rs:966
-msgid "End seconds"
-msgstr "Lopetussekunnit"
-
-#: src/ui/window.rs:970
-msgid "Trim recording"
-msgstr "Leikkaa tallenne"
-
-#: src/ui/window.rs:1001
-msgid "Volume percent"
-msgstr "Äänenvoimakkuusprosentti"
-
-#: src/ui/window.rs:1004
-msgid "Change volume"
-msgstr "Muuta äänenvoimakkuutta"
-
-#: src/ui/window.rs:1020
-msgid "Could not change volume"
-msgstr "Äänenvoimakkuutta ei voitu muuttaa"
-
-#: src/ui/window.rs:1034
-msgid "Speed factor"
-msgstr "Nopeuskerroin"
-
-#: src/ui/window.rs:1037
-msgid "Change speed"
-msgstr "Muuta nopeutta"
-
-#: src/ui/window.rs:1053
-msgid "Could not change speed"
-msgstr "Nopeuden muuttaminen epäonnistui"
-
-#: src/ui/window.rs:1068
-msgid "Semitones"
-msgstr "Puolisävelaskeleet"
-
-#: src/ui/window.rs:1071
-msgid "Change pitch"
-msgstr "Muuta sävelkorkeutta"
-
-#: src/ui/window.rs:1087
-msgid "Could not change pitch"
-msgstr "Sävelkorkeuden muuttaminen epäonnistui"
-
-#: src/ui/window.rs:1100
-msgid "Child voice"
-msgstr "Lapsen ääni"
-
-#: src/ui/window.rs:1101
-msgid "Deep voice"
-msgstr "Matala ääni"
-
-#: src/ui/window.rs:1102
-msgid "Robot voice"
-msgstr "Robottiääni"
-
-#: src/ui/window.rs:1103
-msgid "Radio voice"
-msgstr "Radioääni"
-
-#: src/ui/window.rs:1104
-msgid "Echo voice"
-msgstr "Kaikuääni"
-
-#: src/ui/window.rs:1114
-msgid "Effect"
-msgstr "Tehoste"
-
-#: src/ui/window.rs:1115
-msgid "Intensity"
-msgstr "Voimakkuus"
-
-#: src/ui/window.rs:1119
-msgid "Voice effects"
-msgstr "Äänitehosteet"
-
-#: src/ui/window.rs:1136
-msgid "Could not apply voice effect"
-msgstr "Äänitehosteen käyttäminen epäonnistui"
-
-#: src/ui/window.rs:1170
-msgid "Could not equalize recording"
-msgstr "Tasoituksen tekeminen epäonnistui"
-
-#: src/ui/window.rs:1182
-msgid "Reverse recording"
-msgstr "Käänteinen tallennus"
-
-#: src/ui/window.rs:1183
-msgid "Create a new recording with the audio reversed."
-msgstr "Luo uusi tallennus, jossa ääni on käännetty."
-
-#: src/ui/window.rs:1187
-#: src/ui/window.rs:1312
-#: src/ui/window.rs:1341
-#: src/ui/window.rs:1656
+#: src/ui/window.rs:914 src/ui/window.rs:1298 src/ui/window.rs:1423
+#: src/ui/window.rs:1452 src/ui/window.rs:1767
 msgid "Cancel"
 msgstr "Peruuta"
 
-#: src/ui/window.rs:1204
+#: src/ui/window.rs:940
+msgid "Could not move recording to trash"
+msgstr "Tallennetta ei voitu siirtää roskakoriin"
+
+#: src/ui/window.rs:1042
+msgid "Select a recording first"
+msgstr "Valitse ensin tallenne"
+
+#: src/ui/window.rs:1043
+msgid "Click a recording in the list before using a tool."
+msgstr "Napsauta tallennetta listassa ennen työkalun käyttöä."
+
+#: src/ui/window.rs:1059 src/ui/window.rs:1065 src/ui/window.rs:1098
+msgid "Could not trim recording"
+msgstr "Tallennetta ei voitu leikata"
+
+#: src/ui/window.rs:1060
+msgid "This recording has no audio data."
+msgstr "Tässä tallenteessa ei ole äänidataa."
+
+#: src/ui/window.rs:1076
+msgid "Start seconds"
+msgstr "Aloitussekunnit"
+
+#: src/ui/window.rs:1077
+msgid "End seconds"
+msgstr "Lopetussekunnit"
+
+#: src/ui/window.rs:1081
+msgid "Trim recording"
+msgstr "Leikkaa tallenne"
+
+#: src/ui/window.rs:1112
+msgid "Volume percent"
+msgstr "Äänenvoimakkuusprosentti"
+
+#: src/ui/window.rs:1115
+msgid "Change volume"
+msgstr "Muuta äänenvoimakkuutta"
+
+#: src/ui/window.rs:1131
+msgid "Could not change volume"
+msgstr "Äänenvoimakkuutta ei voitu muuttaa"
+
+#: src/ui/window.rs:1145
+msgid "Speed factor"
+msgstr "Nopeuskerroin"
+
+#: src/ui/window.rs:1148
+msgid "Change speed"
+msgstr "Muuta nopeutta"
+
+#: src/ui/window.rs:1164
+msgid "Could not change speed"
+msgstr "Nopeuden muuttaminen epäonnistui"
+
+#: src/ui/window.rs:1179
+msgid "Semitones"
+msgstr "Puolisävelaskeleet"
+
+#: src/ui/window.rs:1182
+msgid "Change pitch"
+msgstr "Muuta sävelkorkeutta"
+
+#: src/ui/window.rs:1198
+msgid "Could not change pitch"
+msgstr "Sävelkorkeuden muuttaminen epäonnistui"
+
+#: src/ui/window.rs:1211
+msgid "Child voice"
+msgstr "Lapsen ääni"
+
+#: src/ui/window.rs:1212
+msgid "Deep voice"
+msgstr "Matala ääni"
+
+#: src/ui/window.rs:1213
+msgid "Robot voice"
+msgstr "Robottiääni"
+
+#: src/ui/window.rs:1214
+msgid "Radio voice"
+msgstr "Radioääni"
+
+#: src/ui/window.rs:1215
+msgid "Echo voice"
+msgstr "Kaikuääni"
+
+#: src/ui/window.rs:1225
+msgid "Effect"
+msgstr "Tehoste"
+
+#: src/ui/window.rs:1226
+msgid "Intensity"
+msgstr "Voimakkuus"
+
+#: src/ui/window.rs:1230
+msgid "Voice effects"
+msgstr "Äänitehosteet"
+
+#: src/ui/window.rs:1247
+msgid "Could not apply voice effect"
+msgstr "Äänitehosteen käyttäminen epäonnistui"
+
+#: src/ui/window.rs:1281
+msgid "Could not equalize recording"
+msgstr "Tasoituksen tekeminen epäonnistui"
+
+#: src/ui/window.rs:1293
+msgid "Reverse recording"
+msgstr "Käänteinen tallennus"
+
+#: src/ui/window.rs:1294
+msgid "Create a new recording with the audio reversed."
+msgstr "Luo uusi tallennus, jossa ääni on käännetty."
+
+#: src/ui/window.rs:1315
 msgid "Could not reverse recording"
 msgstr "Tallennuksen kääntäminen epäonnistui"
 
-#: src/ui/window.rs:1224
-#: src/ui/window.rs:1260
+#: src/ui/window.rs:1335 src/ui/window.rs:1371
 msgid "Could not merge recordings"
 msgstr "Tallennusten yhdistäminen epäonnistui"
 
-#: src/ui/window.rs:1225
+#: src/ui/window.rs:1336
 msgid "There is no second recording to merge."
 msgstr "Toista yhdistettävää tallennusta ei ole."
 
-#: src/ui/window.rs:1237
+#: src/ui/window.rs:1348
 msgid "Append recording"
 msgstr "Liitä tallennus"
 
-#: src/ui/window.rs:1240
+#: src/ui/window.rs:1351
 msgid "Merge recordings"
 msgstr "Yhdistä tallennukset"
 
-#: src/ui/window.rs:1272
+#: src/ui/window.rs:1383
 msgid "MP3 audio (.mp3)"
 msgstr "MP3-ääni (.mp3)"
 
-#: src/ui/window.rs:1273
+#: src/ui/window.rs:1384
 msgid "WAV audio (.wav)"
 msgstr "WAV-ääni (.wav)"
 
-#: src/ui/window.rs:1274
+#: src/ui/window.rs:1385
 msgid "Opus audio (.opus)"
 msgstr "Opus-ääni (.opus)"
 
-#: src/ui/window.rs:1275
+#: src/ui/window.rs:1386
 msgid "FLAC audio (.flac)"
 msgstr "FLAC-ääni (.flac)"
 
-#: src/ui/window.rs:1279
+#: src/ui/window.rs:1390
 msgid "Low"
 msgstr "Matala"
 
-#: src/ui/window.rs:1280
+#: src/ui/window.rs:1391
 msgid "Medium"
 msgstr "Keskitaso"
 
-#: src/ui/window.rs:1281
+#: src/ui/window.rs:1392
 msgid "High"
 msgstr "Korkea"
 
-#: src/ui/window.rs:1285
-#: src/ui/window.rs:1291
+#: src/ui/window.rs:1396 src/ui/window.rs:1402
 msgid "Original"
 msgstr "Alkuperäinen"
 
-#: src/ui/window.rs:1286
+#: src/ui/window.rs:1397
 msgid "Mono"
 msgstr "Mono"
 
-#: src/ui/window.rs:1287
+#: src/ui/window.rs:1398
 msgid "Stereo"
 msgstr "Stereo"
 
-#: src/ui/window.rs:1292
+#: src/ui/window.rs:1403
 msgid "48 kHz"
 msgstr "48 kHz"
 
-#: src/ui/window.rs:1293
+#: src/ui/window.rs:1404
 msgid "44.1 kHz"
 msgstr "44,1 kHz"
 
-#: src/ui/window.rs:1294
+#: src/ui/window.rs:1405
 msgid "24 kHz"
 msgstr "24 kHz"
 
-#: src/ui/window.rs:1295
+#: src/ui/window.rs:1406
 msgid "16 kHz"
 msgstr "16 kHz"
 
-#: src/ui/window.rs:1301
+#: src/ui/window.rs:1412
 msgid "Format"
 msgstr "Tiedostomuoto"
 
-#: src/ui/window.rs:1302
+#: src/ui/window.rs:1413
 msgid "Quality"
 msgstr "Laatu"
 
-#: src/ui/window.rs:1303
+#: src/ui/window.rs:1414
 msgid "Channels"
 msgstr "Kanavat"
 
-#: src/ui/window.rs:1304
+#: src/ui/window.rs:1415
 msgid "Sample rate"
 msgstr "Näytteenottotaajuus"
 
-#: src/ui/window.rs:1308
-#: src/ui/window.rs:1337
+#: src/ui/window.rs:1419 src/ui/window.rs:1448
 msgid "Export recording"
 msgstr "Vie tallenne"
 
-#: src/ui/window.rs:1357
-#: src/ui/window.rs:1369
-#: src/ui/window.rs:1643
-#: src/ui/window.rs:1646
+#: src/ui/window.rs:1468 src/ui/window.rs:1480 src/ui/window.rs:1754
+#: src/ui/window.rs:1757
 msgid "Could not export recording"
 msgstr "Tallenteen vienti epäonnistui"
 
-#: src/ui/window.rs:1358
-#: src/ui/window.rs:1370
+#: src/ui/window.rs:1469 src/ui/window.rs:1481
 msgid "The selected destination is not a local file."
 msgstr "Valittu kohde ei ole paikallinen tiedosto."
 
-#: src/ui/window.rs:1431
+#: src/ui/window.rs:1542
 msgid "WAV audio"
 msgstr "WAV-ääni"
 
-#: src/ui/window.rs:1432
+#: src/ui/window.rs:1543
 msgid "MP3 audio"
 msgstr "MP3-ääni"
 
-#: src/ui/window.rs:1433
+#: src/ui/window.rs:1544
 msgid "Opus audio"
 msgstr "Opus-ääni"
 
-#: src/ui/window.rs:1434
+#: src/ui/window.rs:1545
 msgid "FLAC audio"
 msgstr "FLAC-ääni"
 
-#: src/ui/window.rs:1456
+#: src/ui/window.rs:1567
 msgid "Flat"
 msgstr "Tasainen"
 
-#: src/ui/window.rs:1457
+#: src/ui/window.rs:1568
 msgid "Voice clarity"
 msgstr "Äänen selkeys"
 
-#: src/ui/window.rs:1458
+#: src/ui/window.rs:1569
 msgid "Warm"
 msgstr "Lämmin"
 
-#: src/ui/window.rs:1459
+#: src/ui/window.rs:1570
 msgid "Bright"
 msgstr "Kirkas"
 
-#: src/ui/window.rs:1460
+#: src/ui/window.rs:1571
 msgid "Bass cut"
 msgstr "Basson leikkaus"
 
-#: src/ui/window.rs:1462
+#: src/ui/window.rs:1573
 msgid "Preset"
 msgstr "Esiasetus"
 
-#: src/ui/window.rs:1622
+#: src/ui/window.rs:1733
 msgid "The audio task stopped unexpectedly."
 msgstr "Äänitehtävä pysähtyi odottamatta."
 
-#: src/ui/window.rs:1640
+#: src/ui/window.rs:1751
 msgid "Recording exported"
 msgstr "Tallennus viety"
 
-#: src/ui/window.rs:1641
+#: src/ui/window.rs:1752
 msgid "The file was exported successfully."
 msgstr "Tiedosto vietiin onnistuneesti."
 
-#: src/ui/window.rs:1647
+#: src/ui/window.rs:1758
 msgid "The export task stopped unexpectedly."
 msgstr "Vientitehtävä pysähtyi odottamatta."
 
-#: src/ui/window.rs:1657
+#: src/ui/window.rs:1768
 msgid "Apply"
 msgstr "Käytä"
 
-#: src/ui/window.rs:2055
+#: src/ui/window.rs:2166
 msgid "Trim the selected recording"
 msgstr "Leikkaa valittu tallennus"
 
-#: src/ui/window.rs:2056
+#: src/ui/window.rs:2167
 msgid "Change the selected recording volume"
 msgstr "Muuta valitun tallenteen äänenvoimakkuutta"
 
-#: src/ui/window.rs:2057
+#: src/ui/window.rs:2168
 msgid "Change the selected recording speed"
 msgstr "Muuta valitun tallenteen nopeutta"
 
-#: src/ui/window.rs:2058
+#: src/ui/window.rs:2169
 msgid "Change the selected recording pitch"
 msgstr "Muuta valitun tallenteen sävelkorkeutta"
 
-#: src/ui/window.rs:2059
+#: src/ui/window.rs:2170
 msgid "Apply a voice effect to the selected recording"
 msgstr "Lisää ääniefekti valittuun tallenteeseen"
 
-#: src/ui/window.rs:2060
+#: src/ui/window.rs:2171
 msgid "Adjust the selected recording frequency bands"
 msgstr "Säädä valitun tallenteen taajuuskaistoja"
 
-#: src/ui/window.rs:2061
+#: src/ui/window.rs:2172
 msgid "Reverse the selected recording"
 msgstr "Käännä valittu tallenne takaperin"
 
-#: src/ui/window.rs:2062
+#: src/ui/window.rs:2173
 msgid "Merge the selected recording with another recording"
 msgstr "Yhdistä valittu tallenne toiseen tallenteeseen"
 
-#: src/ui/window.rs:2063
+#: src/ui/window.rs:2174
 msgid "Export the selected recording"
 msgstr "Vie valittu tallenne"
 
-#: src/ui/window.rs:2102
+#: src/ui/window.rs:2213
 #, rust-format
 msgid "Duration {duration}"
 msgstr "Kesto {duration}"
 
-#: src/ui/window.rs:2107
+#: src/ui/window.rs:2218
 msgid "Saved recording"
 msgstr "Tallennettu tallenne"
 
-#: src/ui/window.rs:2239
+#: src/ui/window.rs:2350
 msgid "OK"
 msgstr "OK"

@@ -1,0 +1,508 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: bigrecord 0.1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-05-27 20:50\n"
+"PO-Revision-Date: 2026-05-27 20:50\n"
+"Last-Translator: BigLinux Team\n"
+"Language-Team: Ukrainian <uk@li.org>\n"
+"Language: uk\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: src/ui/window.rs:164
+msgid "Local voice recorder"
+msgstr "Локальний голосовий диктофон"
+
+#: src/ui/window.rs:169
+msgid "Menu"
+msgstr "Меню"
+
+#: src/ui/window.rs:172
+msgid "About"
+msgstr "Про програму"
+
+#: src/ui/window.rs:173
+msgid "Close"
+msgstr "Закрити"
+
+#: src/ui/window.rs:210
+msgid "Recordings"
+msgstr "Записи"
+
+#: src/ui/window.rs:217
+msgid "No recordings yet"
+msgstr "Ще немає записів"
+
+#: src/ui/window.rs:234
+#: src/ui/window.rs:302
+#: src/ui/window.rs:313
+#: src/ui/window.rs:719
+msgid "Record"
+msgstr "Записати"
+
+#: src/ui/window.rs:264
+#: src/ui/window.rs:716
+msgid "Ready"
+msgstr "Готово"
+
+#: src/ui/window.rs:323
+#: src/ui/window.rs:333
+msgid "Stop"
+msgstr "Стоп"
+
+#: src/ui/window.rs:343
+msgid "Recordings are saved in Music/BigRecord"
+msgstr "Записи зберігаються в Music/BigRecord"
+
+#: src/ui/window.rs:375
+#: src/ui/window.rs:438
+#: src/ui/window.rs:444
+msgid "Tools"
+msgstr "Інструменти"
+
+#: src/ui/window.rs:389
+msgid "Trim"
+msgstr "Обрізати"
+
+#: src/ui/window.rs:392
+msgid "Volume"
+msgstr "Гучність"
+
+#: src/ui/window.rs:397
+msgid "Speed"
+msgstr "Швидкість"
+
+#: src/ui/window.rs:402
+msgid "Pitch"
+msgstr "Висота тону"
+
+#: src/ui/window.rs:407
+msgid "Effects"
+msgstr "Ефекти"
+
+#: src/ui/window.rs:412
+#: src/ui/window.rs:1154
+msgid "Equalizer"
+msgstr "Еквалайзер"
+
+#: src/ui/window.rs:417
+#: src/ui/window.rs:1188
+msgid "Reverse"
+msgstr "Реверс"
+
+#: src/ui/window.rs:420
+msgid "Merge"
+msgstr "Об'єднати"
+
+#: src/ui/window.rs:423
+#: src/ui/window.rs:1313
+#: src/ui/window.rs:1340
+msgid "Export"
+msgstr "Експорт"
+
+#: src/ui/window.rs:512
+msgid "Local voice recorder built with Rust, GTK4, libadwaita, and GStreamer."
+msgstr "Локальний диктофон, створений на Rust, GTK4, libadwaita та GStreamer."
+
+#: src/ui/window.rs:612
+#: src/ui/window.rs:1590
+#: src/ui/window.rs:1609
+msgid "Could not stop playback"
+msgstr "Не вдалося зупинити відтворення"
+
+#: src/ui/window.rs:622
+#, rust-format
+msgid "Recording to {path}"
+msgstr "Запис до {path}"
+
+#: src/ui/window.rs:627
+msgid "Could not start recording"
+msgstr "Не вдалося розпочати запис"
+
+#: src/ui/window.rs:648
+msgid "Could not pause"
+msgstr "Не вдалося призупинити"
+
+#: src/ui/window.rs:655
+msgid "Could not resume"
+msgstr "Не вдалося відновити"
+
+#: src/ui/window.rs:680
+#, rust-format
+msgid "Saved to {path}"
+msgstr "Збережено до {path}"
+
+#: src/ui/window.rs:691
+msgid "Could not finish recording"
+msgstr "Не вдалося завершити запис"
+
+#: src/ui/window.rs:727
+#: src/ui/window.rs:2095
+msgid "Recording"
+msgstr "Триває запис"
+
+#: src/ui/window.rs:730
+#: src/ui/window.rs:732
+msgid "Pause"
+msgstr "Пауза"
+
+#: src/ui/window.rs:740
+msgid "Paused"
+msgstr "Призупинено"
+
+#: src/ui/window.rs:743
+#: src/ui/window.rs:745
+msgid "Resume"
+msgstr "Продовжити"
+
+#: src/ui/window.rs:819
+msgid "Play"
+msgstr "Відтворити"
+
+#: src/ui/window.rs:869
+msgid "Could not play recording"
+msgstr "Не вдалося відтворити запис"
+
+#: src/ui/window.rs:931
+msgid "Select a recording first"
+msgstr "Спочатку виберіть запис"
+
+#: src/ui/window.rs:932
+msgid "Click a recording in the list before using a tool."
+msgstr "Натисніть на запис у списку, перш ніж використовувати інструмент."
+
+#: src/ui/window.rs:948
+#: src/ui/window.rs:954
+#: src/ui/window.rs:987
+msgid "Could not trim recording"
+msgstr "Не вдалося обрізати запис"
+
+#: src/ui/window.rs:949
+msgid "This recording has no audio data."
+msgstr "Цей запис не містить аудіоданих."
+
+#: src/ui/window.rs:965
+msgid "Start seconds"
+msgstr "Початкові секунди"
+
+#: src/ui/window.rs:966
+msgid "End seconds"
+msgstr "Кінцеві секунди"
+
+#: src/ui/window.rs:970
+msgid "Trim recording"
+msgstr "Обрізати запис"
+
+#: src/ui/window.rs:1001
+msgid "Volume percent"
+msgstr "Відсоток гучності"
+
+#: src/ui/window.rs:1004
+msgid "Change volume"
+msgstr "Змінити гучність"
+
+#: src/ui/window.rs:1020
+msgid "Could not change volume"
+msgstr "Не вдалося змінити гучність"
+
+#: src/ui/window.rs:1034
+msgid "Speed factor"
+msgstr "Коефіцієнт швидкості"
+
+#: src/ui/window.rs:1037
+msgid "Change speed"
+msgstr "Змінити швидкість"
+
+#: src/ui/window.rs:1053
+msgid "Could not change speed"
+msgstr "Не вдалося змінити швидкість"
+
+#: src/ui/window.rs:1068
+msgid "Semitones"
+msgstr "Півтони"
+
+#: src/ui/window.rs:1071
+msgid "Change pitch"
+msgstr "Змінити висоту тону"
+
+#: src/ui/window.rs:1087
+msgid "Could not change pitch"
+msgstr "Не вдалося змінити висоту тону"
+
+#: src/ui/window.rs:1100
+msgid "Child voice"
+msgstr "Дитячий голос"
+
+#: src/ui/window.rs:1101
+msgid "Deep voice"
+msgstr "Глибокий голос"
+
+#: src/ui/window.rs:1102
+msgid "Robot voice"
+msgstr "Голос робота"
+
+#: src/ui/window.rs:1103
+msgid "Radio voice"
+msgstr "Голос радіо"
+
+#: src/ui/window.rs:1104
+msgid "Echo voice"
+msgstr "Голос з відлунням"
+
+#: src/ui/window.rs:1114
+msgid "Effect"
+msgstr "Ефект"
+
+#: src/ui/window.rs:1115
+msgid "Intensity"
+msgstr "Інтенсивність"
+
+#: src/ui/window.rs:1119
+msgid "Voice effects"
+msgstr "Голосові ефекти"
+
+#: src/ui/window.rs:1136
+msgid "Could not apply voice effect"
+msgstr "Не вдалося застосувати голосовий ефект"
+
+#: src/ui/window.rs:1170
+msgid "Could not equalize recording"
+msgstr "Не вдалося вирівняти запис"
+
+#: src/ui/window.rs:1182
+msgid "Reverse recording"
+msgstr "Зворотний запис"
+
+#: src/ui/window.rs:1183
+msgid "Create a new recording with the audio reversed."
+msgstr "Створити новий запис з оберненим аудіо."
+
+#: src/ui/window.rs:1187
+#: src/ui/window.rs:1312
+#: src/ui/window.rs:1341
+#: src/ui/window.rs:1656
+msgid "Cancel"
+msgstr "Скасувати"
+
+#: src/ui/window.rs:1204
+msgid "Could not reverse recording"
+msgstr "Не вдалося обернути запис"
+
+#: src/ui/window.rs:1224
+#: src/ui/window.rs:1260
+msgid "Could not merge recordings"
+msgstr "Не вдалося об'єднати записи"
+
+#: src/ui/window.rs:1225
+msgid "There is no second recording to merge."
+msgstr "Немає другого запису для об'єднання."
+
+#: src/ui/window.rs:1237
+msgid "Append recording"
+msgstr "Додати запис"
+
+#: src/ui/window.rs:1240
+msgid "Merge recordings"
+msgstr "Об'єднати записи"
+
+#: src/ui/window.rs:1272
+msgid "MP3 audio (.mp3)"
+msgstr "Аудіо MP3 (.mp3)"
+
+#: src/ui/window.rs:1273
+msgid "WAV audio (.wav)"
+msgstr "Аудіо WAV (.wav)"
+
+#: src/ui/window.rs:1274
+msgid "Opus audio (.opus)"
+msgstr "Аудіо Opus (.opus)"
+
+#: src/ui/window.rs:1275
+msgid "FLAC audio (.flac)"
+msgstr "Аудіо FLAC (.flac)"
+
+#: src/ui/window.rs:1279
+msgid "Low"
+msgstr "Низька"
+
+#: src/ui/window.rs:1280
+msgid "Medium"
+msgstr "Середня"
+
+#: src/ui/window.rs:1281
+msgid "High"
+msgstr "Висока"
+
+#: src/ui/window.rs:1285
+#: src/ui/window.rs:1291
+msgid "Original"
+msgstr "Оригінал"
+
+#: src/ui/window.rs:1286
+msgid "Mono"
+msgstr "Моно"
+
+#: src/ui/window.rs:1287
+msgid "Stereo"
+msgstr "Стерео"
+
+#: src/ui/window.rs:1292
+msgid "48 kHz"
+msgstr "48 кГц"
+
+#: src/ui/window.rs:1293
+msgid "44.1 kHz"
+msgstr "44,1 кГц"
+
+#: src/ui/window.rs:1294
+msgid "24 kHz"
+msgstr "24 кГц"
+
+#: src/ui/window.rs:1295
+msgid "16 kHz"
+msgstr "16 кГц"
+
+#: src/ui/window.rs:1301
+msgid "Format"
+msgstr "Формат"
+
+#: src/ui/window.rs:1302
+msgid "Quality"
+msgstr "Якість"
+
+#: src/ui/window.rs:1303
+msgid "Channels"
+msgstr "Канали"
+
+#: src/ui/window.rs:1304
+msgid "Sample rate"
+msgstr "Частота дискретизації"
+
+#: src/ui/window.rs:1308
+#: src/ui/window.rs:1337
+msgid "Export recording"
+msgstr "Експортувати запис"
+
+#: src/ui/window.rs:1357
+#: src/ui/window.rs:1369
+#: src/ui/window.rs:1643
+#: src/ui/window.rs:1646
+msgid "Could not export recording"
+msgstr "Не вдалося експортувати запис"
+
+#: src/ui/window.rs:1358
+#: src/ui/window.rs:1370
+msgid "The selected destination is not a local file."
+msgstr "Вибране призначення не є локальним файлом."
+
+#: src/ui/window.rs:1431
+msgid "WAV audio"
+msgstr "Аудіо WAV"
+
+#: src/ui/window.rs:1432
+msgid "MP3 audio"
+msgstr "Аудіо MP3"
+
+#: src/ui/window.rs:1433
+msgid "Opus audio"
+msgstr "Аудіо Opus"
+
+#: src/ui/window.rs:1434
+msgid "FLAC audio"
+msgstr "Аудіо FLAC"
+
+#: src/ui/window.rs:1456
+msgid "Flat"
+msgstr "Рівний"
+
+#: src/ui/window.rs:1457
+msgid "Voice clarity"
+msgstr "Чіткість голосу"
+
+#: src/ui/window.rs:1458
+msgid "Warm"
+msgstr "Теплий"
+
+#: src/ui/window.rs:1459
+msgid "Bright"
+msgstr "Яскравий"
+
+#: src/ui/window.rs:1460
+msgid "Bass cut"
+msgstr "Зріз басів"
+
+#: src/ui/window.rs:1462
+msgid "Preset"
+msgstr "Пресет"
+
+#: src/ui/window.rs:1622
+msgid "The audio task stopped unexpectedly."
+msgstr "Аудіозавдання несподівано зупинилося."
+
+#: src/ui/window.rs:1640
+msgid "Recording exported"
+msgstr "Запис експортовано"
+
+#: src/ui/window.rs:1641
+msgid "The file was exported successfully."
+msgstr "Файл успішно експортовано."
+
+#: src/ui/window.rs:1647
+msgid "The export task stopped unexpectedly."
+msgstr "Завдання експорту несподівано зупинилося."
+
+#: src/ui/window.rs:1657
+msgid "Apply"
+msgstr "Застосувати"
+
+#: src/ui/window.rs:2055
+msgid "Trim the selected recording"
+msgstr "Обрізати вибраний запис"
+
+#: src/ui/window.rs:2056
+msgid "Change the selected recording volume"
+msgstr "Змінити гучність вибраного запису"
+
+#: src/ui/window.rs:2057
+msgid "Change the selected recording speed"
+msgstr "Змінити швидкість вибраного запису"
+
+#: src/ui/window.rs:2058
+msgid "Change the selected recording pitch"
+msgstr "Змінити висоту тону вибраного запису"
+
+#: src/ui/window.rs:2059
+msgid "Apply a voice effect to the selected recording"
+msgstr "Застосувати голосовий ефект до вибраного запису"
+
+#: src/ui/window.rs:2060
+msgid "Adjust the selected recording frequency bands"
+msgstr "Налаштувати частотні смуги вибраного запису"
+
+#: src/ui/window.rs:2061
+msgid "Reverse the selected recording"
+msgstr "Реверсувати вибраний запис"
+
+#: src/ui/window.rs:2062
+msgid "Merge the selected recording with another recording"
+msgstr "Об'єднати вибраний запис з іншим записом"
+
+#: src/ui/window.rs:2063
+msgid "Export the selected recording"
+msgstr "Експортувати вибраний запис"
+
+#: src/ui/window.rs:2102
+#, rust-format
+msgid "Duration {duration}"
+msgstr "Тривалість {duration}"
+
+#: src/ui/window.rs:2107
+msgid "Saved recording"
+msgstr "Збережений запис"
+
+#: src/ui/window.rs:2239
+msgid "OK"
+msgstr "Гаразд"

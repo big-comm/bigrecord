@@ -1,0 +1,510 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: bigrecord 0.1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-05-27 20:49\n"
+"PO-Revision-Date: 2026-05-27 20:49\n"
+"Last-Translator: BigLinux Team\n"
+"Language-Team: Polish <pl@li.org>\n"
+"Language: pl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: src/ui/window.rs:164
+msgid "Local voice recorder"
+msgstr "Lokalny rejestrator dźwięku"
+
+#: src/ui/window.rs:169
+msgid "Menu"
+msgstr "Menu"
+
+#: src/ui/window.rs:172
+msgid "About"
+msgstr "O aplikacji"
+
+#: src/ui/window.rs:173
+msgid "Close"
+msgstr "Zamknij"
+
+#: src/ui/window.rs:210
+msgid "Recordings"
+msgstr "Nagrania"
+
+#: src/ui/window.rs:217
+msgid "No recordings yet"
+msgstr "Brak nagrań"
+
+#: src/ui/window.rs:234
+#: src/ui/window.rs:302
+#: src/ui/window.rs:313
+#: src/ui/window.rs:719
+msgid "Record"
+msgstr "Nagraj"
+
+#: src/ui/window.rs:264
+#: src/ui/window.rs:716
+msgid "Ready"
+msgstr "Gotowy"
+
+#: src/ui/window.rs:323
+#: src/ui/window.rs:333
+msgid "Stop"
+msgstr "Zatrzymaj"
+
+#: src/ui/window.rs:343
+msgid "Recordings are saved in Music/BigRecord"
+msgstr "Nagrania są zapisywane w Music/BigRecord"
+
+#: src/ui/window.rs:375
+#: src/ui/window.rs:438
+#: src/ui/window.rs:444
+msgid "Tools"
+msgstr "Narzędzia"
+
+#: src/ui/window.rs:389
+msgid "Trim"
+msgstr "Przytnij"
+
+#: src/ui/window.rs:392
+msgid "Volume"
+msgstr "Głośność"
+
+#: src/ui/window.rs:397
+msgid "Speed"
+msgstr "Szybkość"
+
+#: src/ui/window.rs:402
+msgid "Pitch"
+msgstr "Wysokość dźwięku"
+
+#: src/ui/window.rs:407
+msgid "Effects"
+msgstr "Efekty"
+
+#: src/ui/window.rs:412
+#: src/ui/window.rs:1154
+msgid "Equalizer"
+msgstr "Korektor"
+
+#: src/ui/window.rs:417
+#: src/ui/window.rs:1188
+msgid "Reverse"
+msgstr "Odwróć"
+
+#: src/ui/window.rs:420
+msgid "Merge"
+msgstr "Połącz"
+
+#: src/ui/window.rs:423
+#: src/ui/window.rs:1313
+#: src/ui/window.rs:1340
+msgid "Export"
+msgstr "Eksportuj"
+
+#: src/ui/window.rs:512
+msgid "Local voice recorder built with Rust, GTK4, libadwaita, and GStreamer."
+msgstr ""
+"Lokalny rejestrator dźwięku zbudowany z użyciem Rust, GTK4, libadwaita i "
+"GStreamer."
+
+#: src/ui/window.rs:612
+#: src/ui/window.rs:1590
+#: src/ui/window.rs:1609
+msgid "Could not stop playback"
+msgstr "Nie można zatrzymać odtwarzania"
+
+#: src/ui/window.rs:622
+#, rust-format
+msgid "Recording to {path}"
+msgstr "Nagrywanie do {path}"
+
+#: src/ui/window.rs:627
+msgid "Could not start recording"
+msgstr "Nie można rozpocząć nagrywania"
+
+#: src/ui/window.rs:648
+msgid "Could not pause"
+msgstr "Nie można wstrzymać"
+
+#: src/ui/window.rs:655
+msgid "Could not resume"
+msgstr "Nie można wznowić"
+
+#: src/ui/window.rs:680
+#, rust-format
+msgid "Saved to {path}"
+msgstr "Zapisano do {path}"
+
+#: src/ui/window.rs:691
+msgid "Could not finish recording"
+msgstr "Nie można zakończyć nagrywania"
+
+#: src/ui/window.rs:727
+#: src/ui/window.rs:2095
+msgid "Recording"
+msgstr "Nagrywanie"
+
+#: src/ui/window.rs:730
+#: src/ui/window.rs:732
+msgid "Pause"
+msgstr "Pauza"
+
+#: src/ui/window.rs:740
+msgid "Paused"
+msgstr "Wstrzymano"
+
+#: src/ui/window.rs:743
+#: src/ui/window.rs:745
+msgid "Resume"
+msgstr "Wznów"
+
+#: src/ui/window.rs:819
+msgid "Play"
+msgstr "Odtwórz"
+
+#: src/ui/window.rs:869
+msgid "Could not play recording"
+msgstr "Nie można odtworzyć nagrania"
+
+#: src/ui/window.rs:931
+msgid "Select a recording first"
+msgstr "Najpierw wybierz nagranie"
+
+#: src/ui/window.rs:932
+msgid "Click a recording in the list before using a tool."
+msgstr "Kliknij nagranie na liście przed użyciem narzędzia."
+
+#: src/ui/window.rs:948
+#: src/ui/window.rs:954
+#: src/ui/window.rs:987
+msgid "Could not trim recording"
+msgstr "Nie można przyciąć nagrania"
+
+#: src/ui/window.rs:949
+msgid "This recording has no audio data."
+msgstr "To nagranie nie zawiera danych audio."
+
+#: src/ui/window.rs:965
+msgid "Start seconds"
+msgstr "Sekundy początkowe"
+
+#: src/ui/window.rs:966
+msgid "End seconds"
+msgstr "Sekundy końcowe"
+
+#: src/ui/window.rs:970
+msgid "Trim recording"
+msgstr "Przytnij nagranie"
+
+#: src/ui/window.rs:1001
+msgid "Volume percent"
+msgstr "Procent głośności"
+
+#: src/ui/window.rs:1004
+msgid "Change volume"
+msgstr "Zmień głośność"
+
+#: src/ui/window.rs:1020
+msgid "Could not change volume"
+msgstr "Nie można zmienić głośności"
+
+#: src/ui/window.rs:1034
+msgid "Speed factor"
+msgstr "Współczynnik prędkości"
+
+#: src/ui/window.rs:1037
+msgid "Change speed"
+msgstr "Zmień prędkość"
+
+#: src/ui/window.rs:1053
+msgid "Could not change speed"
+msgstr "Nie można zmienić prędkości"
+
+#: src/ui/window.rs:1068
+msgid "Semitones"
+msgstr "Półtony"
+
+#: src/ui/window.rs:1071
+msgid "Change pitch"
+msgstr "Zmień wysokość dźwięku"
+
+#: src/ui/window.rs:1087
+msgid "Could not change pitch"
+msgstr "Nie można zmienić wysokości dźwięku"
+
+#: src/ui/window.rs:1100
+msgid "Child voice"
+msgstr "Głos dziecka"
+
+#: src/ui/window.rs:1101
+msgid "Deep voice"
+msgstr "Głęboki głos"
+
+#: src/ui/window.rs:1102
+msgid "Robot voice"
+msgstr "Głos robota"
+
+#: src/ui/window.rs:1103
+msgid "Radio voice"
+msgstr "Głos radiowy"
+
+#: src/ui/window.rs:1104
+msgid "Echo voice"
+msgstr "Głos z echem"
+
+#: src/ui/window.rs:1114
+msgid "Effect"
+msgstr "Efekt"
+
+#: src/ui/window.rs:1115
+msgid "Intensity"
+msgstr "Intensywność"
+
+#: src/ui/window.rs:1119
+msgid "Voice effects"
+msgstr "Efekty głosowe"
+
+#: src/ui/window.rs:1136
+msgid "Could not apply voice effect"
+msgstr "Nie można zastosować efektu głosowego"
+
+#: src/ui/window.rs:1170
+msgid "Could not equalize recording"
+msgstr "Nie można skorygować nagrania"
+
+#: src/ui/window.rs:1182
+msgid "Reverse recording"
+msgstr "Odwróć nagranie"
+
+#: src/ui/window.rs:1183
+msgid "Create a new recording with the audio reversed."
+msgstr "Utwórz nowe nagranie z odwróconym dźwiękiem."
+
+#: src/ui/window.rs:1187
+#: src/ui/window.rs:1312
+#: src/ui/window.rs:1341
+#: src/ui/window.rs:1656
+msgid "Cancel"
+msgstr "Anuluj"
+
+#: src/ui/window.rs:1204
+msgid "Could not reverse recording"
+msgstr "Nie można odwrócić nagrania"
+
+#: src/ui/window.rs:1224
+#: src/ui/window.rs:1260
+msgid "Could not merge recordings"
+msgstr "Nie można połączyć nagrań"
+
+#: src/ui/window.rs:1225
+msgid "There is no second recording to merge."
+msgstr "Brak drugiego nagrania do połączenia."
+
+#: src/ui/window.rs:1237
+msgid "Append recording"
+msgstr "Dołącz nagranie"
+
+#: src/ui/window.rs:1240
+msgid "Merge recordings"
+msgstr "Połącz nagrania"
+
+#: src/ui/window.rs:1272
+msgid "MP3 audio (.mp3)"
+msgstr "Audio MP3 (.mp3)"
+
+#: src/ui/window.rs:1273
+msgid "WAV audio (.wav)"
+msgstr "Audio WAV (.wav)"
+
+#: src/ui/window.rs:1274
+msgid "Opus audio (.opus)"
+msgstr "Audio Opus (.opus)"
+
+#: src/ui/window.rs:1275
+msgid "FLAC audio (.flac)"
+msgstr "Audio FLAC (.flac)"
+
+#: src/ui/window.rs:1279
+msgid "Low"
+msgstr "Niska"
+
+#: src/ui/window.rs:1280
+msgid "Medium"
+msgstr "Średnia"
+
+#: src/ui/window.rs:1281
+msgid "High"
+msgstr "Wysoka"
+
+#: src/ui/window.rs:1285
+#: src/ui/window.rs:1291
+msgid "Original"
+msgstr "Oryginał"
+
+#: src/ui/window.rs:1286
+msgid "Mono"
+msgstr "Mono"
+
+#: src/ui/window.rs:1287
+msgid "Stereo"
+msgstr "Stereo"
+
+#: src/ui/window.rs:1292
+msgid "48 kHz"
+msgstr "48 kHz"
+
+#: src/ui/window.rs:1293
+msgid "44.1 kHz"
+msgstr "44,1 kHz"
+
+#: src/ui/window.rs:1294
+msgid "24 kHz"
+msgstr "24 kHz"
+
+#: src/ui/window.rs:1295
+msgid "16 kHz"
+msgstr "16 kHz"
+
+#: src/ui/window.rs:1301
+msgid "Format"
+msgstr "Format"
+
+#: src/ui/window.rs:1302
+msgid "Quality"
+msgstr "Jakość"
+
+#: src/ui/window.rs:1303
+msgid "Channels"
+msgstr "Kanały"
+
+#: src/ui/window.rs:1304
+msgid "Sample rate"
+msgstr "Częstotliwość próbkowania"
+
+#: src/ui/window.rs:1308
+#: src/ui/window.rs:1337
+msgid "Export recording"
+msgstr "Eksportuj nagranie"
+
+#: src/ui/window.rs:1357
+#: src/ui/window.rs:1369
+#: src/ui/window.rs:1643
+#: src/ui/window.rs:1646
+msgid "Could not export recording"
+msgstr "Nie udało się wyeksportować nagrania"
+
+#: src/ui/window.rs:1358
+#: src/ui/window.rs:1370
+msgid "The selected destination is not a local file."
+msgstr "Wybrane miejsce docelowe nie jest plikiem lokalnym."
+
+#: src/ui/window.rs:1431
+msgid "WAV audio"
+msgstr "Audio WAV"
+
+#: src/ui/window.rs:1432
+msgid "MP3 audio"
+msgstr "Audio MP3"
+
+#: src/ui/window.rs:1433
+msgid "Opus audio"
+msgstr "Audio Opus"
+
+#: src/ui/window.rs:1434
+msgid "FLAC audio"
+msgstr "Audio FLAC"
+
+#: src/ui/window.rs:1456
+msgid "Flat"
+msgstr "Płaski"
+
+#: src/ui/window.rs:1457
+msgid "Voice clarity"
+msgstr "Wyraźność głosu"
+
+#: src/ui/window.rs:1458
+msgid "Warm"
+msgstr "Ciepły"
+
+#: src/ui/window.rs:1459
+msgid "Bright"
+msgstr "Jasny"
+
+#: src/ui/window.rs:1460
+msgid "Bass cut"
+msgstr "Obcięcie basu"
+
+#: src/ui/window.rs:1462
+msgid "Preset"
+msgstr "Preset"
+
+#: src/ui/window.rs:1622
+msgid "The audio task stopped unexpectedly."
+msgstr "Zadanie audio zostało nieoczekiwanie przerwane."
+
+#: src/ui/window.rs:1640
+msgid "Recording exported"
+msgstr "Nagranie wyeksportowane"
+
+#: src/ui/window.rs:1641
+msgid "The file was exported successfully."
+msgstr "Plik został pomyślnie wyeksportowany."
+
+#: src/ui/window.rs:1647
+msgid "The export task stopped unexpectedly."
+msgstr "Zadanie eksportu zostało nieoczekiwanie przerwane."
+
+#: src/ui/window.rs:1657
+msgid "Apply"
+msgstr "Zastosuj"
+
+#: src/ui/window.rs:2055
+msgid "Trim the selected recording"
+msgstr "Przytnij wybrane nagranie"
+
+#: src/ui/window.rs:2056
+msgid "Change the selected recording volume"
+msgstr "Zmień głośność wybranego nagrania"
+
+#: src/ui/window.rs:2057
+msgid "Change the selected recording speed"
+msgstr "Zmień prędkość wybranego nagrania"
+
+#: src/ui/window.rs:2058
+msgid "Change the selected recording pitch"
+msgstr "Zmień wysokość dźwięku wybranego nagrania"
+
+#: src/ui/window.rs:2059
+msgid "Apply a voice effect to the selected recording"
+msgstr "Zastosuj efekt głosowy do wybranego nagrania"
+
+#: src/ui/window.rs:2060
+msgid "Adjust the selected recording frequency bands"
+msgstr "Dostosuj pasma częstotliwości wybranego nagrania"
+
+#: src/ui/window.rs:2061
+msgid "Reverse the selected recording"
+msgstr "Odwróć wybrane nagranie"
+
+#: src/ui/window.rs:2062
+msgid "Merge the selected recording with another recording"
+msgstr "Połącz wybrane nagranie z innym nagraniem"
+
+#: src/ui/window.rs:2063
+msgid "Export the selected recording"
+msgstr "Eksportuj wybrane nagranie"
+
+#: src/ui/window.rs:2102
+#, rust-format
+msgid "Duration {duration}"
+msgstr "Czas trwania {duration}"
+
+#: src/ui/window.rs:2107
+msgid "Saved recording"
+msgstr "Zapisane nagranie"
+
+#: src/ui/window.rs:2239
+msgid "OK"
+msgstr "OK"

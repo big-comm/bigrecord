@@ -1,0 +1,510 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: bigrecord 0.1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-05-27 20:49\n"
+"PO-Revision-Date: 2026-05-27 20:49\n"
+"Last-Translator: BigLinux Team\n"
+"Language-Team: Romanian <ro@li.org>\n"
+"Language: ro\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: src/ui/window.rs:164
+msgid "Local voice recorder"
+msgstr "Înregistrator vocal local"
+
+#: src/ui/window.rs:169
+msgid "Menu"
+msgstr "Meniu"
+
+#: src/ui/window.rs:172
+msgid "About"
+msgstr "Despre"
+
+#: src/ui/window.rs:173
+msgid "Close"
+msgstr "Închide"
+
+#: src/ui/window.rs:210
+msgid "Recordings"
+msgstr "Înregistrări"
+
+#: src/ui/window.rs:217
+msgid "No recordings yet"
+msgstr "Nu există încă înregistrări"
+
+#: src/ui/window.rs:234
+#: src/ui/window.rs:302
+#: src/ui/window.rs:313
+#: src/ui/window.rs:719
+msgid "Record"
+msgstr "Înregistrează"
+
+#: src/ui/window.rs:264
+#: src/ui/window.rs:716
+msgid "Ready"
+msgstr "Pregătit"
+
+#: src/ui/window.rs:323
+#: src/ui/window.rs:333
+msgid "Stop"
+msgstr "Oprește"
+
+#: src/ui/window.rs:343
+msgid "Recordings are saved in Music/BigRecord"
+msgstr "Înregistrările sunt salvate în Music/BigRecord"
+
+#: src/ui/window.rs:375
+#: src/ui/window.rs:438
+#: src/ui/window.rs:444
+msgid "Tools"
+msgstr "Instrumente"
+
+#: src/ui/window.rs:389
+msgid "Trim"
+msgstr "Taie"
+
+#: src/ui/window.rs:392
+msgid "Volume"
+msgstr "Volum"
+
+#: src/ui/window.rs:397
+msgid "Speed"
+msgstr "Viteză"
+
+#: src/ui/window.rs:402
+msgid "Pitch"
+msgstr "Înălțime"
+
+#: src/ui/window.rs:407
+msgid "Effects"
+msgstr "Efecte"
+
+#: src/ui/window.rs:412
+#: src/ui/window.rs:1154
+msgid "Equalizer"
+msgstr "Egalizator"
+
+#: src/ui/window.rs:417
+#: src/ui/window.rs:1188
+msgid "Reverse"
+msgstr "Inversare"
+
+#: src/ui/window.rs:420
+msgid "Merge"
+msgstr "Îmbinare"
+
+#: src/ui/window.rs:423
+#: src/ui/window.rs:1313
+#: src/ui/window.rs:1340
+msgid "Export"
+msgstr "Exportare"
+
+#: src/ui/window.rs:512
+msgid "Local voice recorder built with Rust, GTK4, libadwaita, and GStreamer."
+msgstr ""
+"Înregistrator vocal local construit cu Rust, GTK4, libadwaita și GStreamer."
+
+#: src/ui/window.rs:612
+#: src/ui/window.rs:1590
+#: src/ui/window.rs:1609
+msgid "Could not stop playback"
+msgstr "Redarea nu a putut fi oprită"
+
+#: src/ui/window.rs:622
+#, rust-format
+msgid "Recording to {path}"
+msgstr "Se înregistrează în {path}"
+
+#: src/ui/window.rs:627
+msgid "Could not start recording"
+msgstr "Înregistrarea nu a putut fi pornită"
+
+#: src/ui/window.rs:648
+msgid "Could not pause"
+msgstr "Pauza nu a putut fi activată"
+
+#: src/ui/window.rs:655
+msgid "Could not resume"
+msgstr "Reluarea nu a putut fi efectuată"
+
+#: src/ui/window.rs:680
+#, rust-format
+msgid "Saved to {path}"
+msgstr "Salvat în {path}"
+
+#: src/ui/window.rs:691
+msgid "Could not finish recording"
+msgstr "Înregistrarea nu a putut fi finalizată"
+
+#: src/ui/window.rs:727
+#: src/ui/window.rs:2095
+msgid "Recording"
+msgstr "Se înregistrează"
+
+#: src/ui/window.rs:730
+#: src/ui/window.rs:732
+msgid "Pause"
+msgstr "Pauză"
+
+#: src/ui/window.rs:740
+msgid "Paused"
+msgstr "În pauză"
+
+#: src/ui/window.rs:743
+#: src/ui/window.rs:745
+msgid "Resume"
+msgstr "Reluare"
+
+#: src/ui/window.rs:819
+msgid "Play"
+msgstr "Redare"
+
+#: src/ui/window.rs:869
+msgid "Could not play recording"
+msgstr "Înregistrarea nu poate fi redată"
+
+#: src/ui/window.rs:931
+msgid "Select a recording first"
+msgstr "Selectați mai întâi o înregistrare"
+
+#: src/ui/window.rs:932
+msgid "Click a recording in the list before using a tool."
+msgstr ""
+"Faceți clic pe o înregistrare din listă înainte de a utiliza o unealtă."
+
+#: src/ui/window.rs:948
+#: src/ui/window.rs:954
+#: src/ui/window.rs:987
+msgid "Could not trim recording"
+msgstr "Înregistrarea nu poate fi tăiată"
+
+#: src/ui/window.rs:949
+msgid "This recording has no audio data."
+msgstr "Această înregistrare nu conține date audio."
+
+#: src/ui/window.rs:965
+msgid "Start seconds"
+msgstr "Secunde de început"
+
+#: src/ui/window.rs:966
+msgid "End seconds"
+msgstr "Secunde de sfârșit"
+
+#: src/ui/window.rs:970
+msgid "Trim recording"
+msgstr "Taie înregistrarea"
+
+#: src/ui/window.rs:1001
+msgid "Volume percent"
+msgstr "Procent volum"
+
+#: src/ui/window.rs:1004
+msgid "Change volume"
+msgstr "Modifică volumul"
+
+#: src/ui/window.rs:1020
+msgid "Could not change volume"
+msgstr "Volumul nu poate fi modificat"
+
+#: src/ui/window.rs:1034
+msgid "Speed factor"
+msgstr "Factor de viteză"
+
+#: src/ui/window.rs:1037
+msgid "Change speed"
+msgstr "Schimbă viteza"
+
+#: src/ui/window.rs:1053
+msgid "Could not change speed"
+msgstr "Nu s-a putut schimba viteza"
+
+#: src/ui/window.rs:1068
+msgid "Semitones"
+msgstr "Semitonuri"
+
+#: src/ui/window.rs:1071
+msgid "Change pitch"
+msgstr "Schimbă înălțimea tonului"
+
+#: src/ui/window.rs:1087
+msgid "Could not change pitch"
+msgstr "Nu s-a putut schimba înălțimea tonului"
+
+#: src/ui/window.rs:1100
+msgid "Child voice"
+msgstr "Voce de copil"
+
+#: src/ui/window.rs:1101
+msgid "Deep voice"
+msgstr "Voce profundă"
+
+#: src/ui/window.rs:1102
+msgid "Robot voice"
+msgstr "Voce de robot"
+
+#: src/ui/window.rs:1103
+msgid "Radio voice"
+msgstr "Voce de radio"
+
+#: src/ui/window.rs:1104
+msgid "Echo voice"
+msgstr "Voce cu ecou"
+
+#: src/ui/window.rs:1114
+msgid "Effect"
+msgstr "Efect"
+
+#: src/ui/window.rs:1115
+msgid "Intensity"
+msgstr "Intensitate"
+
+#: src/ui/window.rs:1119
+msgid "Voice effects"
+msgstr "Efecte vocale"
+
+#: src/ui/window.rs:1136
+msgid "Could not apply voice effect"
+msgstr "Nu s-a putut aplica efectul vocal"
+
+#: src/ui/window.rs:1170
+msgid "Could not equalize recording"
+msgstr "Nu s-a putut egaliza înregistrarea"
+
+#: src/ui/window.rs:1182
+msgid "Reverse recording"
+msgstr "Înregistrare inversată"
+
+#: src/ui/window.rs:1183
+msgid "Create a new recording with the audio reversed."
+msgstr "Creează o nouă înregistrare cu sunetul inversat."
+
+#: src/ui/window.rs:1187
+#: src/ui/window.rs:1312
+#: src/ui/window.rs:1341
+#: src/ui/window.rs:1656
+msgid "Cancel"
+msgstr "Anulare"
+
+#: src/ui/window.rs:1204
+msgid "Could not reverse recording"
+msgstr "Nu s-a putut inversa înregistrarea"
+
+#: src/ui/window.rs:1224
+#: src/ui/window.rs:1260
+msgid "Could not merge recordings"
+msgstr "Nu s-au putut îmbina înregistrările"
+
+#: src/ui/window.rs:1225
+msgid "There is no second recording to merge."
+msgstr "Nu există o a doua înregistrare de îmbinat."
+
+#: src/ui/window.rs:1237
+msgid "Append recording"
+msgstr "Adăugare înregistrare"
+
+#: src/ui/window.rs:1240
+msgid "Merge recordings"
+msgstr "Îmbinare înregistrări"
+
+#: src/ui/window.rs:1272
+msgid "MP3 audio (.mp3)"
+msgstr "Audio MP3 (.mp3)"
+
+#: src/ui/window.rs:1273
+msgid "WAV audio (.wav)"
+msgstr "Audio WAV (.wav)"
+
+#: src/ui/window.rs:1274
+msgid "Opus audio (.opus)"
+msgstr "Audio Opus (.opus)"
+
+#: src/ui/window.rs:1275
+msgid "FLAC audio (.flac)"
+msgstr "Audio FLAC (.flac)"
+
+#: src/ui/window.rs:1279
+msgid "Low"
+msgstr "Scăzut"
+
+#: src/ui/window.rs:1280
+msgid "Medium"
+msgstr "Mediu"
+
+#: src/ui/window.rs:1281
+msgid "High"
+msgstr "Ridicat"
+
+#: src/ui/window.rs:1285
+#: src/ui/window.rs:1291
+msgid "Original"
+msgstr "Original"
+
+#: src/ui/window.rs:1286
+msgid "Mono"
+msgstr "Mono"
+
+#: src/ui/window.rs:1287
+msgid "Stereo"
+msgstr "Stereo"
+
+#: src/ui/window.rs:1292
+msgid "48 kHz"
+msgstr "48 kHz"
+
+#: src/ui/window.rs:1293
+msgid "44.1 kHz"
+msgstr "44,1 kHz"
+
+#: src/ui/window.rs:1294
+msgid "24 kHz"
+msgstr "24 kHz"
+
+#: src/ui/window.rs:1295
+msgid "16 kHz"
+msgstr "16 kHz"
+
+#: src/ui/window.rs:1301
+msgid "Format"
+msgstr "Format"
+
+#: src/ui/window.rs:1302
+msgid "Quality"
+msgstr "Calitate"
+
+#: src/ui/window.rs:1303
+msgid "Channels"
+msgstr "Canale"
+
+#: src/ui/window.rs:1304
+msgid "Sample rate"
+msgstr "Rată de eșantionare"
+
+#: src/ui/window.rs:1308
+#: src/ui/window.rs:1337
+msgid "Export recording"
+msgstr "Exportare înregistrare"
+
+#: src/ui/window.rs:1357
+#: src/ui/window.rs:1369
+#: src/ui/window.rs:1643
+#: src/ui/window.rs:1646
+msgid "Could not export recording"
+msgstr "Nu s-a putut exporta înregistrarea"
+
+#: src/ui/window.rs:1358
+#: src/ui/window.rs:1370
+msgid "The selected destination is not a local file."
+msgstr "Destinația selectată nu este un fișier local."
+
+#: src/ui/window.rs:1431
+msgid "WAV audio"
+msgstr "Audio WAV"
+
+#: src/ui/window.rs:1432
+msgid "MP3 audio"
+msgstr "Audio MP3"
+
+#: src/ui/window.rs:1433
+msgid "Opus audio"
+msgstr "Audio Opus"
+
+#: src/ui/window.rs:1434
+msgid "FLAC audio"
+msgstr "Audio FLAC"
+
+#: src/ui/window.rs:1456
+msgid "Flat"
+msgstr "Plat"
+
+#: src/ui/window.rs:1457
+msgid "Voice clarity"
+msgstr "Claritate vocală"
+
+#: src/ui/window.rs:1458
+msgid "Warm"
+msgstr "Călduros"
+
+#: src/ui/window.rs:1459
+msgid "Bright"
+msgstr "Luminoasă"
+
+#: src/ui/window.rs:1460
+msgid "Bass cut"
+msgstr "Reducere bass"
+
+#: src/ui/window.rs:1462
+msgid "Preset"
+msgstr "Prestabilit"
+
+#: src/ui/window.rs:1622
+msgid "The audio task stopped unexpectedly."
+msgstr "Sarcina audio s-a oprit neașteptat."
+
+#: src/ui/window.rs:1640
+msgid "Recording exported"
+msgstr "Înregistrare exportată"
+
+#: src/ui/window.rs:1641
+msgid "The file was exported successfully."
+msgstr "Fișierul a fost exportat cu succes."
+
+#: src/ui/window.rs:1647
+msgid "The export task stopped unexpectedly."
+msgstr "Sarcina de export s-a oprit neașteptat."
+
+#: src/ui/window.rs:1657
+msgid "Apply"
+msgstr "Aplică"
+
+#: src/ui/window.rs:2055
+msgid "Trim the selected recording"
+msgstr "Decupează înregistrarea selectată"
+
+#: src/ui/window.rs:2056
+msgid "Change the selected recording volume"
+msgstr "Modifică volumul înregistrării selectate"
+
+#: src/ui/window.rs:2057
+msgid "Change the selected recording speed"
+msgstr "Modifică viteza înregistrării selectate"
+
+#: src/ui/window.rs:2058
+msgid "Change the selected recording pitch"
+msgstr "Modifică tonul înregistrării selectate"
+
+#: src/ui/window.rs:2059
+msgid "Apply a voice effect to the selected recording"
+msgstr "Aplică un efect vocal înregistrării selectate"
+
+#: src/ui/window.rs:2060
+msgid "Adjust the selected recording frequency bands"
+msgstr "Reglează benzile de frecvență ale înregistrării selectate"
+
+#: src/ui/window.rs:2061
+msgid "Reverse the selected recording"
+msgstr "Inversează înregistrarea selectată"
+
+#: src/ui/window.rs:2062
+msgid "Merge the selected recording with another recording"
+msgstr "Unește înregistrarea selectată cu o altă înregistrare"
+
+#: src/ui/window.rs:2063
+msgid "Export the selected recording"
+msgstr "Exportă înregistrarea selectată"
+
+#: src/ui/window.rs:2102
+#, rust-format
+msgid "Duration {duration}"
+msgstr "Durată {duration}"
+
+#: src/ui/window.rs:2107
+msgid "Saved recording"
+msgstr "Înregistrare salvată"
+
+#: src/ui/window.rs:2239
+msgid "OK"
+msgstr "OK"

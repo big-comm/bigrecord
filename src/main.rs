@@ -6,6 +6,8 @@ mod ui;
 use adw::prelude::*;
 
 fn main() -> glib::ExitCode {
+    i18n::init();
+
     if let Err(err) = adw::init() {
         eprintln!("Failed to initialize libadwaita: {err}");
         return glib::ExitCode::FAILURE;
@@ -15,8 +17,6 @@ fn main() -> glib::ExitCode {
         eprintln!("Failed to initialize GStreamer: {err}");
         return glib::ExitCode::FAILURE;
     }
-
-    i18n::init();
 
     app::new().run()
 }

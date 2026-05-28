@@ -1,6 +1,6 @@
 use std::env;
 use std::fs;
-use std::path::PathBuf;
+use std::path::{Path, PathBuf};
 
 pub const GETTEXT_PACKAGE: &str = "bigrecorder";
 
@@ -14,7 +14,7 @@ pub fn init() {
 }
 
 pub fn gettext(message: &str) -> String {
-    gettextrs::gettext(message)
+    gettextrs::dgettext(GETTEXT_PACKAGE, message)
 }
 
 pub fn format_message(message: &str, values: &[(&str, &str)]) -> String {
@@ -27,7 +27,7 @@ pub fn format_message(message: &str, values: &[(&str, &str)]) -> String {
 
 fn locale_dir() -> PathBuf {
     let local_dir = PathBuf::from("locale");
-    if local_dir.exists() {
+    if locale_dir_has_package(&local_dir) {
         return local_dir;
     }
 
@@ -36,18 +36,32 @@ fn locale_dir() -> PathBuf {
     {
         for directory in parent.ancestors() {
             let candidate = directory.join("locale");
-            if candidate.exists() {
+            if locale_dir_has_package(&candidate) {
                 return candidate;
             }
 
             let installed_candidate = directory.join("share/locale");
-            if installed_candidate.exists() {
+            if locale_dir_has_package(&installed_candidate) {
                 return installed_candidate;
             }
         }
     }
 
     PathBuf::from("/usr/share/locale")
+}
+
+fn locale_dir_has_package(directory: &Path) -> bool {
+    let Ok(entries) = fs::read_dir(directory) else {
+        return false;
+    };
+
+    entries.filter_map(Result::ok).any(|entry| {
+        entry
+            .path()
+            .join("LC_MESSAGES")
+            .join(format!("{GETTEXT_PACKAGE}.mo"))
+            .is_file()
+    })
 }
 
 fn apply_language_fallback() {
@@ -200,4 +214,89 @@ fn language_tag(locale: &str) -> String {
         .next()
         .unwrap_or(locale)
         .to_string()
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use std::sync::Mutex;
+
+    static ENV_LOCK: Mutex<()> = Mutex::new(());
+
+    #[test]
+    fn gettext_uses_package_domain_after_default_domain_changes() {
+        let _guard = ENV_LOCK.lock().expect("env lock poisoned");
+        let env_snapshot = EnvSnapshot::capture(&["LANG", "LANGUAGE", "LC_ALL", "LC_MESSAGES"]);
+        let previous_domain = gettextrs::getters::current_textdomain().ok();
+
+        set_test_env("LANG", "pt_BR.UTF-8");
+        set_test_env("LANGUAGE", "pt_BR.UTF-8");
+        set_test_env("LC_ALL", "C.UTF-8");
+        remove_test_env("LC_MESSAGES");
+
+        init();
+
+        if gettextrs::setlocale(gettextrs::LocaleCategory::LcMessages, "pt_BR.UTF-8").is_some() {
+            let _ = gettextrs::textdomain("messages");
+            assert_eq!(gettext("Record"), "Gravar");
+        }
+
+        if let Some(domain) = previous_domain {
+            let _ = gettextrs::textdomain(domain);
+        }
+        env_snapshot.restore();
+    }
+
+    #[test]
+    fn locale_dir_ignores_unrelated_locale_directory() {
+        let _guard = ENV_LOCK.lock().expect("env lock poisoned");
+        let original_dir = env::current_dir().expect("read current dir");
+        let test_dir = env::temp_dir().join(format!("bigrecorder-i18n-{}", std::process::id()));
+        let unrelated_locale_dir = test_dir.join("locale");
+
+        let _ = fs::remove_dir_all(&test_dir);
+        fs::create_dir_all(&unrelated_locale_dir).expect("create test locale dir");
+        env::set_current_dir(&test_dir).expect("enter test dir");
+
+        let detected_dir = locale_dir();
+
+        env::set_current_dir(original_dir).expect("restore current dir");
+        let _ = fs::remove_dir_all(&test_dir);
+
+        assert_ne!(detected_dir, PathBuf::from("locale"));
+    }
+
+    struct EnvSnapshot {
+        values: Vec<(&'static str, Option<String>)>,
+    }
+
+    impl EnvSnapshot {
+        fn capture(keys: &[&'static str]) -> Self {
+            let values = keys.iter().map(|key| (*key, env::var(key).ok())).collect();
+            Self { values }
+        }
+
+        fn restore(self) {
+            for (key, value) in self.values {
+                match value {
+                    Some(value) => set_test_env(key, &value),
+                    None => remove_test_env(key),
+                }
+            }
+        }
+    }
+
+    fn set_test_env(key: &str, value: &str) {
+        // SAFETY: Tests hold ENV_LOCK while mutating process environment.
+        unsafe {
+            env::set_var(key, value);
+        }
+    }
+
+    fn remove_test_env(key: &str) {
+        // SAFETY: Tests hold ENV_LOCK while mutating process environment.
+        unsafe {
+            env::remove_var(key);
+        }
+    }
 }

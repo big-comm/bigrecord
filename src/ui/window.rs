@@ -513,7 +513,7 @@ fn install_window_actions(window: &adw::ApplicationWindow) {
             .comments(gettext(
                 "Local voice recorder built with Rust, GTK4, libadwaita, and GStreamer.",
             ))
-            .license_type(gtk::License::Gpl30)
+            .license_type(gtk::License::MitX11)
             .build();
         dialog.present(Some(&window_clone));
     });

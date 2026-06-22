@@ -308,6 +308,20 @@ windowhandle,
   color: alpha(@window_fg_color, 0.45);
 }
 
+.mic-list {
+  min-width: 240px;
+}
+
+.mic-item {
+  padding: 7px 10px;
+  border-radius: 8px;
+  font-weight: 600;
+}
+
+.mic-item image {
+  color: @accent_color;
+}
+
 .muted {
   color: alpha(@window_fg_color, 0.55);
   font-size: 12px;

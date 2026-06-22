@@ -559,11 +559,11 @@ pub fn build(app: &adw::Application) {
     start_button.set_child(Some(&start_icon));
     start_button.add_css_class("record-fab");
 
-    // "Ready to record" device pill: level icon + title + microphone subtitle + chevron.
+    // "Ready to record" device pill — opens a microphone picker popover.
     let ready_pill = gtk::Button::new();
     ready_pill.add_css_class("ready-pill");
     ready_pill.set_valign(gtk::Align::Center);
-    ready_pill.set_tooltip_text(Some(&gettext("Ready to record")));
+    ready_pill.set_tooltip_text(Some(&gettext("Choose input device")));
     let ready_content = gtk::Box::new(gtk::Orientation::Horizontal, 10);
     ready_content.append(&level_icon());
     let ready_text = gtk::Box::new(gtk::Orientation::Vertical, 0);
@@ -574,6 +574,8 @@ pub fn build(app: &adw::Application) {
     let ready_subtitle = gtk::Label::new(Some(&gettext("Default microphone")));
     ready_subtitle.add_css_class("ready-subtitle");
     ready_subtitle.set_xalign(0.0);
+    ready_subtitle.set_ellipsize(gtk::pango::EllipsizeMode::End);
+    ready_subtitle.set_max_width_chars(22);
     ready_text.append(&ready_title);
     ready_text.append(&ready_subtitle);
     ready_content.append(&ready_text);
@@ -582,6 +584,56 @@ pub fn build(app: &adw::Application) {
     ready_chevron.add_css_class("chevron");
     ready_content.append(&ready_chevron);
     ready_pill.set_child(Some(&ready_content));
+
+    let mic_popover = gtk::Popover::new();
+    mic_popover.add_css_class("mic-popover");
+    mic_popover.set_position(gtk::PositionType::Top);
+    mic_popover.set_parent(&ready_pill);
+
+    // The picker is rebuilt every time it opens so freshly plugged-in
+    // microphones show up. The choice applies to the next recording.
+    let mic_recorder = Rc::clone(&recorder);
+    let selected_mic: Rc<RefCell<Option<String>>> = Rc::new(RefCell::new(None));
+    let mic_subtitle = ready_subtitle.clone();
+    let popup_popover = mic_popover.clone();
+    ready_pill.connect_clicked(move |_| {
+        let list = gtk::Box::new(gtk::Orientation::Vertical, 2);
+        list.add_css_class("mic-list");
+
+        let default_label = gettext("Default microphone");
+        let default_item = mic_menu_item(&default_label, selected_mic.borrow().is_none());
+        let default_recorder = Rc::clone(&mic_recorder);
+        let default_selected = Rc::clone(&selected_mic);
+        let default_subtitle = mic_subtitle.clone();
+        let default_popover = popup_popover.clone();
+        let default_text = default_label.clone();
+        default_item.connect_clicked(move |_| {
+            default_selected.replace(None);
+            default_recorder.borrow_mut().set_device(None);
+            default_subtitle.set_label(&default_text);
+            default_popover.popdown();
+        });
+        list.append(&default_item);
+
+        for (name, device) in crate::audio::recorder::input_devices() {
+            let checked = selected_mic.borrow().as_deref() == Some(name.as_str());
+            let item = mic_menu_item(&name, checked);
+            let item_recorder = Rc::clone(&mic_recorder);
+            let item_selected = Rc::clone(&selected_mic);
+            let item_subtitle = mic_subtitle.clone();
+            let item_popover = popup_popover.clone();
+            item.connect_clicked(move |_| {
+                item_selected.replace(Some(name.clone()));
+                item_recorder.borrow_mut().set_device(Some(device.clone()));
+                item_subtitle.set_label(&name);
+                item_popover.popdown();
+            });
+            list.append(&item);
+        }
+
+        popup_popover.set_child(Some(&list));
+        popup_popover.popup();
+    });
 
     let action_bar = gtk::CenterBox::new();
     action_bar.add_css_class("action-bar");
@@ -686,6 +738,29 @@ fn level_icon() -> gtk::DrawingArea {
         let _ = cr.stroke();
     });
     area
+}
+
+fn mic_menu_item(label: &str, checked: bool) -> gtk::Button {
+    let row = gtk::Box::new(gtk::Orientation::Horizontal, 10);
+
+    let text = gtk::Label::new(Some(label));
+    text.set_xalign(0.0);
+    text.set_hexpand(true);
+    text.set_ellipsize(gtk::pango::EllipsizeMode::End);
+    text.set_max_width_chars(28);
+
+    let check = gtk::Image::from_icon_name("object-select-symbolic");
+    check.set_pixel_size(14);
+    check.set_visible(checked);
+
+    row.append(&text);
+    row.append(&check);
+
+    let button = gtk::Button::new();
+    button.add_css_class("flat");
+    button.add_css_class("mic-item");
+    button.set_child(Some(&row));
+    button
 }
 
 fn status_pill(label: &gtk::Label) -> gtk::Box {

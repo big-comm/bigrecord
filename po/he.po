@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bigrecorder 0.1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-21 23:18-0300\n"
+"POT-Creation-Date: 2026-06-22 17:18-0300\n"
 "PO-Revision-Date: 2026-05-27 20:46\n"
 "Last-Translator: BigLinux Team\n"
 "Language-Team: Hebrew <he@li.org>\n"
@@ -12,600 +12,638 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/i18n.rs:241 src/ui/window.rs:554
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/i18n.rs:241
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:554
 msgid "Record"
 msgstr "הקלט"
 
-#: src/ui/window.rs:174
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:174
 msgid "Local voice recorder"
 msgstr "מקליט קולי מקומי"
 
-#: src/ui/window.rs:179
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:179
 msgid "Menu"
 msgstr "תפריט"
 
-#: src/ui/window.rs:182
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:182
 msgid "About"
 msgstr "אודות"
 
-#: src/ui/window.rs:183
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:183
 msgid "Close"
 msgstr "סגור"
 
-#: src/ui/window.rs:226
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:226
 msgid "Recordings"
 msgstr "הקלטות"
 
-#: src/ui/window.rs:238
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:238
 msgid "Search recordings"
-msgstr ""
+msgstr "חיפוש הקלטות"
 
-#: src/ui/window.rs:245
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:245
 msgid "List view"
-msgstr ""
+msgstr "תצוגת רשימה"
 
-#: src/ui/window.rs:253
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:253
 msgid "Grid view"
-msgstr ""
+msgstr "תצוגת רשת"
 
-#: src/ui/window.rs:281
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:281
 msgid "No recordings yet"
 msgstr "אין עדיין הקלטות"
 
-#: src/ui/window.rs:310 src/ui/window.rs:1015
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:310
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1084
 msgid "Ready"
 msgstr "מוכן"
 
-#: src/ui/window.rs:322
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:322
 msgid "Recording time"
-msgstr ""
+msgstr "זמן הקלטה"
 
-#: src/ui/window.rs:347 src/ui/window.rs:357 src/ui/window.rs:1023
-#: src/ui/window.rs:1024
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:347
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:357
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1092
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1093
 msgid "Pause"
 msgstr "השהייה"
 
-#: src/ui/window.rs:365 src/ui/window.rs:375
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:365
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:375
 msgid "Stop"
 msgstr "עצור"
 
-#: src/ui/window.rs:422 src/ui/window.rs:520 src/ui/window.rs:525
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:422
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:520
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:525
 msgid "Tools"
 msgstr "כלים"
 
-#: src/ui/window.rs:425
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:425
 msgid "Apply effects to the selected recording"
-msgstr ""
+msgstr "החלת אפקטים על ההקלטה שנבחרה"
 
-#: src/ui/window.rs:431
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:431
 msgid "Restore"
-msgstr ""
+msgstr "שחזור"
 
-#: src/ui/window.rs:435
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:435
 msgid "Restore the original recording"
-msgstr ""
+msgstr "שחזור ההקלטה המקורית"
 
-#: src/ui/window.rs:436
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:436
 msgid "Undo"
-msgstr ""
+msgstr "ביטול"
 
-#: src/ui/window.rs:455
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:455
 msgid "Trim"
 msgstr "חיתוך"
 
-#: src/ui/window.rs:456
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:456
 msgid "Remove part of the audio"
-msgstr ""
+msgstr "הסרת חלק מהשמע"
 
-#: src/ui/window.rs:461
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:461
 msgid "Volume"
 msgstr "עוצמת קול"
 
-#: src/ui/window.rs:462
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:462
 msgid "Adjust the loudness"
-msgstr ""
+msgstr "התאמת העוצמה"
 
-#: src/ui/window.rs:467
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:467
 msgid "Speed"
 msgstr "מהירות"
 
-#: src/ui/window.rs:468
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:468
 msgid "Speed up or slow down"
-msgstr ""
+msgstr "האצה או האטה"
 
-#: src/ui/window.rs:473
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:473
 msgid "Pitch"
 msgstr "גובה צליל"
 
-#: src/ui/window.rs:474
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:474
 msgid "Change the pitch"
-msgstr ""
+msgstr "שינוי הגובה (פיץ')"
 
-#: src/ui/window.rs:479
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:479
 msgid "Effects"
 msgstr "אפקטים"
 
-#: src/ui/window.rs:480
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:480
 msgid "Apply a voice effect"
-msgstr ""
+msgstr "החלת אפקט קולי"
 
-#: src/ui/window.rs:485 src/ui/window.rs:1863
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:485
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1932
 msgid "Equalizer"
 msgstr "אקולייזר"
 
-#: src/ui/window.rs:486
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:486
 msgid "Tune frequency bands"
-msgstr ""
+msgstr "כוונון פסי תדר"
 
-#: src/ui/window.rs:491 src/ui/window.rs:1897
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:491
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1966
 msgid "Reverse"
 msgstr "היפוך"
 
-#: src/ui/window.rs:492
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:492
 msgid "Play the audio backwards"
-msgstr ""
+msgstr "ניגון השמע לאחור"
 
-#: src/ui/window.rs:497
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:497
 msgid "Merge"
 msgstr "מיזוג"
 
-#: src/ui/window.rs:498
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:498
 msgid "Join with another recording"
-msgstr ""
+msgstr "הצטרף להקלטה אחרת"
 
-#: src/ui/window.rs:503 src/ui/window.rs:1293 src/ui/window.rs:2022
-#: src/ui/window.rs:2049
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:503
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1362
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2091
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2118
 msgid "Export"
 msgstr "ייצוא"
 
-#: src/ui/window.rs:504
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:504
 msgid "Save in another format"
-msgstr ""
+msgstr "שמור בפורמט אחר"
 
-#: src/ui/window.rs:566 src/ui/window.rs:571
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:566
+msgid "Choose input device"
+msgstr "בחר התקן קלט"
+
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:571
 msgid "Ready to record"
-msgstr ""
+msgstr "מוכן להקלטה"
 
-#: src/ui/window.rs:574
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:574
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:603
 msgid "Default microphone"
-msgstr ""
+msgstr "מיקרופון ברירת מחדל"
 
-#: src/ui/window.rs:722
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:791
 msgid "Recording in"
-msgstr ""
+msgstr "מקליט ב"
 
-#: src/ui/window.rs:746
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:815
 msgid "Open recordings folder"
-msgstr ""
+msgstr "פתח תיקיית הקלטות"
 
-#: src/ui/window.rs:776
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:845
 msgid "Could not open recordings folder"
-msgstr ""
+msgstr "לא ניתן לפתוח תיקיית הקלטות"
 
-#: src/ui/window.rs:817
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:886
 msgid "Local voice recorder built with Rust, GTK4, libadwaita, and GStreamer."
 msgstr "מקליט קול מקומי הבנוי עם Rust, GTK4, libadwaita ו-GStreamer."
 
-#: src/ui/window.rs:917 src/ui/window.rs:1447 src/ui/window.rs:2299
-#: src/ui/window.rs:2318
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:986
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1516
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2368
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2387
 msgid "Could not stop playback"
 msgstr "לא ניתן לעצור את ההשמעה"
 
-#: src/ui/window.rs:927
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:996
 msgid "Could not start recording"
 msgstr "לא ניתן להתחיל בהקלטה"
 
-#: src/ui/window.rs:948
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1017
 msgid "Could not pause"
 msgstr "לא ניתן להשהות"
 
-#: src/ui/window.rs:955
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1024
 msgid "Could not resume"
 msgstr "לא ניתן לחדש"
 
-#: src/ui/window.rs:985
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1054
 msgid "Could not finish recording"
 msgstr "לא ניתן לסיים את ההקלטה"
 
-#: src/ui/window.rs:1020 src/ui/window.rs:2804
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1089
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2873
 msgid "Recording"
 msgstr "מקליט"
 
-#: src/ui/window.rs:1029
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1098
 msgid "Paused"
 msgstr "הופסק"
 
-#: src/ui/window.rs:1032 src/ui/window.rs:1033
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1101
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1102
 msgid "Resume"
 msgstr "המשך"
 
-#: src/ui/window.rs:1079
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1148
 msgid "1 recording"
-msgstr ""
+msgstr "הקלטה אחת"
 
-#: src/ui/window.rs:1082
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1151
+#, rust-format
 msgid "{count} recordings"
-msgstr ""
+msgstr "{count} הקלטות"
 
-#: src/ui/window.rs:1161
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1230
 msgid "Play"
 msgstr "הפעל"
 
-#: src/ui/window.rs:1171 src/ui/window.rs:1298 src/ui/window.rs:1431
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1240
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1367
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1500
 msgid "Move to Trash"
 msgstr "העבר לאשפה"
 
-#: src/ui/window.rs:1244
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1313
 msgid "Could not play recording"
 msgstr "לא ניתן להפעיל את ההקלטה"
 
-#: src/ui/window.rs:1275
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1344
 msgid "More options"
-msgstr ""
+msgstr "אפשרויות נוספות"
 
-#: src/ui/window.rs:1288 src/ui/window.rs:1369
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1357
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1438
 msgid "Rename"
-msgstr ""
+msgstr "שנה שם"
 
-#: src/ui/window.rs:1356
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1425
 msgid "Rename recording"
-msgstr ""
+msgstr "שנה שם הקלטה"
 
-#: src/ui/window.rs:1368 src/ui/window.rs:1430 src/ui/window.rs:1896
-#: src/ui/window.rs:2021 src/ui/window.rs:2050 src/ui/window.rs:2365
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1437
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1499
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1965
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2090
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2119
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2434
 msgid "Cancel"
 msgstr "ביטול"
 
-#: src/ui/window.rs:1402 src/ui/window.rs:1415
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1471
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1484
 msgid "Could not rename recording"
-msgstr ""
+msgstr "לא ניתן לשנות שם הקלטה"
 
-#: src/ui/window.rs:1403
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1472
 msgid "A recording with that name already exists."
-msgstr ""
+msgstr "הקלטה בשם זה כבר קיימת."
 
-#: src/ui/window.rs:1424
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1493
 msgid "Move recording to trash?"
 msgstr "להעביר את ההקלטה לאשפה?"
 
-#: src/ui/window.rs:1426
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1495
+#, rust-format
 msgid "{recording} will be moved to the system trash."
 msgstr "{recording} תועבר לאשפת המערכת."
 
-#: src/ui/window.rs:1456
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1525
 msgid "Could not move recording to trash"
 msgstr "לא ניתן להעביר את ההקלטה לאשפה"
 
-#: src/ui/window.rs:1559
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1628
 msgid "Select a recording first"
 msgstr "בחר תחילה הקלטה"
 
-#: src/ui/window.rs:1560
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1629
 msgid "Click a recording in the list before using a tool."
 msgstr "לחץ על הקלטה ברשימה לפני השימוש בכלי."
 
-#: src/ui/window.rs:1576 src/ui/window.rs:1582 src/ui/window.rs:1656
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1645
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1651
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1725
 msgid "Could not trim recording"
 msgstr "לא ניתן לחתוך את ההקלטה"
 
-#: src/ui/window.rs:1577
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1646
 msgid "This recording has no audio data."
 msgstr "להקלטה זו אין נתוני שמע."
 
-#: src/ui/window.rs:1600
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1669
 msgid "Selected duration"
-msgstr ""
+msgstr "משך נבחר"
 
-#: src/ui/window.rs:1608
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1677
 msgid "Initial seconds"
-msgstr ""
+msgstr "שניות ראשוניות"
 
-#: src/ui/window.rs:1609
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1678
 msgid "Remove from the start of the recording"
-msgstr ""
+msgstr "הסר מתחילת ההקלטה"
 
-#: src/ui/window.rs:1613
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1682
 msgid "Final seconds"
-msgstr ""
+msgstr "שניות סופיות"
 
-#: src/ui/window.rs:1614
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1683
 msgid "Remove from the end of the recording"
-msgstr ""
+msgstr "הסר מסוף ההקלטה"
 
-#: src/ui/window.rs:1639
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1708
 msgid "Trim recording"
 msgstr "חתוך הקלטה"
 
-#: src/ui/window.rs:1710
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1779
 msgid "Volume percent"
 msgstr "אחוז עוצמת קול"
 
-#: src/ui/window.rs:1713
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1782
 msgid "Change volume"
 msgstr "שנה עוצמת קול"
 
-#: src/ui/window.rs:1729
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1798
 msgid "Could not change volume"
 msgstr "לא ניתן לשנות את עוצמת הקול"
 
-#: src/ui/window.rs:1743
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1812
 msgid "Speed factor"
 msgstr "יחס מהירות"
 
-#: src/ui/window.rs:1746
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1815
 msgid "Change speed"
 msgstr "שנה מהירות"
 
-#: src/ui/window.rs:1762
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1831
 msgid "Could not change speed"
 msgstr "לא ניתן לשנות מהירות"
 
-#: src/ui/window.rs:1777
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1846
 msgid "Semitones"
 msgstr "חצאי טונים"
 
-#: src/ui/window.rs:1780
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1849
 msgid "Change pitch"
 msgstr "שנה גובה צליל"
 
-#: src/ui/window.rs:1796
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1865
 msgid "Could not change pitch"
 msgstr "לא ניתן לשנות גובה צליל"
 
-#: src/ui/window.rs:1809
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1878
 msgid "Child voice"
 msgstr "קול ילד"
 
-#: src/ui/window.rs:1810
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1879
 msgid "Deep voice"
 msgstr "קול עמוק"
 
-#: src/ui/window.rs:1811
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1880
 msgid "Robot voice"
 msgstr "קול רובוט"
 
-#: src/ui/window.rs:1812
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1881
 msgid "Radio voice"
 msgstr "קול רדיו"
 
-#: src/ui/window.rs:1813
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1882
 msgid "Echo voice"
 msgstr "קול הד"
 
-#: src/ui/window.rs:1823
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1892
 msgid "Effect"
 msgstr "אפקט"
 
-#: src/ui/window.rs:1824
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1893
 msgid "Intensity"
 msgstr "עוצמה"
 
-#: src/ui/window.rs:1828
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1897
 msgid "Voice effects"
 msgstr "אפקטים קוליים"
 
-#: src/ui/window.rs:1845
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1914
 msgid "Could not apply voice effect"
 msgstr "לא ניתן להחיל אפקט קולי"
 
-#: src/ui/window.rs:1879
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1948
 msgid "Could not equalize recording"
 msgstr "לא ניתן לאזן הקלטה"
 
-#: src/ui/window.rs:1891
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1960
 msgid "Reverse recording"
 msgstr "הקלטה הפוכה"
 
-#: src/ui/window.rs:1892
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1961
 msgid "Create a new recording with the audio reversed."
 msgstr "צור הקלטה חדשה כשהשמע הפוך."
 
-#: src/ui/window.rs:1913
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1982
 msgid "Could not reverse recording"
 msgstr "לא ניתן להפוך את ההקלטה"
 
-#: src/ui/window.rs:1933 src/ui/window.rs:1969
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2002
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2038
 msgid "Could not merge recordings"
 msgstr "לא ניתן למזג את ההקלטות"
 
-#: src/ui/window.rs:1934
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2003
 msgid "There is no second recording to merge."
 msgstr "אין הקלטה שנייה למיזוג."
 
-#: src/ui/window.rs:1946
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2015
 msgid "Append recording"
 msgstr "הוסף הקלטה בסוף"
 
-#: src/ui/window.rs:1949
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2018
 msgid "Merge recordings"
 msgstr "מזג הקלטות"
 
-#: src/ui/window.rs:1981
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2050
 msgid "MP3 audio (.mp3)"
 msgstr "שמע MP3 (.mp3)"
 
-#: src/ui/window.rs:1982
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2051
 msgid "WAV audio (.wav)"
 msgstr "שמע WAV (.wav)"
 
-#: src/ui/window.rs:1983
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2052
 msgid "Opus audio (.opus)"
 msgstr "שמע Opus (.opus)"
 
-#: src/ui/window.rs:1984
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2053
 msgid "FLAC audio (.flac)"
 msgstr "שמע FLAC (.flac)"
 
-#: src/ui/window.rs:1988
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2057
 msgid "Low"
 msgstr "נמוך"
 
-#: src/ui/window.rs:1989
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2058
 msgid "Medium"
 msgstr "בינוני"
 
-#: src/ui/window.rs:1990
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2059
 msgid "High"
 msgstr "גבוה"
 
-#: src/ui/window.rs:1994 src/ui/window.rs:2000
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2063
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2069
 msgid "Original"
 msgstr "מקורי"
 
-#: src/ui/window.rs:1995
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2064
 msgid "Mono"
 msgstr "מונו"
 
-#: src/ui/window.rs:1996
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2065
 msgid "Stereo"
 msgstr "סטריאו"
 
-#: src/ui/window.rs:2001
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2070
 msgid "48 kHz"
 msgstr "48 קילו-הרץ"
 
-#: src/ui/window.rs:2002
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2071
 msgid "44.1 kHz"
 msgstr "44.1 קילו-הרץ"
 
-#: src/ui/window.rs:2003
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2072
 msgid "24 kHz"
 msgstr "24 קילו-הרץ"
 
-#: src/ui/window.rs:2004
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2073
 msgid "16 kHz"
 msgstr "16 קילו-הרץ"
 
-#: src/ui/window.rs:2010
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2079
 msgid "Format"
 msgstr "פורמט"
 
-#: src/ui/window.rs:2011
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2080
 msgid "Quality"
 msgstr "איכות"
 
-#: src/ui/window.rs:2012
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2081
 msgid "Channels"
 msgstr "ערוצים"
 
-#: src/ui/window.rs:2013
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2082
 msgid "Sample rate"
 msgstr "קצב דגימה"
 
-#: src/ui/window.rs:2017 src/ui/window.rs:2046
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2086
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2115
 msgid "Export recording"
 msgstr "ייצוא הקלטה"
 
-#: src/ui/window.rs:2066 src/ui/window.rs:2078 src/ui/window.rs:2352
-#: src/ui/window.rs:2355
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2135
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2147
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2421
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2424
 msgid "Could not export recording"
 msgstr "לא ניתן לייצא את ההקלטה"
 
-#: src/ui/window.rs:2067 src/ui/window.rs:2079
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2136
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2148
 msgid "The selected destination is not a local file."
 msgstr "היעד שנבחר אינו קובץ מקומי."
 
-#: src/ui/window.rs:2140
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2209
 msgid "WAV audio"
 msgstr "אודיו WAV"
 
-#: src/ui/window.rs:2141
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2210
 msgid "MP3 audio"
 msgstr "אודיו MP3"
 
-#: src/ui/window.rs:2142
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2211
 msgid "Opus audio"
 msgstr "אודיו Opus"
 
-#: src/ui/window.rs:2143
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2212
 msgid "FLAC audio"
 msgstr "אודיו FLAC"
 
-#: src/ui/window.rs:2165
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2234
 msgid "Flat"
 msgstr "שטוח"
 
-#: src/ui/window.rs:2166
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2235
 msgid "Voice clarity"
 msgstr "בהירות קול"
 
-#: src/ui/window.rs:2167
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2236
 msgid "Warm"
 msgstr "חם"
 
-#: src/ui/window.rs:2168
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2237
 msgid "Bright"
 msgstr "בהיר"
 
-#: src/ui/window.rs:2169
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2238
 msgid "Bass cut"
 msgstr "חיתוך בס"
 
-#: src/ui/window.rs:2171
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2240
 msgid "Preset"
 msgstr "קבוע מראש"
 
-#: src/ui/window.rs:2331
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2400
 msgid "The audio task stopped unexpectedly."
 msgstr "משימת האודיו הופסקה באופן בלתי צפוי."
 
-#: src/ui/window.rs:2349
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2418
 msgid "Recording exported"
 msgstr "ההקלטה יוצאה"
 
-#: src/ui/window.rs:2350
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2419
 msgid "The file was exported successfully."
 msgstr "הקובץ יוצא בהצלחה."
 
-#: src/ui/window.rs:2356
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2425
 msgid "The export task stopped unexpectedly."
 msgstr "משימת הייצוא הופסקה באופן בלתי צפוי."
 
-#: src/ui/window.rs:2366
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2435
 msgid "Apply"
 msgstr "החל"
 
-#: src/ui/window.rs:2764
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2833
 msgid "Trim the selected recording"
 msgstr "חתוך את ההקלטה שנבחרה"
 
-#: src/ui/window.rs:2765
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2834
 msgid "Change the selected recording volume"
 msgstr "שנה את עוצמת הקול של ההקלטה שנבחרה"
 
-#: src/ui/window.rs:2766
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2835
 msgid "Change the selected recording speed"
 msgstr "שנה את מהירות ההקלטה שנבחרה"
 
-#: src/ui/window.rs:2767
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2836
 msgid "Change the selected recording pitch"
 msgstr "שנה את גובה הצליל של ההקלטה שנבחרה"
 
-#: src/ui/window.rs:2768
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2837
 msgid "Apply a voice effect to the selected recording"
 msgstr "החל אפקט קולי על ההקלטה שנבחרה"
 
-#: src/ui/window.rs:2769
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2838
 msgid "Adjust the selected recording frequency bands"
 msgstr "כוונן את פסי התדר של ההקלטה שנבחרה"
 
-#: src/ui/window.rs:2770
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2839
 msgid "Reverse the selected recording"
 msgstr "הפוך את ההקלטה שנבחרה"
 
-#: src/ui/window.rs:2771
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2840
 msgid "Merge the selected recording with another recording"
 msgstr "מיזג את ההקלטה שנבחרה עם הקלטה אחרת"
 
-#: src/ui/window.rs:2772
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2841
 msgid "Export the selected recording"
 msgstr "ייצא את ההקלטה שנבחרה"
 
-#: src/ui/window.rs:2808
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2877
 msgid "Saved recording"
 msgstr "הקלטה שנשמרה"
 
-#: src/ui/window.rs:3015
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:3094
 msgid "OK"
 msgstr "אישור"
 

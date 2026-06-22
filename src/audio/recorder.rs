@@ -21,11 +21,18 @@ pub struct Recorder {
     record_valve: Option<gst::Element>,
     sample_sink: Option<gst_app::AppSink>,
     output_path: Option<PathBuf>,
+    device: Option<gst::Device>,
 }
 
 impl Recorder {
     pub fn new() -> Self {
         Self::default()
+    }
+
+    /// Selects the input device used for the next recording. `None` falls back
+    /// to the system default microphone.
+    pub fn set_device(&mut self, device: Option<gst::Device>) {
+        self.device = device;
     }
 
     pub fn start(&mut self) -> Result<PathBuf> {
@@ -34,7 +41,7 @@ impl Recorder {
         }
 
         let output_path = next_recording_path()?;
-        let recording_pipeline = build_recording_pipeline(&output_path)?;
+        let recording_pipeline = build_recording_pipeline(&output_path, self.device.as_ref())?;
 
         recording_pipeline
             .pipeline
@@ -137,9 +144,15 @@ struct RecordingPipeline {
     sample_sink: gst_app::AppSink,
 }
 
-fn build_recording_pipeline(output_path: &Path) -> Result<RecordingPipeline> {
+fn build_recording_pipeline(
+    output_path: &Path,
+    device: Option<&gst::Device>,
+) -> Result<RecordingPipeline> {
     let pipeline = gst::Pipeline::new();
-    let source = make_audio_source()?;
+    let source = match device {
+        Some(device) => source_from_device(device)?,
+        None => make_audio_source()?,
+    };
     let convert = make_element("audioconvert")?;
     let resample = make_element("audioresample")?;
     let raw_caps = gst::Caps::builder("audio/x-raw")
@@ -215,6 +228,32 @@ fn build_recording_pipeline(output_path: &Path) -> Result<RecordingPipeline> {
         record_valve,
         sample_sink,
     })
+}
+
+/// Lists the available audio input devices as `(display name, device)` pairs.
+pub fn input_devices() -> Vec<(String, gst::Device)> {
+    let monitor = gst::DeviceMonitor::new();
+    monitor.add_filter(Some("Audio/Source"), None);
+    if monitor.start().is_err() {
+        return Vec::new();
+    }
+    let devices = monitor.devices();
+    monitor.stop();
+
+    devices
+        .into_iter()
+        .map(|device| (device.display_name().to_string(), device))
+        .collect()
+}
+
+fn source_from_device(device: &gst::Device) -> Result<gst::Element> {
+    let source = device
+        .create_element(None)
+        .context("Failed to create a source from the selected microphone")?;
+    if source.find_property("do-timestamp").is_some() {
+        source.set_property("do-timestamp", true);
+    }
+    Ok(source)
 }
 
 fn make_audio_source() -> Result<gst::Element> {

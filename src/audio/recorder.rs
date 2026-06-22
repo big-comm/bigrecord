@@ -5,7 +5,7 @@ use std::time::{Duration, Instant};
 use anyhow::{Context, Result, anyhow};
 use gst::prelude::*;
 
-pub const WAVEFORM_BINS: usize = 48;
+pub const WAVEFORM_BINS: usize = 64;
 
 const RECORDINGS_DIRECTORY_NAME: &str = "BigRecorder";
 

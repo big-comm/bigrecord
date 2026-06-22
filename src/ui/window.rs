@@ -37,28 +37,34 @@ struct RecorderWidgets {
     window: adw::ApplicationWindow,
     page_stack: gtk::Stack,
     start_button: gtk::Button,
+    ready_pill: gtk::Widget,
     record_button: gtk::Button,
     record_symbol: gtk::Stack,
     record_label: gtk::Label,
     stop_button: gtk::Button,
     status_label: gtk::Label,
     timer_label: gtk::Label,
-    path_label: gtk::Label,
     waveform: Waveform,
 }
 
 #[derive(Clone)]
 struct RecordingRow {
+    child: gtk::FlowBoxChild,
     row_widget: gtk::Box,
     path: PathBuf,
+    title_text: String,
     playback_symbol: gtk::Stack,
     playback_bar: PlaybackBar,
+    waveform_holder: gtk::Widget,
+    subtitle: gtk::Label,
+    meta_box: gtk::Widget,
 }
 
 #[derive(Clone)]
 struct ModeControls {
     page_stack: gtk::Stack,
     start_button: gtk::Button,
+    ready_pill: gtk::Widget,
     record_button: gtk::Button,
     record_symbol: gtk::Stack,
     record_label: gtk::Label,
@@ -94,8 +100,9 @@ enum ToolIllustration {
 #[derive(Clone)]
 struct ToolContext {
     window: adw::ApplicationWindow,
-    recordings_box: gtk::Box,
+    recordings_flow: gtk::FlowBox,
     empty_recordings_label: gtk::Label,
+    count_label: gtk::Label,
     recording_rows: RecordingRows,
     selected_recording: SelectedRecording,
     player: Rc<RefCell<Player>>,
@@ -150,8 +157,8 @@ pub fn build(app: &adw::Application) {
     let window = adw::ApplicationWindow::builder()
         .application(app)
         .title("Big Recorder")
-        .default_width(560)
-        .default_height(700)
+        .default_width(680)
+        .default_height(720)
         .resizable(false)
         .build();
 
@@ -160,11 +167,12 @@ pub fn build(app: &adw::Application) {
     let session = Rc::new(RefCell::new(Session::new()));
     let recording_rows: RecordingRows = Rc::new(RefCell::new(Vec::new()));
     let selected_recording: SelectedRecording = Rc::new(RefCell::new(None));
+    let search_text: Rc<RefCell<String>> = Rc::new(RefCell::new(String::new()));
 
     let header = adw::HeaderBar::new();
     header.add_css_class("flat-header");
-    let subtitle = gettext("Local voice recorder");
-    header.set_title_widget(Some(&adw::WindowTitle::new("Big Recorder", &subtitle)));
+    let title = adw::WindowTitle::new("Big Recorder", &gettext("Local voice recorder"));
+    header.set_title_widget(Some(&title));
 
     let menu_button = gtk::MenuButton::builder()
         .icon_name("open-menu-symbolic")
@@ -186,146 +194,178 @@ pub fn build(app: &adw::Application) {
 
     let page_stack = gtk::Stack::new();
     page_stack.set_vexpand(true);
-    page_stack.set_transition_type(gtk::StackTransitionType::SlideLeftRight);
+    page_stack.set_transition_type(gtk::StackTransitionType::Crossfade);
 
-    let recordings_page = gtk::Overlay::new();
-    recordings_page.set_vexpand(true);
-
+    // ---- Recordings page ----
     let recordings_scroll = gtk::ScrolledWindow::builder()
-        .hscrollbar_policy(gtk::PolicyType::Never)
+        .hscrollbar_policy(gtk::PolicyType::External)
         .vscrollbar_policy(gtk::PolicyType::Automatic)
         .vexpand(true)
         .build();
 
     let recordings_clamp = adw::Clamp::builder()
-        .maximum_size(560)
-        .tightening_threshold(560)
+        .maximum_size(660)
+        .tightening_threshold(660)
         .build();
     recordings_clamp.set_margin_top(14);
-    recordings_clamp.set_margin_bottom(92);
-    recordings_clamp.set_margin_start(14);
-    recordings_clamp.set_margin_end(14);
+    recordings_clamp.set_margin_bottom(14);
+    recordings_clamp.set_margin_start(16);
+    recordings_clamp.set_margin_end(16);
 
-    let recordings_content = gtk::Box::new(gtk::Orientation::Vertical, 12);
+    let recordings_content = gtk::Box::new(gtk::Orientation::Vertical, 14);
     recordings_content.set_hexpand(true);
 
-    let recordings_title = gtk::Label::new(Some(&gettext("Recordings")));
-    recordings_title.add_css_class("section-title");
-    recordings_title.set_halign(gtk::Align::Start);
+    // Header row: heading + count on the left, search + view toggles on the right.
+    let header_row = gtk::Box::new(gtk::Orientation::Horizontal, 12);
+    header_row.set_hexpand(true);
 
-    let recordings_box = gtk::Box::new(gtk::Orientation::Vertical, 10);
-    recordings_box.set_hexpand(true);
+    let heading_box = gtk::Box::new(gtk::Orientation::Vertical, 1);
+    heading_box.set_hexpand(true);
+    heading_box.set_valign(gtk::Align::Center);
+
+    let heading = gtk::Label::new(Some(&gettext("Recordings")));
+    heading.add_css_class("page-heading");
+    heading.set_halign(gtk::Align::Start);
+
+    let count_label = gtk::Label::new(None);
+    count_label.add_css_class("page-subheading");
+    count_label.set_halign(gtk::Align::Start);
+
+    heading_box.append(&heading);
+    heading_box.append(&count_label);
+
+    let search_entry = gtk::SearchEntry::new();
+    search_entry.set_placeholder_text(Some(&gettext("Search recordings")));
+    search_entry.add_css_class("search-field");
+    search_entry.set_valign(gtk::Align::Center);
+    search_entry.set_width_chars(16);
+
+    let list_toggle = gtk::ToggleButton::builder()
+        .icon_name("view-list-symbolic")
+        .tooltip_text(gettext("List view"))
+        .valign(gtk::Align::Center)
+        .active(true)
+        .build();
+    list_toggle.add_css_class("view-toggle");
+
+    let grid_toggle = gtk::ToggleButton::builder()
+        .icon_name("view-grid-symbolic")
+        .tooltip_text(gettext("Grid view"))
+        .valign(gtk::Align::Center)
+        .group(&list_toggle)
+        .build();
+    grid_toggle.add_css_class("view-toggle");
+
+    let toggle_box = gtk::Box::new(gtk::Orientation::Horizontal, 6);
+    toggle_box.set_valign(gtk::Align::Center);
+    toggle_box.append(&list_toggle);
+    toggle_box.append(&grid_toggle);
+
+    header_row.append(&heading_box);
+    header_row.append(&search_entry);
+    header_row.append(&toggle_box);
+
+    let recordings_flow = gtk::FlowBox::builder()
+        .orientation(gtk::Orientation::Horizontal)
+        .selection_mode(gtk::SelectionMode::None)
+        .min_children_per_line(1)
+        .max_children_per_line(1)
+        .row_spacing(10)
+        .column_spacing(10)
+        .homogeneous(false)
+        .hexpand(true)
+        .build();
+    recordings_flow.add_css_class("recordings-flow");
+    recordings_flow.add_css_class("list-view");
 
     let empty_recordings_label = gtk::Label::new(Some(&gettext("No recordings yet")));
     empty_recordings_label.add_css_class("empty-list");
     empty_recordings_label.set_halign(gtk::Align::Center);
-    recordings_box.append(&empty_recordings_label);
+    empty_recordings_label.set_valign(gtk::Align::Center);
+    empty_recordings_label.set_vexpand(true);
 
-    recordings_content.append(&recordings_title);
-    recordings_content.append(&recordings_box);
+    recordings_content.append(&header_row);
+    recordings_content.append(&recordings_flow);
+    recordings_content.append(&empty_recordings_label);
     recordings_clamp.set_child(Some(&recordings_content));
     recordings_scroll.set_child(Some(&recordings_clamp));
-    recordings_page.set_child(Some(&recordings_scroll));
 
-    let start_dot = gtk::Box::new(gtk::Orientation::Vertical, 0);
-    start_dot.add_css_class("record-dot");
-    start_dot.set_halign(gtk::Align::Center);
-    start_dot.set_valign(gtk::Align::Center);
-
-    let start_button = gtk::Button::builder()
-        .tooltip_text(gettext("Record"))
-        .halign(gtk::Align::Center)
-        .valign(gtk::Align::End)
-        .margin_bottom(18)
-        .build();
-    start_button.set_child(Some(&start_dot));
-    start_button.add_css_class("record-fab");
-    recordings_page.add_overlay(&start_button);
-
+    // ---- Recording page ----
     let recording_page = gtk::Box::new(gtk::Orientation::Vertical, 0);
     recording_page.set_vexpand(true);
 
     let recording_clamp = adw::Clamp::builder()
-        .maximum_size(560)
-        .tightening_threshold(560)
+        .maximum_size(660)
+        .tightening_threshold(660)
         .build();
-    recording_clamp.set_margin_top(14);
-    recording_clamp.set_margin_bottom(14);
-    recording_clamp.set_margin_start(14);
-    recording_clamp.set_margin_end(14);
+    recording_clamp.set_margin_top(16);
+    recording_clamp.set_margin_bottom(16);
+    recording_clamp.set_margin_start(16);
+    recording_clamp.set_margin_end(16);
+    recording_clamp.set_valign(gtk::Align::Center);
 
-    let recording_content = gtk::Box::new(gtk::Orientation::Vertical, 10);
-    recording_content.set_hexpand(true);
-
-    let recorder_surface = gtk::Box::new(gtk::Orientation::Vertical, 8);
+    let recorder_surface = gtk::Box::new(gtk::Orientation::Vertical, 18);
     recorder_surface.add_css_class("recorder-surface");
 
-    let status_row = gtk::Box::new(gtk::Orientation::Horizontal, 12);
-    status_row.set_halign(gtk::Align::Center);
-
     let status_label = gtk::Label::new(Some(&gettext("Ready")));
-    status_label.add_css_class("status-pill");
-    status_row.append(&status_label);
+    let status_row = status_pill(&status_label);
+
+    let waveform = Waveform::new();
+
+    let timer_box = gtk::Box::new(gtk::Orientation::Vertical, 2);
+    timer_box.set_halign(gtk::Align::Center);
 
     let timer_label = gtk::Label::new(Some("00:00:00"));
     timer_label.add_css_class("timer");
     timer_label.set_halign(gtk::Align::Center);
 
-    let waveform = Waveform::new();
+    let timer_caption = gtk::Label::new(Some(&gettext("Recording time")));
+    timer_caption.add_css_class("timer-caption");
+    timer_caption.set_halign(gtk::Align::Center);
 
-    let controls = gtk::Box::new(gtk::Orientation::Horizontal, 16);
+    timer_box.append(&timer_label);
+    timer_box.append(&timer_caption);
+
+    let controls = gtk::Box::new(gtk::Orientation::Horizontal, 14);
     controls.set_halign(gtk::Align::Center);
 
     let record_symbol = gtk::Stack::new();
     record_symbol.set_halign(gtk::Align::Center);
     record_symbol.set_valign(gtk::Align::Center);
-    record_symbol.set_size_request(24, 24);
-
-    let record_dot = gtk::Box::new(gtk::Orientation::Vertical, 0);
-    record_dot.add_css_class("record-dot");
-    record_dot.set_halign(gtk::Align::Center);
-    record_dot.set_valign(gtk::Align::Center);
+    record_symbol.set_size_request(20, 20);
 
     let pause_icon = gtk::Image::from_icon_name("media-playback-pause-symbolic");
-    pause_icon.set_pixel_size(24);
-    pause_icon.set_halign(gtk::Align::Center);
-    pause_icon.set_valign(gtk::Align::Center);
+    pause_icon.set_pixel_size(18);
 
     let play_icon = gtk::Image::from_icon_name("media-playback-start-symbolic");
-    play_icon.set_pixel_size(26);
-    play_icon.set_halign(gtk::Align::Center);
-    play_icon.set_valign(gtk::Align::Center);
+    play_icon.set_pixel_size(18);
 
-    record_symbol.add_named(&record_dot, Some("record"));
     record_symbol.add_named(&pause_icon, Some("pause"));
     record_symbol.add_named(&play_icon, Some("play"));
-    record_symbol.set_visible_child_name("record");
+    record_symbol.set_visible_child_name("pause");
 
-    let record_label = gtk::Label::new(Some(&gettext("Record")));
+    let record_label = gtk::Label::new(Some(&gettext("Pause")));
     record_label.add_css_class("control-label");
-    record_label.set_visible(false);
 
-    let record_content = gtk::Box::new(gtk::Orientation::Horizontal, 10);
+    let record_content = gtk::Box::new(gtk::Orientation::Horizontal, 8);
     record_content.set_halign(gtk::Align::Center);
     record_content.set_valign(gtk::Align::Center);
     record_content.append(&record_symbol);
     record_content.append(&record_label);
 
     let record_button = gtk::Button::builder()
-        .tooltip_text(gettext("Record"))
+        .tooltip_text(gettext("Pause"))
         .build();
     record_button.set_child(Some(&record_content));
-    record_button.add_css_class("record-fab");
+    record_button.add_css_class("control-pill");
 
     let stop_icon = gtk::Image::from_icon_name("media-playback-stop-symbolic");
-    stop_icon.set_pixel_size(18);
-    stop_icon.set_halign(gtk::Align::Center);
-    stop_icon.set_valign(gtk::Align::Center);
+    stop_icon.set_pixel_size(16);
 
     let stop_label = gtk::Label::new(Some(&gettext("Stop")));
     stop_label.add_css_class("control-label");
 
-    let stop_content = gtk::Box::new(gtk::Orientation::Horizontal, 10);
+    let stop_content = gtk::Box::new(gtk::Orientation::Horizontal, 8);
     stop_content.set_halign(gtk::Align::Center);
     stop_content.set_valign(gtk::Align::Center);
     stop_content.append(&stop_icon);
@@ -334,7 +374,6 @@ pub fn build(app: &adw::Application) {
     let stop_button = gtk::Button::builder()
         .tooltip_text(gettext("Stop"))
         .sensitive(false)
-        .visible(false)
         .build();
     stop_button.set_child(Some(&stop_content));
     stop_button.add_css_class("stop-pill");
@@ -342,95 +381,136 @@ pub fn build(app: &adw::Application) {
     controls.append(&record_button);
     controls.append(&stop_button);
 
-    let path_label = gtk::Label::new(Some(&gettext("Recordings are saved in Music/BigRecorder")));
-    path_label.add_css_class("muted");
-    path_label.set_wrap(true);
-    path_label.set_justify(gtk::Justification::Center);
-    path_label.set_halign(gtk::Align::Center);
+    let folder_row = folder_location_row(&window);
 
     recorder_surface.append(&status_row);
     recorder_surface.append(waveform.widget());
-    recorder_surface.append(&timer_label);
+    recorder_surface.append(&timer_box);
     recorder_surface.append(&controls);
-    recorder_surface.append(&path_label);
+    recorder_surface.append(&folder_row);
 
-    recording_content.append(&recorder_surface);
-    recording_clamp.set_child(Some(&recording_content));
+    recording_clamp.set_child(Some(&recorder_surface));
     recording_page.append(&recording_clamp);
 
-    page_stack.add_named(&recordings_page, Some("recordings"));
+    page_stack.add_named(&recordings_scroll, Some("recordings"));
     page_stack.add_named(&recording_page, Some("recording"));
     page_stack.set_visible_child_name("recordings");
 
-    let tools_footer = gtk::Box::new(gtk::Orientation::Vertical, 6);
+    // ---- Bottom area: tools panel + action bar ----
+    let tools_footer = gtk::Box::new(gtk::Orientation::Vertical, 0);
     tools_footer.add_css_class("tools-footer");
 
     let tools_revealer = gtk::Revealer::new();
     tools_revealer.set_transition_type(gtk::RevealerTransitionType::SlideUp);
     tools_revealer.set_transition_duration(180);
     tools_revealer.set_reveal_child(false);
+    // The panel floats over the list (it does not push the layout or resize
+    // the window): it is added to an overlay, anchored above the action bar.
+    tools_revealer.set_valign(gtk::Align::End);
+    tools_revealer.set_halign(gtk::Align::Fill);
+    tools_revealer.set_margin_start(16);
+    tools_revealer.set_margin_end(16);
+    tools_revealer.set_margin_bottom(80);
 
-    let tools_panel = gtk::Box::new(gtk::Orientation::Vertical, 8);
+    let tools_panel = gtk::Box::new(gtk::Orientation::Vertical, 12);
     tools_panel.add_css_class("tools-panel");
-    tools_panel.set_halign(gtk::Align::Center);
 
+    let tools_header = gtk::Box::new(gtk::Orientation::Horizontal, 12);
+    let tools_header_text = gtk::Box::new(gtk::Orientation::Vertical, 1);
+    tools_header_text.set_hexpand(true);
+    tools_header_text.set_valign(gtk::Align::Center);
     let tools_title = gtk::Label::new(Some(&gettext("Tools")));
     tools_title.add_css_class("section-title");
     tools_title.set_halign(gtk::Align::Start);
+    let tools_subtitle = gtk::Label::new(Some(&gettext("Apply effects to the selected recording")));
+    tools_subtitle.add_css_class("panel-subtitle");
+    tools_subtitle.set_halign(gtk::Align::Start);
+    tools_header_text.append(&tools_title);
+    tools_header_text.append(&tools_subtitle);
+
+    let restore_button = gtk::Button::with_label(&gettext("Restore"));
+    restore_button.add_css_class("panel-action");
+    restore_button.set_valign(gtk::Align::Center);
+    restore_button.set_sensitive(false);
+    restore_button.set_tooltip_text(Some(&gettext("Restore the original recording")));
+    let undo_button = gtk::Button::with_label(&gettext("Undo"));
+    undo_button.add_css_class("panel-action");
+    undo_button.set_valign(gtk::Align::Center);
+    undo_button.set_sensitive(false);
+
+    tools_header.append(&tools_header_text);
+    tools_header.append(&restore_button);
+    tools_header.append(&undo_button);
 
     let tools_grid = gtk::Grid::builder()
-        .column_spacing(8)
-        .row_spacing(8)
-        .hexpand(false)
-        .halign(gtk::Align::Center)
+        .column_spacing(10)
+        .row_spacing(10)
+        .hexpand(true)
         .column_homogeneous(true)
         .build();
-    tools_grid.add_css_class("tool-grid");
 
     let tools = [
-        ("edit-cut-symbolic", gettext("Trim"), ToolAction::Trim),
+        (
+            "edit-cut-symbolic",
+            gettext("Trim"),
+            gettext("Remove part of the audio"),
+            ToolAction::Trim,
+        ),
         (
             "audio-volume-high-symbolic",
             gettext("Volume"),
+            gettext("Adjust the loudness"),
             ToolAction::Volume,
         ),
         (
             "media-seek-forward-symbolic",
             gettext("Speed"),
+            gettext("Speed up or slow down"),
             ToolAction::Speed,
         ),
         (
             "audio-x-generic-symbolic",
             gettext("Pitch"),
+            gettext("Change the pitch"),
             ToolAction::Pitch,
         ),
         (
             "applications-multimedia-symbolic",
             gettext("Effects"),
+            gettext("Apply a voice effect"),
             ToolAction::VoiceEffects,
         ),
         (
             "view-more-symbolic",
             gettext("Equalizer"),
+            gettext("Tune frequency bands"),
             ToolAction::Equalizer,
         ),
         (
             "object-flip-horizontal-symbolic",
             gettext("Reverse"),
+            gettext("Play the audio backwards"),
             ToolAction::Reverse,
         ),
-        ("list-add-symbolic", gettext("Merge"), ToolAction::Merge),
+        (
+            "list-add-symbolic",
+            gettext("Merge"),
+            gettext("Join with another recording"),
+            ToolAction::Merge,
+        ),
         (
             "document-save-symbolic",
             gettext("Export"),
+            gettext("Save in another format"),
             ToolAction::Export,
         ),
     ];
 
     let tool_context = ToolContext {
         window: window.clone(),
-        recordings_box: recordings_box.clone(),
+        recordings_flow: recordings_flow.clone(),
         empty_recordings_label: empty_recordings_label.clone(),
+        count_label: count_label.clone(),
         recording_rows: Rc::clone(&recording_rows),
         selected_recording: Rc::clone(&selected_recording),
         player: Rc::clone(&player),
@@ -438,11 +518,10 @@ pub fn build(app: &adw::Application) {
 
     let tools_toggle = gtk::ToggleButton::builder()
         .tooltip_text(gettext("Tools"))
-        .halign(gtk::Align::Center)
         .build();
     tools_toggle.add_css_class("tools-toggle");
-    tools_toggle.set_child(Some(&toggle_button_content(
-        "view-grid-symbolic",
+    tools_toggle.set_child(Some(&pill_content(
+        "emblem-system-symbolic",
         &gettext("Tools"),
     )));
 
@@ -451,8 +530,8 @@ pub fn build(app: &adw::Application) {
         tools_revealer_clone.set_reveal_child(button.is_active());
     });
 
-    for (index, (icon, label, action)) in tools.iter().enumerate() {
-        let button = compact_tool_button(icon, label);
+    for (index, (icon, label, desc, action)) in tools.iter().enumerate() {
+        let button = tool_card(icon, label, desc);
         button.set_tooltip_text(Some(&tool_tooltip(*action)));
         let tool_context = tool_context.clone();
         let tools_toggle_clone = tools_toggle.clone();
@@ -464,16 +543,96 @@ pub fn build(app: &adw::Application) {
         tools_grid.attach(&button, (index % 3) as i32, (index / 3) as i32, 1, 1);
     }
 
-    tools_panel.append(&tools_title);
+    tools_panel.append(&tools_header);
     tools_panel.append(&tools_grid);
     tools_revealer.set_child(Some(&tools_panel));
-    tools_footer.append(&tools_revealer);
-    tools_footer.append(&tools_toggle);
 
+    // Start (record) FAB — raised above the action bar (added to the overlay).
+    let start_icon = gtk::Image::from_icon_name("audio-input-microphone-symbolic");
+    start_icon.set_pixel_size(28);
+    let start_button = gtk::Button::builder()
+        .tooltip_text(gettext("Record"))
+        .halign(gtk::Align::Center)
+        .valign(gtk::Align::End)
+        .margin_bottom(12)
+        .build();
+    start_button.set_child(Some(&start_icon));
+    start_button.add_css_class("record-fab");
+
+    // "Ready to record" device pill: level icon + title + microphone subtitle + chevron.
+    let ready_pill = gtk::Button::new();
+    ready_pill.add_css_class("ready-pill");
+    ready_pill.set_valign(gtk::Align::Center);
+    ready_pill.set_tooltip_text(Some(&gettext("Ready to record")));
+    let ready_content = gtk::Box::new(gtk::Orientation::Horizontal, 10);
+    ready_content.append(&level_icon());
+    let ready_text = gtk::Box::new(gtk::Orientation::Vertical, 0);
+    ready_text.set_valign(gtk::Align::Center);
+    let ready_title = gtk::Label::new(Some(&gettext("Ready to record")));
+    ready_title.add_css_class("ready-title");
+    ready_title.set_xalign(0.0);
+    let ready_subtitle = gtk::Label::new(Some(&gettext("Default microphone")));
+    ready_subtitle.add_css_class("ready-subtitle");
+    ready_subtitle.set_xalign(0.0);
+    ready_text.append(&ready_title);
+    ready_text.append(&ready_subtitle);
+    ready_content.append(&ready_text);
+    let ready_chevron = gtk::Image::from_icon_name("go-next-symbolic");
+    ready_chevron.set_pixel_size(15);
+    ready_chevron.add_css_class("chevron");
+    ready_content.append(&ready_chevron);
+    ready_pill.set_child(Some(&ready_content));
+
+    let action_bar = gtk::CenterBox::new();
+    action_bar.add_css_class("action-bar");
+    action_bar.set_start_widget(Some(&tools_toggle));
+    action_bar.set_end_widget(Some(&ready_pill));
+
+    tools_footer.append(&action_bar);
     root.append(&page_stack);
     root.append(&tools_footer);
-    toolbar.set_content(Some(&root));
+
+    // The list scroll must not push the window wider (keeps width constant when
+    // switching between list and grid views).
+    recordings_scroll.set_propagate_natural_width(false);
+
+    let overlay = gtk::Overlay::new();
+    overlay.set_child(Some(&root));
+    overlay.add_overlay(&tools_revealer);
+    overlay.add_overlay(&start_button);
+    toolbar.set_content(Some(&overlay));
     window.set_content(Some(&toolbar));
+
+    // Functional search.
+    let search_filter_rows = Rc::clone(&recording_rows);
+    let search_text_clone = Rc::clone(&search_text);
+    let flow_for_filter = recordings_flow.clone();
+    flow_for_filter.set_filter_func(move |child| {
+        let query = search_text_clone.borrow().to_lowercase();
+        if query.is_empty() {
+            return true;
+        }
+        search_filter_rows
+            .borrow()
+            .iter()
+            .find(|row| row.child == *child)
+            .map(|row| row.title_text.to_lowercase().contains(&query))
+            .unwrap_or(true)
+    });
+
+    let flow_for_search = recordings_flow.clone();
+    let search_text_clone = Rc::clone(&search_text);
+    search_entry.connect_search_changed(move |entry| {
+        search_text_clone.replace(entry.text().to_string());
+        flow_for_search.invalidate_filter();
+    });
+
+    // Functional list / grid view toggle.
+    let flow_for_view = recordings_flow.clone();
+    let view_rows = Rc::clone(&recording_rows);
+    grid_toggle.connect_toggled(move |button| {
+        apply_view_mode(&flow_for_view, &view_rows, button.is_active());
+    });
 
     load_saved_recordings(&tool_context);
 
@@ -482,13 +641,13 @@ pub fn build(app: &adw::Application) {
             window: window.clone(),
             page_stack,
             start_button,
+            ready_pill: ready_pill.upcast::<gtk::Widget>(),
             record_button,
             record_symbol,
             record_label,
             stop_button,
             status_label,
             timer_label,
-            path_label,
             waveform,
         },
         recorder,
@@ -499,6 +658,144 @@ pub fn build(app: &adw::Application) {
     );
 
     window.present();
+}
+
+fn level_icon() -> gtk::DrawingArea {
+    let area = gtk::DrawingArea::builder()
+        .content_width(18)
+        .content_height(18)
+        .valign(gtk::Align::Center)
+        .build();
+    area.set_draw_func(|widget, cr, width, height| {
+        let green = css_color(widget, "success_color", (0.18, 0.76, 0.45));
+        cr.set_source_rgb(green.0, green.1, green.2);
+        cr.set_line_cap(gtk::cairo::LineCap::Round);
+        cr.set_line_width(2.4);
+        let w = f64::from(width);
+        let h = f64::from(height);
+        let center_y = h / 2.0;
+        let heights = [0.45, 0.85, 0.6, 1.0, 0.5];
+        let count = heights.len();
+        let step = w / (count as f64 + 1.0);
+        for (index, factor) in heights.iter().enumerate() {
+            let x = step * (index as f64 + 1.0);
+            let bar = (h - 4.0) * factor;
+            cr.move_to(x, center_y - bar / 2.0);
+            cr.line_to(x, center_y + bar / 2.0);
+        }
+        let _ = cr.stroke();
+    });
+    area
+}
+
+fn status_pill(label: &gtk::Label) -> gtk::Box {
+    let row = gtk::Box::new(gtk::Orientation::Horizontal, 8);
+    row.add_css_class("status-pill");
+    row.set_halign(gtk::Align::Center);
+    row.set_valign(gtk::Align::Center);
+
+    let dot = gtk::Box::new(gtk::Orientation::Vertical, 0);
+    dot.add_css_class("status-dot");
+    dot.set_valign(gtk::Align::Center);
+
+    row.append(&dot);
+    row.append(label);
+    row
+}
+
+fn folder_location_row(window: &adw::ApplicationWindow) -> gtk::Button {
+    let row = gtk::Box::new(gtk::Orientation::Horizontal, 12);
+
+    let icon = gtk::Image::from_icon_name("folder-symbolic");
+    icon.set_pixel_size(18);
+    icon.set_valign(gtk::Align::Center);
+
+    let text_box = gtk::Box::new(gtk::Orientation::Vertical, 1);
+    text_box.set_hexpand(true);
+
+    let caption = gtk::Label::new(Some(&gettext("Recording in")));
+    caption.add_css_class("folder-caption");
+    caption.set_halign(gtk::Align::Start);
+
+    let directory = saved_recordings_directory_display();
+    let path_label = gtk::Label::new(Some(&directory));
+    path_label.add_css_class("folder-path");
+    path_label.set_halign(gtk::Align::Start);
+    path_label.set_ellipsize(gtk::pango::EllipsizeMode::Middle);
+    path_label.set_xalign(0.0);
+
+    text_box.append(&caption);
+    text_box.append(&path_label);
+
+    let chevron = gtk::Image::from_icon_name("go-next-symbolic");
+    chevron.set_pixel_size(16);
+    chevron.add_css_class("chevron");
+    chevron.set_valign(gtk::Align::Center);
+
+    row.append(&icon);
+    row.append(&text_box);
+    row.append(&chevron);
+
+    let button = gtk::Button::builder()
+        .tooltip_text(gettext("Open recordings folder"))
+        .build();
+    button.add_css_class("folder-row");
+    button.set_child(Some(&row));
+
+    let window = window.clone();
+    button.connect_clicked(move |_| {
+        open_recordings_folder(&window);
+    });
+
+    button
+}
+
+fn saved_recordings_directory_display() -> String {
+    let directory = crate::audio::recorder::recordings_directory();
+    if let Some(home) = glib::home_dir().to_str().map(str::to_owned)
+        && let Some(stripped) = directory.to_string_lossy().strip_prefix(&home)
+    {
+        return format!("~{stripped}");
+    }
+    directory.display().to_string()
+}
+
+fn open_recordings_folder(window: &adw::ApplicationWindow) {
+    let directory = crate::audio::recorder::recordings_directory();
+    let _ = std::fs::create_dir_all(&directory);
+    let uri = gio::File::for_path(&directory).uri();
+    if let Err(err) = gio::AppInfo::launch_default_for_uri(&uri, gio::AppLaunchContext::NONE) {
+        show_message(
+            window,
+            &gettext("Could not open recordings folder"),
+            &err.to_string(),
+            MessageKind::Error,
+        );
+    }
+}
+
+fn apply_view_mode(flow: &gtk::FlowBox, rows: &RecordingRows, grid: bool) {
+    if grid {
+        flow.set_min_children_per_line(2);
+        flow.set_max_children_per_line(2);
+        flow.set_homogeneous(true);
+        flow.remove_css_class("list-view");
+        flow.add_css_class("grid-view");
+    } else {
+        flow.set_min_children_per_line(1);
+        flow.set_max_children_per_line(1);
+        flow.set_homogeneous(false);
+        flow.remove_css_class("grid-view");
+        flow.add_css_class("list-view");
+    }
+
+    // Grid tiles stay compact (no waveform/meta) so two columns always fit the
+    // fixed window width — switching views never resizes the window.
+    for row in rows.borrow().iter() {
+        row.waveform_holder.set_visible(!grid);
+        row.subtitle.set_visible(!grid);
+        row.meta_box.set_visible(!grid);
+    }
 }
 
 fn install_window_actions(window: &adw::ApplicationWindow) {
@@ -589,6 +886,7 @@ fn connect_controls(
     let mode_controls = ModeControls {
         page_stack: widgets.page_stack.clone(),
         start_button: widgets.start_button.clone(),
+        ready_pill: widgets.ready_pill.clone(),
         record_button: widgets.record_button.clone(),
         record_symbol: widgets.record_symbol.clone(),
         record_label: widgets.record_label.clone(),
@@ -599,7 +897,6 @@ fn connect_controls(
     let window_clone = widgets.window.clone();
     let mode_controls_clone = mode_controls.clone();
     let timer_label_clone = widgets.timer_label.clone();
-    let path_label_clone = widgets.path_label.clone();
     let recorder_clone = Rc::clone(&recorder);
     let player_clone = Rc::clone(&player);
     let session_clone = Rc::clone(&session);
@@ -618,12 +915,7 @@ fn connect_controls(
 
         match recorder_clone.borrow_mut().start() {
             Ok(path) => {
-                session_clone.borrow_mut().start(path.clone());
-                let path_text = path.display().to_string();
-                path_label_clone.set_label(&format_message(
-                    &gettext("Recording to {path}"),
-                    &[("{path}", &path_text)],
-                ));
+                session_clone.borrow_mut().start(path);
                 apply_mode(RecordingMode::Recording, &mode_controls_clone);
             }
             Err(err) => show_error(&window_clone, &gettext("Could not start recording"), &err),
@@ -665,7 +957,6 @@ fn connect_controls(
     let window_clone = widgets.window.clone();
     let mode_controls_clone = mode_controls.clone();
     let timer_label_clone = widgets.timer_label.clone();
-    let path_label_clone = widgets.path_label.clone();
     let recorder_clone = Rc::clone(&recorder);
     let session_clone = Rc::clone(&session);
     let tool_context_clone = tool_context.clone();
@@ -677,11 +968,6 @@ fn connect_controls(
             Ok(Some(path)) => {
                 session_clone.borrow_mut().stop();
                 timer_label_clone.set_label(&format_duration(final_duration));
-                let path_text = path.display().to_string();
-                path_label_clone.set_label(&format_message(
-                    &gettext("Saved to {path}"),
-                    &[("{path}", &path_text)],
-                ));
                 apply_mode(RecordingMode::Idle, &mode_controls_clone);
                 append_recording_row(&tool_context_clone, path, Some(final_duration), true);
             }
@@ -699,6 +985,7 @@ fn connect_controls(
 fn apply_mode(mode: RecordingMode, controls: &ModeControls) {
     let page_stack = &controls.page_stack;
     let start_button = &controls.start_button;
+    let ready_pill = &controls.ready_pill;
     let record_button = &controls.record_button;
     let record_symbol = &controls.record_symbol;
     let record_label = &controls.record_label;
@@ -707,48 +994,39 @@ fn apply_mode(mode: RecordingMode, controls: &ModeControls) {
 
     status_label.remove_css_class("recording");
     status_label.remove_css_class("paused");
-    record_button.remove_css_class("record-fab");
-    record_button.remove_css_class("control-pill");
     record_button.remove_css_class("resume-pill");
+
+    let recording = mode != RecordingMode::Idle;
+    // While recording the controls live on the recording card, so the bottom
+    // FAB and the "ready" pill step aside.
+    start_button.set_visible(!recording);
+    ready_pill.set_visible(!recording);
 
     match mode {
         RecordingMode::Idle => {
             page_stack.set_visible_child_name("recordings");
             start_button.set_sensitive(true);
             status_label.set_label(&gettext("Ready"));
-            record_symbol.set_visible_child_name("record");
-            record_label.set_visible(false);
-            record_button.set_tooltip_text(Some(&gettext("Record")));
-            record_button.add_css_class("record-fab");
             stop_button.set_sensitive(false);
-            stop_button.set_visible(false);
         }
         RecordingMode::Recording => {
             page_stack.set_visible_child_name("recording");
-            start_button.set_sensitive(false);
             status_label.set_label(&gettext("Recording"));
             status_label.add_css_class("recording");
             record_symbol.set_visible_child_name("pause");
             record_label.set_label(&gettext("Pause"));
-            record_label.set_visible(true);
             record_button.set_tooltip_text(Some(&gettext("Pause")));
-            record_button.add_css_class("control-pill");
             stop_button.set_sensitive(true);
-            stop_button.set_visible(true);
         }
         RecordingMode::Paused => {
             page_stack.set_visible_child_name("recording");
-            start_button.set_sensitive(false);
             status_label.set_label(&gettext("Paused"));
             status_label.add_css_class("paused");
             record_symbol.set_visible_child_name("play");
             record_label.set_label(&gettext("Resume"));
-            record_label.set_visible(true);
             record_button.set_tooltip_text(Some(&gettext("Resume")));
-            record_button.add_css_class("control-pill");
             record_button.add_css_class("resume-pill");
             stop_button.set_sensitive(true);
-            stop_button.set_visible(true);
         }
     }
 }
@@ -770,6 +1048,36 @@ fn load_saved_recordings(context: &ToolContext) {
         }
         Err(err) => eprintln!("Failed to load saved recordings: {err}"),
     }
+    update_count(context);
+}
+
+fn reload_recordings(context: &ToolContext) {
+    let _ = context.player.borrow_mut().stop();
+    // Take the rows out before touching the flow box so callbacks fired during
+    // removal never re-enter a held borrow.
+    let rows = std::mem::take(&mut *context.recording_rows.borrow_mut());
+    for row in rows {
+        context.recordings_flow.remove(&row.child);
+    }
+    context.selected_recording.replace(None);
+    load_saved_recordings(context);
+}
+
+fn update_count(context: &ToolContext) {
+    let count = context.recording_rows.borrow().len();
+    let has_rows = count > 0;
+    context.empty_recordings_label.set_visible(!has_rows);
+    context.recordings_flow.set_visible(has_rows);
+
+    let text = if count == 1 {
+        gettext("1 recording")
+    } else {
+        format_message(
+            &gettext("{count} recordings"),
+            &[("{count}", &count.to_string())],
+        )
+    };
+    context.count_label.set_label(&text);
 }
 
 fn append_recording_row(
@@ -778,22 +1086,30 @@ fn append_recording_row(
     duration: Option<Duration>,
     auto_select: bool,
 ) {
-    context.empty_recordings_label.set_visible(false);
+    let title_text = recording_title(&path);
+    let duration = duration.or_else(|| recording_duration(&path));
+    let grid = context.recordings_flow.has_css_class("grid-view");
 
-    let row = gtk::Box::new(gtk::Orientation::Horizontal, 12);
+    let row = gtk::Box::new(gtk::Orientation::Horizontal, 8);
     row.add_css_class("recording-row");
     row.set_hexpand(true);
 
-    let row_body = gtk::Box::new(gtk::Orientation::Vertical, 8);
-    row_body.set_hexpand(true);
+    // Leading microphone icon.
+    let icon_holder = gtk::Box::new(gtk::Orientation::Vertical, 0);
+    icon_holder.add_css_class("row-icon");
+    icon_holder.set_valign(gtk::Align::Center);
+    let icon = gtk::Image::from_icon_name("audio-input-microphone-symbolic");
+    icon.set_pixel_size(20);
+    icon.set_hexpand(true);
+    icon.set_vexpand(true);
+    icon_holder.append(&icon);
 
-    let row_content = gtk::Box::new(gtk::Orientation::Horizontal, 14);
-    row_content.set_hexpand(true);
-
-    let text_box = gtk::Box::new(gtk::Orientation::Vertical, 4);
+    // Title + subtitle.
+    let text_box = gtk::Box::new(gtk::Orientation::Vertical, 2);
     text_box.set_hexpand(true);
+    text_box.set_valign(gtk::Align::Center);
 
-    let title = gtk::Label::new(Some(&recording_title(&path)));
+    let title = gtk::Label::new(Some(&title_text));
     title.add_css_class("recording-title");
     title.set_xalign(0.0);
     title.set_ellipsize(gtk::pango::EllipsizeMode::End);
@@ -801,16 +1117,34 @@ fn append_recording_row(
     let subtitle = gtk::Label::new(Some(&recording_subtitle(duration)));
     subtitle.add_css_class("recording-subtitle");
     subtitle.set_xalign(0.0);
+    subtitle.set_visible(!grid);
 
     text_box.append(&title);
     text_box.append(&subtitle);
 
-    let duration_label = gtk::Label::new(duration.map(format_compact_duration).as_deref());
-    duration_label.add_css_class("recording-duration");
-    duration_label.set_valign(gtk::Align::Start);
+    // Inline mini waveform.
+    let playback_bar = PlaybackBar::new(&path);
+    let waveform_holder = gtk::Box::new(gtk::Orientation::Vertical, 0);
+    waveform_holder.set_size_request(104, -1);
+    waveform_holder.set_valign(gtk::Align::Center);
+    waveform_holder.set_visible(!grid);
+    waveform_holder.append(playback_bar.widget());
 
+    // Metadata: duration + date.
+    let meta_box = gtk::Box::new(gtk::Orientation::Vertical, 3);
+    meta_box.set_valign(gtk::Align::Center);
+    meta_box.set_visible(!grid);
+    meta_box.append(&meta_line(
+        "document-open-recent-symbolic",
+        &duration.map(format_compact_duration).unwrap_or_default(),
+    ));
+    if let Some(date) = recording_date(&path) {
+        meta_box.append(&meta_line("x-office-calendar-symbolic", &date));
+    }
+
+    // Action buttons.
     let playback_symbol = gtk::Stack::new();
-    playback_symbol.set_size_request(24, 24);
+    playback_symbol.set_size_request(18, 18);
     playback_symbol.set_halign(gtk::Align::Center);
     playback_symbol.set_valign(gtk::Align::Center);
     playback_symbol.add_named(&row_playback_symbol(false), Some("play"));
@@ -819,41 +1153,49 @@ fn append_recording_row(
 
     let play_button = gtk::Button::builder()
         .tooltip_text(gettext("Play"))
-        .halign(gtk::Align::End)
         .valign(gtk::Align::Center)
         .build();
     play_button.add_css_class("row-play-button");
     play_button.set_child(Some(&playback_symbol));
 
     let delete_icon = gtk::Image::from_icon_name("user-trash-symbolic");
-    delete_icon.set_pixel_size(18);
-    delete_icon.set_halign(gtk::Align::Center);
-    delete_icon.set_valign(gtk::Align::Center);
+    delete_icon.set_pixel_size(16);
 
     let delete_button = gtk::Button::builder()
         .tooltip_text(gettext("Move to Trash"))
-        .halign(gtk::Align::End)
         .valign(gtk::Align::Center)
         .build();
     delete_button.add_css_class("row-delete-button");
     delete_button.set_child(Some(&delete_icon));
 
-    let playback_bar = PlaybackBar::new(&path);
+    let menu_button = build_row_menu(context, &path);
 
-    row_content.append(&text_box);
-    row_content.append(&duration_label);
-    row_body.append(&row_content);
-    row_body.append(playback_bar.widget());
-    row.append(&row_body);
-    row.append(&delete_button);
-    row.append(&play_button);
-    context.recordings_box.prepend(&row);
+    let actions = gtk::Box::new(gtk::Orientation::Horizontal, 6);
+    actions.set_valign(gtk::Align::Center);
+    actions.append(&play_button);
+    actions.append(&delete_button);
+    actions.append(&menu_button);
+
+    row.append(&icon_holder);
+    row.append(&text_box);
+    row.append(&waveform_holder);
+    row.append(&meta_box);
+    row.append(&actions);
+
+    let child = gtk::FlowBoxChild::new();
+    child.set_child(Some(&row));
+    context.recordings_flow.insert(&child, 0);
 
     context.recording_rows.borrow_mut().push(RecordingRow {
+        child: child.clone(),
         row_widget: row.clone(),
         path: path.clone(),
+        title_text,
         playback_symbol: playback_symbol.clone(),
         playback_bar: playback_bar.clone(),
+        waveform_holder: waveform_holder.upcast::<gtk::Widget>(),
+        subtitle: subtitle.clone(),
+        meta_box: meta_box.upcast::<gtk::Widget>(),
     });
 
     let select_rows = Rc::clone(&context.recording_rows);
@@ -899,6 +1241,175 @@ fn append_recording_row(
 
     if auto_select {
         select_recording(&context.recording_rows, &context.selected_recording, &path);
+    }
+
+    update_count(context);
+}
+
+fn meta_line(icon_name: &str, text: &str) -> gtk::Box {
+    let line = gtk::Box::new(gtk::Orientation::Horizontal, 5);
+    line.add_css_class("recording-meta");
+
+    let icon = gtk::Image::from_icon_name(icon_name);
+    icon.set_pixel_size(13);
+    icon.set_valign(gtk::Align::Center);
+
+    let label = gtk::Label::new(Some(text));
+    label.add_css_class("recording-meta");
+    label.set_xalign(0.0);
+
+    line.append(&icon);
+    line.append(&label);
+    line
+}
+
+fn build_row_menu(context: &ToolContext, path: &Path) -> gtk::MenuButton {
+    let menu_button = gtk::MenuButton::builder()
+        .icon_name("view-more-symbolic")
+        .tooltip_text(gettext("More options"))
+        .valign(gtk::Align::Center)
+        .build();
+    menu_button.add_css_class("row-menu-button");
+
+    let popover = gtk::Popover::new();
+    popover.set_has_arrow(false);
+    popover.set_position(gtk::PositionType::Bottom);
+    let menu_box = gtk::Box::new(gtk::Orientation::Vertical, 2);
+
+    let items: [(&str, String, RowMenuAction); 3] = [
+        (
+            "document-edit-symbolic",
+            gettext("Rename"),
+            RowMenuAction::Rename,
+        ),
+        (
+            "document-save-symbolic",
+            gettext("Export"),
+            RowMenuAction::Export,
+        ),
+        (
+            "user-trash-symbolic",
+            gettext("Move to Trash"),
+            RowMenuAction::Trash,
+        ),
+    ];
+
+    for (icon, label, action) in items {
+        let button = popover_menu_item(icon, &label, matches!(action, RowMenuAction::Trash));
+        let item_context = context.clone();
+        let item_path = path.to_path_buf();
+        let popover_clone = popover.clone();
+        button.connect_clicked(move |_| {
+            popover_clone.popdown();
+            run_row_menu_action(action, &item_context, &item_path);
+        });
+        menu_box.append(&button);
+    }
+
+    popover.set_child(Some(&menu_box));
+    menu_button.set_popover(Some(&popover));
+    menu_button
+}
+
+fn popover_menu_item(icon_name: &str, label: &str, destructive: bool) -> gtk::Button {
+    let content = gtk::Box::new(gtk::Orientation::Horizontal, 10);
+    let icon = gtk::Image::from_icon_name(icon_name);
+    icon.set_pixel_size(15);
+    let text = gtk::Label::new(Some(label));
+    text.set_xalign(0.0);
+    text.set_hexpand(true);
+    content.append(&icon);
+    content.append(&text);
+
+    let button = gtk::Button::new();
+    button.set_child(Some(&content));
+    button.add_css_class("flat");
+    if destructive {
+        button.add_css_class("destructive-action-text");
+    }
+    button
+}
+
+#[derive(Clone, Copy)]
+enum RowMenuAction {
+    Rename,
+    Export,
+    Trash,
+}
+
+fn run_row_menu_action(action: RowMenuAction, context: &ToolContext, path: &Path) {
+    select_recording(&context.recording_rows, &context.selected_recording, path);
+    match action {
+        RowMenuAction::Rename => show_rename_dialog(context, path.to_path_buf()),
+        RowMenuAction::Export => export_selected_recording(context),
+        RowMenuAction::Trash => confirm_trash_recording(context, path.to_path_buf()),
+    }
+}
+
+fn show_rename_dialog(context: &ToolContext, path: PathBuf) {
+    let dialog = adw::AlertDialog::new(Some(&gettext("Rename recording")), None);
+
+    let entry = gtk::Entry::new();
+    entry.set_text(&recording_title(&path));
+    entry.set_activates_default(true);
+    entry.set_hexpand(true);
+
+    let content = gtk::Box::new(gtk::Orientation::Vertical, 8);
+    content.add_css_class("tool-dialog");
+    content.append(&entry);
+    dialog.set_extra_child(Some(&content));
+
+    dialog.add_response("cancel", &gettext("Cancel"));
+    dialog.add_response("rename", &gettext("Rename"));
+    dialog.set_default_response(Some("rename"));
+    dialog.set_close_response("cancel");
+    dialog.set_response_appearance("rename", adw::ResponseAppearance::Suggested);
+
+    let action_context = context.clone();
+    dialog.connect_response(None, move |_, response| {
+        if response != "rename" {
+            return;
+        }
+        let new_name = entry.text().trim().to_string();
+        rename_recording(&action_context, &path, &new_name);
+    });
+    dialog.present(Some(&context.window));
+}
+
+fn rename_recording(context: &ToolContext, path: &Path, new_name: &str) {
+    if new_name.is_empty() {
+        return;
+    }
+
+    let extension = path
+        .extension()
+        .and_then(|ext| ext.to_str())
+        .unwrap_or("wav");
+    let target = path.with_file_name(format!("{new_name}.{extension}"));
+
+    if target == path {
+        return;
+    }
+    if target.exists() {
+        show_notice(
+            &context.window,
+            &gettext("Could not rename recording"),
+            &gettext("A recording with that name already exists."),
+        );
+        return;
+    }
+
+    match std::fs::rename(path, &target) {
+        Ok(()) => {
+            reload_recordings(context);
+            select_recording(&context.recording_rows, &context.selected_recording, &target);
+        }
+        Err(err) => show_message(
+            &context.window,
+            &gettext("Could not rename recording"),
+            &err.to_string(),
+            MessageKind::Error,
+        ),
     }
 }
 
@@ -955,7 +1466,7 @@ fn remove_recording_row(context: &ToolContext, path: &Path) {
         .as_ref()
         .is_some_and(|selected_path| selected_path == path);
 
-    let Some((row_widget, replacement_path, list_is_empty)) = ({
+    let Some((child, replacement_path, list_is_empty)) = ({
         let mut rows = context.recording_rows.borrow_mut();
         if let Some(index) = rows.iter().position(|row| row.path == path) {
             let removed_row = rows.remove(index);
@@ -967,7 +1478,7 @@ fn remove_recording_row(context: &ToolContext, path: &Path) {
                 None
             };
 
-            Some((removed_row.row_widget, replacement_path, rows.is_empty()))
+            Some((removed_row.child, replacement_path, rows.is_empty()))
         } else {
             None
         }
@@ -975,14 +1486,15 @@ fn remove_recording_row(context: &ToolContext, path: &Path) {
         return;
     };
 
-    context.recordings_box.remove(&row_widget);
+    context.recordings_flow.remove(&child);
 
     if list_is_empty {
-        context.empty_recordings_label.set_visible(true);
         context.selected_recording.replace(None);
     } else if let Some(path) = replacement_path {
         select_recording(&context.recording_rows, &context.selected_recording, &path);
     }
+
+    update_count(context);
 }
 
 fn select_recording(
@@ -1068,14 +1580,55 @@ fn show_trim_dialog(context: &ToolContext) {
 
     let max_seconds = duration.as_secs_f64();
     let start_spin = number_spin(0.0, max_seconds, 0.1, 2, 0.0);
-    let end_spin = number_spin(0.0, max_seconds, 0.1, 2, max_seconds);
-    let content = tool_content_with_illustration(
-        ToolIllustration::Trim,
-        &[
-            (&gettext("Start seconds"), &start_spin),
-            (&gettext("End seconds"), &end_spin),
-        ],
-    );
+    let end_spin = number_spin(0.0, max_seconds, 0.1, 2, 0.0);
+
+    let content = gtk::Box::new(gtk::Orientation::Vertical, 16);
+    content.add_css_class("tool-dialog");
+    content.append(&tool_illustration(ToolIllustration::Trim));
+
+    // Selected-duration readout.
+    let duration_box = gtk::Box::new(gtk::Orientation::Vertical, 1);
+    duration_box.set_halign(gtk::Align::Center);
+    let duration_value = gtk::Label::new(Some(&format_trim_duration(max_seconds)));
+    duration_value.add_css_class("selected-duration");
+    let duration_caption = gtk::Label::new(Some(&gettext("Selected duration")));
+    duration_caption.add_css_class("selected-duration-caption");
+    duration_box.append(&duration_value);
+    duration_box.append(&duration_caption);
+    content.append(&duration_box);
+
+    let fields = gtk::Box::new(gtk::Orientation::Vertical, 10);
+    fields.append(&stepper_field(
+        &gettext("Initial seconds"),
+        &gettext("Remove from the start of the recording"),
+        &start_spin,
+    ));
+    fields.append(&stepper_field(
+        &gettext("Final seconds"),
+        &gettext("Remove from the end of the recording"),
+        &end_spin,
+    ));
+    content.append(&fields);
+
+    // Keep the readout in sync with both steppers.
+    let update_value = {
+        let duration_value = duration_value.clone();
+        let start_spin = start_spin.clone();
+        let end_spin = end_spin.clone();
+        move || {
+            let selected = (max_seconds - start_spin.value() - end_spin.value()).max(0.0);
+            duration_value.set_label(&format_trim_duration(selected));
+        }
+    };
+    let update_clone = update_value.clone();
+    start_spin
+        .adjustment()
+        .connect_value_changed(move |_| update_clone());
+    let update_clone = update_value.clone();
+    end_spin
+        .adjustment()
+        .connect_value_changed(move |_| update_clone());
+
     let dialog = tool_dialog(
         &gettext("Trim recording"),
         Some(&recording_title(&path)),
@@ -1091,7 +1644,7 @@ fn show_trim_dialog(context: &ToolContext) {
 
         let task_path = path.clone();
         let start = Duration::from_secs_f64(start_spin.value());
-        let end = Duration::from_secs_f64(end_spin.value());
+        let end = Duration::from_secs_f64((max_seconds - end_spin.value()).max(0.0));
         run_processed_task(
             &action_context,
             gettext("Could not trim recording"),
@@ -1099,6 +1652,46 @@ fn show_trim_dialog(context: &ToolContext) {
         );
     });
     dialog.present(Some(&window));
+}
+
+fn stepper_field(title: &str, description: &str, spin: &gtk::SpinButton) -> gtk::Box {
+    let row = gtk::Box::new(gtk::Orientation::Horizontal, 12);
+    row.add_css_class("stepper-row");
+
+    let icon = gtk::Image::from_icon_name("document-open-recent-symbolic");
+    icon.set_pixel_size(16);
+    icon.add_css_class("stepper-icon");
+    icon.set_valign(gtk::Align::Center);
+
+    let text_box = gtk::Box::new(gtk::Orientation::Vertical, 1);
+    text_box.set_hexpand(true);
+    text_box.set_valign(gtk::Align::Center);
+
+    let title_label = gtk::Label::new(Some(title));
+    title_label.add_css_class("stepper-title");
+    title_label.set_xalign(0.0);
+
+    let desc_label = gtk::Label::new(Some(description));
+    desc_label.add_css_class("stepper-desc");
+    desc_label.set_xalign(0.0);
+    desc_label.set_wrap(true);
+
+    text_box.append(&title_label);
+    text_box.append(&desc_label);
+
+    spin.set_valign(gtk::Align::Center);
+
+    row.append(&icon);
+    row.append(&text_box);
+    row.append(spin);
+    row
+}
+
+fn format_trim_duration(total_seconds: f64) -> String {
+    let total = total_seconds.max(0.0);
+    let minutes = (total / 60.0).floor() as u64;
+    let seconds = total - (minutes as f64) * 60.0;
+    format!("{minutes:02}:{seconds:05.2}").replace('.', ",")
 }
 
 fn show_volume_dialog(context: &ToolContext) {
@@ -2205,16 +2798,64 @@ fn recording_title(path: &std::path::Path) -> String {
         .unwrap_or_else(|| gettext("Recording"))
 }
 
-fn recording_subtitle(duration: Option<Duration>) -> String {
-    if let Some(duration) = duration {
-        let compact_duration = format_compact_duration(duration);
-        return format_message(
-            &gettext("Duration {duration}"),
-            &[("{duration}", &compact_duration)],
-        );
+fn recording_subtitle(_duration: Option<Duration>) -> String {
+    gettext("Saved recording")
+}
+
+/// Reads a WAV file's duration from its header (fmt byte-rate + data size),
+/// avoiding a full decode of the audio data.
+fn recording_duration(path: &Path) -> Option<Duration> {
+    use std::io::Read;
+
+    let mut file = std::fs::File::open(path).ok()?;
+    let mut header = [0u8; 8192];
+    let read = file.read(&mut header).ok()?;
+    let bytes = &header[..read];
+
+    if bytes.len() < 12 || &bytes[0..4] != b"RIFF" || &bytes[8..12] != b"WAVE" {
+        return None;
     }
 
-    gettext("Saved recording")
+    let mut byte_rate = None;
+    let mut data_size = None;
+    let mut offset = 12;
+    while offset + 8 <= bytes.len() {
+        let chunk_id = &bytes[offset..offset + 4];
+        let chunk_size =
+            u32::from_le_bytes(bytes.get(offset + 4..offset + 8)?.try_into().ok()?) as usize;
+        match chunk_id {
+            b"fmt " => {
+                byte_rate =
+                    Some(u32::from_le_bytes(bytes.get(offset + 16..offset + 20)?.try_into().ok()?));
+            }
+            b"data" => {
+                data_size = Some(chunk_size);
+                break;
+            }
+            _ => {}
+        }
+        offset += 8 + chunk_size + (chunk_size % 2);
+    }
+
+    let byte_rate = byte_rate.filter(|rate| *rate > 0)?;
+    let data_size = data_size?;
+    Some(Duration::from_secs_f64(
+        data_size as f64 / f64::from(byte_rate),
+    ))
+}
+
+/// Formats a recording's modification time as a localized date and time.
+fn recording_date(path: &Path) -> Option<String> {
+    let modified = std::fs::metadata(path).ok()?.modified().ok()?;
+    let seconds = modified
+        .duration_since(std::time::UNIX_EPOCH)
+        .ok()?
+        .as_secs() as i64;
+    let datetime = glib::DateTime::from_unix_local(seconds).ok()?;
+    datetime
+        .format("%d/%m/%Y %H:%M")
+        .ok()
+        .map(|formatted| formatted.to_string())
 }
 
 fn row_playback_symbol(paused: bool) -> gtk::DrawingArea {
@@ -2225,8 +2866,8 @@ fn row_playback_symbol(paused: bool) -> gtk::DrawingArea {
         .valign(gtk::Align::Center)
         .build();
     area.set_draw_func(move |widget, cr, width, height| {
-        let accent = css_color(widget, "accent_color", (0.45, 0.72, 1.0));
-        cr.set_source_rgb(accent.0, accent.1, accent.2);
+        let fg = css_color(widget, "accent_fg_color", (1.0, 1.0, 1.0));
+        cr.set_source_rgb(fg.0, fg.1, fg.2);
         let w = f64::from(width);
         let h = f64::from(height);
         let cx = w / 2.0;
@@ -2254,8 +2895,8 @@ fn row_playback_symbol(paused: bool) -> gtk::DrawingArea {
     area
 }
 
-fn toggle_button_content(icon: &str, label: &str) -> gtk::Box {
-    let content = gtk::Box::new(gtk::Orientation::Horizontal, 6);
+fn pill_content(icon: &str, label: &str) -> gtk::Box {
+    let content = gtk::Box::new(gtk::Orientation::Horizontal, 8);
     content.set_halign(gtk::Align::Center);
     content.set_valign(gtk::Align::Center);
 
@@ -2270,21 +2911,50 @@ fn toggle_button_content(icon: &str, label: &str) -> gtk::Box {
     content
 }
 
-fn compact_tool_button(icon: &str, label: &str) -> gtk::Button {
-    let button = gtk::Button::new();
-    let content = gtk::Box::new(gtk::Orientation::Horizontal, 6);
-    content.set_halign(gtk::Align::Center);
+fn tool_card(icon: &str, label: &str, description: &str) -> gtk::Button {
+    // Fill the whole button width so the icon is always pinned to the left
+    // edge (otherwise the button centres the icon+text group, which shifts the
+    // icon depending on each label's length).
+    let content = gtk::Box::new(gtk::Orientation::Horizontal, 12);
     content.set_valign(gtk::Align::Center);
+    content.set_hexpand(true);
 
+    // Fixed-size icon tile so every tool button shares the exact same badge.
+    let icon_holder = gtk::Box::new(gtk::Orientation::Vertical, 0);
+    icon_holder.add_css_class("tool-card-icon");
+    icon_holder.set_size_request(36, 36);
+    icon_holder.set_halign(gtk::Align::Start);
+    icon_holder.set_valign(gtk::Align::Center);
     let image = gtk::Image::from_icon_name(icon);
     image.set_pixel_size(16);
+    image.set_halign(gtk::Align::Center);
+    image.set_valign(gtk::Align::Center);
+    image.set_hexpand(true);
+    image.set_vexpand(true);
+    icon_holder.append(&image);
 
-    let text = gtk::Label::new(Some(label));
-    text.set_ellipsize(gtk::pango::EllipsizeMode::End);
-    text.add_css_class("tool-label");
+    let text_box = gtk::Box::new(gtk::Orientation::Vertical, 1);
+    text_box.set_hexpand(true);
+    text_box.set_valign(gtk::Align::Center);
 
-    content.append(&image);
-    content.append(&text);
+    let title = gtk::Label::new(Some(label));
+    title.add_css_class("tool-label");
+    title.set_xalign(0.0);
+
+    let desc = gtk::Label::new(Some(description));
+    desc.add_css_class("tool-desc");
+    desc.set_xalign(0.0);
+    desc.set_ellipsize(gtk::pango::EllipsizeMode::End);
+
+    text_box.append(&title);
+    text_box.append(&desc);
+
+    content.append(&icon_holder);
+    content.append(&text_box);
+
+    let button = gtk::Button::new();
+    button.add_css_class("tool-card");
+    button.set_hexpand(true);
     button.set_child(Some(&content));
     button
 }

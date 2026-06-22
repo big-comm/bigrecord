@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bigrecorder 0.1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-27 22:09-0300\n"
+"POT-Creation-Date: 2026-06-21 23:18-0300\n"
 "PO-Revision-Date: 2026-05-27 20:46\n"
 "Last-Translator: BigLinux Team\n"
 "Language-Team: Croatian <hr@li.org>\n"
@@ -12,490 +12,620 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/ui/window.rs:167
-msgid "Local voice recorder"
-msgstr "Lokalni diktafon"
-
-#: src/ui/window.rs:172
-msgid "Menu"
-msgstr "Izbornik"
-
-#: src/ui/window.rs:175
-msgid "About"
-msgstr "O aplikaciji"
-
-#: src/ui/window.rs:176
-msgid "Close"
-msgstr "Zatvori"
-
-#: src/ui/window.rs:213
-msgid "Recordings"
-msgstr "Snimke"
-
-#: src/ui/window.rs:220
-msgid "No recordings yet"
-msgstr "Još nema snimki"
-
-#: src/ui/window.rs:237 src/ui/window.rs:305 src/ui/window.rs:316
-#: src/ui/window.rs:722
+#: src/i18n.rs:241 src/ui/window.rs:554
 msgid "Record"
 msgstr "Snimaj"
 
-#: src/ui/window.rs:267 src/ui/window.rs:719
+#: src/ui/window.rs:174
+msgid "Local voice recorder"
+msgstr "Lokalni diktafon"
+
+#: src/ui/window.rs:179
+msgid "Menu"
+msgstr "Izbornik"
+
+#: src/ui/window.rs:182
+msgid "About"
+msgstr "O aplikaciji"
+
+#: src/ui/window.rs:183
+msgid "Close"
+msgstr "Zatvori"
+
+#: src/ui/window.rs:226
+msgid "Recordings"
+msgstr "Snimke"
+
+#: src/ui/window.rs:238
+msgid "Search recordings"
+msgstr ""
+
+#: src/ui/window.rs:245
+msgid "List view"
+msgstr ""
+
+#: src/ui/window.rs:253
+msgid "Grid view"
+msgstr ""
+
+#: src/ui/window.rs:281
+msgid "No recordings yet"
+msgstr "Još nema snimki"
+
+#: src/ui/window.rs:310 src/ui/window.rs:1015
 msgid "Ready"
 msgstr "Spremno"
 
-#: src/ui/window.rs:326 src/ui/window.rs:336
-msgid "Stop"
-msgstr "Zaustavi"
+#: src/ui/window.rs:322
+msgid "Recording time"
+msgstr ""
 
-#: src/ui/window.rs:346
-msgid "Recordings are saved in Music/BigRecorder"
-msgstr "Snimke se spremaju u Music/BigRecorder"
-
-#: src/ui/window.rs:378 src/ui/window.rs:441 src/ui/window.rs:447
-msgid "Tools"
-msgstr "Alati"
-
-#: src/ui/window.rs:392
-msgid "Trim"
-msgstr "Obreži"
-
-#: src/ui/window.rs:395
-msgid "Volume"
-msgstr "Glasnoća"
-
-#: src/ui/window.rs:400
-msgid "Speed"
-msgstr "Brzina"
-
-#: src/ui/window.rs:405
-msgid "Pitch"
-msgstr "Visina tona"
-
-#: src/ui/window.rs:410
-msgid "Effects"
-msgstr "Efekti"
-
-#: src/ui/window.rs:415 src/ui/window.rs:1265
-msgid "Equalizer"
-msgstr "Ekvilajzer"
-
-#: src/ui/window.rs:420 src/ui/window.rs:1299
-msgid "Reverse"
-msgstr "Obrni"
-
-#: src/ui/window.rs:423
-msgid "Merge"
-msgstr "Spoji"
-
-#: src/ui/window.rs:426 src/ui/window.rs:1424 src/ui/window.rs:1451
-msgid "Export"
-msgstr "Izvezi"
-
-#: src/ui/window.rs:515
-msgid "Local voice recorder built with Rust, GTK4, libadwaita, and GStreamer."
-msgstr "Lokalni diktafon izrađen s Rust, GTK4, libadwaita i GStreamer."
-
-#: src/ui/window.rs:615 src/ui/window.rs:931 src/ui/window.rs:1701
-#: src/ui/window.rs:1720
-msgid "Could not stop playback"
-msgstr "Nije moguće zaustaviti reprodukciju"
-
-#: src/ui/window.rs:625
-#, rust-format
-msgid "Recording to {path}"
-msgstr "Snimanje u {path}"
-
-#: src/ui/window.rs:630
-msgid "Could not start recording"
-msgstr "Nije moguće pokrenuti snimanje"
-
-#: src/ui/window.rs:651
-msgid "Could not pause"
-msgstr "Nije moguće pauzirati"
-
-#: src/ui/window.rs:658
-msgid "Could not resume"
-msgstr "Nije moguće nastaviti"
-
-#: src/ui/window.rs:683
-#, rust-format
-msgid "Saved to {path}"
-msgstr "Spremljeno u {path}"
-
-#: src/ui/window.rs:694
-msgid "Could not finish recording"
-msgstr "Nije moguće dovršiti snimanje"
-
-#: src/ui/window.rs:730 src/ui/window.rs:2206
-msgid "Recording"
-msgstr "Snimanje"
-
-#: src/ui/window.rs:733 src/ui/window.rs:735
+#: src/ui/window.rs:347 src/ui/window.rs:357 src/ui/window.rs:1023
+#: src/ui/window.rs:1024
 msgid "Pause"
 msgstr "Pauza"
 
-#: src/ui/window.rs:743
+#: src/ui/window.rs:365 src/ui/window.rs:375
+msgid "Stop"
+msgstr "Zaustavi"
+
+#: src/ui/window.rs:422 src/ui/window.rs:520 src/ui/window.rs:525
+msgid "Tools"
+msgstr "Alati"
+
+#: src/ui/window.rs:425
+msgid "Apply effects to the selected recording"
+msgstr ""
+
+#: src/ui/window.rs:431
+msgid "Restore"
+msgstr ""
+
+#: src/ui/window.rs:435
+msgid "Restore the original recording"
+msgstr ""
+
+#: src/ui/window.rs:436
+msgid "Undo"
+msgstr ""
+
+#: src/ui/window.rs:455
+msgid "Trim"
+msgstr "Obreži"
+
+#: src/ui/window.rs:456
+msgid "Remove part of the audio"
+msgstr ""
+
+#: src/ui/window.rs:461
+msgid "Volume"
+msgstr "Glasnoća"
+
+#: src/ui/window.rs:462
+msgid "Adjust the loudness"
+msgstr ""
+
+#: src/ui/window.rs:467
+msgid "Speed"
+msgstr "Brzina"
+
+#: src/ui/window.rs:468
+msgid "Speed up or slow down"
+msgstr ""
+
+#: src/ui/window.rs:473
+msgid "Pitch"
+msgstr "Visina tona"
+
+#: src/ui/window.rs:474
+msgid "Change the pitch"
+msgstr ""
+
+#: src/ui/window.rs:479
+msgid "Effects"
+msgstr "Efekti"
+
+#: src/ui/window.rs:480
+msgid "Apply a voice effect"
+msgstr ""
+
+#: src/ui/window.rs:485 src/ui/window.rs:1863
+msgid "Equalizer"
+msgstr "Ekvilajzer"
+
+#: src/ui/window.rs:486
+msgid "Tune frequency bands"
+msgstr ""
+
+#: src/ui/window.rs:491 src/ui/window.rs:1897
+msgid "Reverse"
+msgstr "Obrni"
+
+#: src/ui/window.rs:492
+msgid "Play the audio backwards"
+msgstr ""
+
+#: src/ui/window.rs:497
+msgid "Merge"
+msgstr "Spoji"
+
+#: src/ui/window.rs:498
+msgid "Join with another recording"
+msgstr ""
+
+#: src/ui/window.rs:503 src/ui/window.rs:1293 src/ui/window.rs:2022
+#: src/ui/window.rs:2049
+msgid "Export"
+msgstr "Izvezi"
+
+#: src/ui/window.rs:504
+msgid "Save in another format"
+msgstr ""
+
+#: src/ui/window.rs:566 src/ui/window.rs:571
+msgid "Ready to record"
+msgstr ""
+
+#: src/ui/window.rs:574
+msgid "Default microphone"
+msgstr ""
+
+#: src/ui/window.rs:722
+msgid "Recording in"
+msgstr ""
+
+#: src/ui/window.rs:746
+msgid "Open recordings folder"
+msgstr ""
+
+#: src/ui/window.rs:776
+msgid "Could not open recordings folder"
+msgstr ""
+
+#: src/ui/window.rs:817
+msgid "Local voice recorder built with Rust, GTK4, libadwaita, and GStreamer."
+msgstr "Lokalni diktafon izrađen s Rust, GTK4, libadwaita i GStreamer."
+
+#: src/ui/window.rs:917 src/ui/window.rs:1447 src/ui/window.rs:2299
+#: src/ui/window.rs:2318
+msgid "Could not stop playback"
+msgstr "Nije moguće zaustaviti reprodukciju"
+
+#: src/ui/window.rs:927
+msgid "Could not start recording"
+msgstr "Nije moguće pokrenuti snimanje"
+
+#: src/ui/window.rs:948
+msgid "Could not pause"
+msgstr "Nije moguće pauzirati"
+
+#: src/ui/window.rs:955
+msgid "Could not resume"
+msgstr "Nije moguće nastaviti"
+
+#: src/ui/window.rs:985
+msgid "Could not finish recording"
+msgstr "Nije moguće dovršiti snimanje"
+
+#: src/ui/window.rs:1020 src/ui/window.rs:2804
+msgid "Recording"
+msgstr "Snimanje"
+
+#: src/ui/window.rs:1029
 msgid "Paused"
 msgstr "Pauzirano"
 
-#: src/ui/window.rs:746 src/ui/window.rs:748
+#: src/ui/window.rs:1032 src/ui/window.rs:1033
 msgid "Resume"
 msgstr "Nastavi"
 
-#: src/ui/window.rs:822
+#: src/ui/window.rs:1079
+msgid "1 recording"
+msgstr ""
+
+#: src/ui/window.rs:1082
+msgid "{count} recordings"
+msgstr ""
+
+#: src/ui/window.rs:1161
 msgid "Play"
 msgstr "Reproduciraj"
 
-#: src/ui/window.rs:835 src/ui/window.rs:915
+#: src/ui/window.rs:1171 src/ui/window.rs:1298 src/ui/window.rs:1431
 msgid "Move to Trash"
 msgstr "Premjesti u smeće"
 
-#: src/ui/window.rs:897
+#: src/ui/window.rs:1244
 msgid "Could not play recording"
 msgstr "Nije moguće reproducirati snimku"
 
-#: src/ui/window.rs:908
-msgid "Move recording to trash?"
-msgstr "Premjestiti snimku u smeće?"
+#: src/ui/window.rs:1275
+msgid "More options"
+msgstr ""
 
-#: src/ui/window.rs:910
-#, rust-format
-msgid "{recording} will be moved to the system trash."
-msgstr "{recording} bit će premještena u sistemsko smeće."
+#: src/ui/window.rs:1288 src/ui/window.rs:1369
+msgid "Rename"
+msgstr ""
 
-#: src/ui/window.rs:914 src/ui/window.rs:1298 src/ui/window.rs:1423
-#: src/ui/window.rs:1452 src/ui/window.rs:1767
+#: src/ui/window.rs:1356
+msgid "Rename recording"
+msgstr ""
+
+#: src/ui/window.rs:1368 src/ui/window.rs:1430 src/ui/window.rs:1896
+#: src/ui/window.rs:2021 src/ui/window.rs:2050 src/ui/window.rs:2365
 msgid "Cancel"
 msgstr "Odustani"
 
-#: src/ui/window.rs:940
+#: src/ui/window.rs:1402 src/ui/window.rs:1415
+msgid "Could not rename recording"
+msgstr ""
+
+#: src/ui/window.rs:1403
+msgid "A recording with that name already exists."
+msgstr ""
+
+#: src/ui/window.rs:1424
+msgid "Move recording to trash?"
+msgstr "Premjestiti snimku u smeće?"
+
+#: src/ui/window.rs:1426
+msgid "{recording} will be moved to the system trash."
+msgstr "{recording} bit će premještena u sistemsko smeće."
+
+#: src/ui/window.rs:1456
 msgid "Could not move recording to trash"
 msgstr "Nije moguće premjestiti snimku u smeće"
 
-#: src/ui/window.rs:1042
+#: src/ui/window.rs:1559
 msgid "Select a recording first"
 msgstr "Prvo odaberite snimku"
 
-#: src/ui/window.rs:1043
+#: src/ui/window.rs:1560
 msgid "Click a recording in the list before using a tool."
 msgstr "Kliknite na snimku na popisu prije korištenja alata."
 
-#: src/ui/window.rs:1059 src/ui/window.rs:1065 src/ui/window.rs:1098
+#: src/ui/window.rs:1576 src/ui/window.rs:1582 src/ui/window.rs:1656
 msgid "Could not trim recording"
 msgstr "Nije moguće skratiti snimku"
 
-#: src/ui/window.rs:1060
+#: src/ui/window.rs:1577
 msgid "This recording has no audio data."
 msgstr "Ova snimka nema audio podataka."
 
-#: src/ui/window.rs:1076
-msgid "Start seconds"
-msgstr "Početne sekunde"
+#: src/ui/window.rs:1600
+msgid "Selected duration"
+msgstr ""
 
-#: src/ui/window.rs:1077
-msgid "End seconds"
-msgstr "Završne sekunde"
+#: src/ui/window.rs:1608
+msgid "Initial seconds"
+msgstr ""
 
-#: src/ui/window.rs:1081
+#: src/ui/window.rs:1609
+msgid "Remove from the start of the recording"
+msgstr ""
+
+#: src/ui/window.rs:1613
+msgid "Final seconds"
+msgstr ""
+
+#: src/ui/window.rs:1614
+msgid "Remove from the end of the recording"
+msgstr ""
+
+#: src/ui/window.rs:1639
 msgid "Trim recording"
 msgstr "Skrati snimku"
 
-#: src/ui/window.rs:1112
+#: src/ui/window.rs:1710
 msgid "Volume percent"
 msgstr "Postotak glasnoće"
 
-#: src/ui/window.rs:1115
+#: src/ui/window.rs:1713
 msgid "Change volume"
 msgstr "Promijeni glasnoću"
 
-#: src/ui/window.rs:1131
+#: src/ui/window.rs:1729
 msgid "Could not change volume"
 msgstr "Nije moguće promijeniti glasnoću"
 
-#: src/ui/window.rs:1145
+#: src/ui/window.rs:1743
 msgid "Speed factor"
 msgstr "Faktor brzine"
 
-#: src/ui/window.rs:1148
+#: src/ui/window.rs:1746
 msgid "Change speed"
 msgstr "Promijeni brzinu"
 
-#: src/ui/window.rs:1164
+#: src/ui/window.rs:1762
 msgid "Could not change speed"
 msgstr "Nije moguće promijeniti brzinu"
 
-#: src/ui/window.rs:1179
+#: src/ui/window.rs:1777
 msgid "Semitones"
 msgstr "Polutonovi"
 
-#: src/ui/window.rs:1182
+#: src/ui/window.rs:1780
 msgid "Change pitch"
 msgstr "Promijeni visinu tona"
 
-#: src/ui/window.rs:1198
+#: src/ui/window.rs:1796
 msgid "Could not change pitch"
 msgstr "Nije moguće promijeniti visinu tona"
 
-#: src/ui/window.rs:1211
+#: src/ui/window.rs:1809
 msgid "Child voice"
 msgstr "Dječji glas"
 
-#: src/ui/window.rs:1212
+#: src/ui/window.rs:1810
 msgid "Deep voice"
 msgstr "Duboki glas"
 
-#: src/ui/window.rs:1213
+#: src/ui/window.rs:1811
 msgid "Robot voice"
 msgstr "Robotski glas"
 
-#: src/ui/window.rs:1214
+#: src/ui/window.rs:1812
 msgid "Radio voice"
 msgstr "Radijski glas"
 
-#: src/ui/window.rs:1215
+#: src/ui/window.rs:1813
 msgid "Echo voice"
 msgstr "Glas s jekom"
 
-#: src/ui/window.rs:1225
+#: src/ui/window.rs:1823
 msgid "Effect"
 msgstr "Efekt"
 
-#: src/ui/window.rs:1226
+#: src/ui/window.rs:1824
 msgid "Intensity"
 msgstr "Intenzitet"
 
-#: src/ui/window.rs:1230
+#: src/ui/window.rs:1828
 msgid "Voice effects"
 msgstr "Glasovni efekti"
 
-#: src/ui/window.rs:1247
+#: src/ui/window.rs:1845
 msgid "Could not apply voice effect"
 msgstr "Nije moguće primijeniti glasovni efekt"
 
-#: src/ui/window.rs:1281
+#: src/ui/window.rs:1879
 msgid "Could not equalize recording"
 msgstr "Nije moguće izjednačiti snimku"
 
-#: src/ui/window.rs:1293
+#: src/ui/window.rs:1891
 msgid "Reverse recording"
 msgstr "Obrnuta snimka"
 
-#: src/ui/window.rs:1294
+#: src/ui/window.rs:1892
 msgid "Create a new recording with the audio reversed."
 msgstr "Stvori novu snimku s obrnutim zvukom."
 
-#: src/ui/window.rs:1315
+#: src/ui/window.rs:1913
 msgid "Could not reverse recording"
 msgstr "Nije moguće obrnuti snimku"
 
-#: src/ui/window.rs:1335 src/ui/window.rs:1371
+#: src/ui/window.rs:1933 src/ui/window.rs:1969
 msgid "Could not merge recordings"
 msgstr "Nije moguće spojiti snimke"
 
-#: src/ui/window.rs:1336
+#: src/ui/window.rs:1934
 msgid "There is no second recording to merge."
 msgstr "Ne postoji druga snimka za spajanje."
 
-#: src/ui/window.rs:1348
+#: src/ui/window.rs:1946
 msgid "Append recording"
 msgstr "Dodaj snimku na kraj"
 
-#: src/ui/window.rs:1351
+#: src/ui/window.rs:1949
 msgid "Merge recordings"
 msgstr "Spoji snimke"
 
-#: src/ui/window.rs:1383
+#: src/ui/window.rs:1981
 msgid "MP3 audio (.mp3)"
 msgstr "MP3 audio (.mp3)"
 
-#: src/ui/window.rs:1384
+#: src/ui/window.rs:1982
 msgid "WAV audio (.wav)"
 msgstr "WAV audio (.wav)"
 
-#: src/ui/window.rs:1385
+#: src/ui/window.rs:1983
 msgid "Opus audio (.opus)"
 msgstr "Opus audio (.opus)"
 
-#: src/ui/window.rs:1386
+#: src/ui/window.rs:1984
 msgid "FLAC audio (.flac)"
 msgstr "FLAC audio (.flac)"
 
-#: src/ui/window.rs:1390
+#: src/ui/window.rs:1988
 msgid "Low"
 msgstr "Niska"
 
-#: src/ui/window.rs:1391
+#: src/ui/window.rs:1989
 msgid "Medium"
 msgstr "Srednja"
 
-#: src/ui/window.rs:1392
+#: src/ui/window.rs:1990
 msgid "High"
 msgstr "Visoka"
 
-#: src/ui/window.rs:1396 src/ui/window.rs:1402
+#: src/ui/window.rs:1994 src/ui/window.rs:2000
 msgid "Original"
 msgstr "Original"
 
-#: src/ui/window.rs:1397
+#: src/ui/window.rs:1995
 msgid "Mono"
 msgstr "Mono"
 
-#: src/ui/window.rs:1398
+#: src/ui/window.rs:1996
 msgid "Stereo"
 msgstr "Stereo"
 
-#: src/ui/window.rs:1403
+#: src/ui/window.rs:2001
 msgid "48 kHz"
 msgstr "48 kHz"
 
-#: src/ui/window.rs:1404
+#: src/ui/window.rs:2002
 msgid "44.1 kHz"
 msgstr "44,1 kHz"
 
-#: src/ui/window.rs:1405
+#: src/ui/window.rs:2003
 msgid "24 kHz"
 msgstr "24 kHz"
 
-#: src/ui/window.rs:1406
+#: src/ui/window.rs:2004
 msgid "16 kHz"
 msgstr "16 kHz"
 
-#: src/ui/window.rs:1412
+#: src/ui/window.rs:2010
 msgid "Format"
 msgstr "Format"
 
-#: src/ui/window.rs:1413
+#: src/ui/window.rs:2011
 msgid "Quality"
 msgstr "Kvaliteta"
 
-#: src/ui/window.rs:1414
+#: src/ui/window.rs:2012
 msgid "Channels"
 msgstr "Kanali"
 
-#: src/ui/window.rs:1415
+#: src/ui/window.rs:2013
 msgid "Sample rate"
 msgstr "Frekvencija uzorkovanja"
 
-#: src/ui/window.rs:1419 src/ui/window.rs:1448
+#: src/ui/window.rs:2017 src/ui/window.rs:2046
 msgid "Export recording"
 msgstr "Izvezi snimku"
 
-#: src/ui/window.rs:1468 src/ui/window.rs:1480 src/ui/window.rs:1754
-#: src/ui/window.rs:1757
+#: src/ui/window.rs:2066 src/ui/window.rs:2078 src/ui/window.rs:2352
+#: src/ui/window.rs:2355
 msgid "Could not export recording"
 msgstr "Nije moguće izvesti snimku"
 
-#: src/ui/window.rs:1469 src/ui/window.rs:1481
+#: src/ui/window.rs:2067 src/ui/window.rs:2079
 msgid "The selected destination is not a local file."
 msgstr "Odabrano odredište nije lokalna datoteka."
 
-#: src/ui/window.rs:1542
+#: src/ui/window.rs:2140
 msgid "WAV audio"
 msgstr "WAV audio"
 
-#: src/ui/window.rs:1543
+#: src/ui/window.rs:2141
 msgid "MP3 audio"
 msgstr "MP3 audio"
 
-#: src/ui/window.rs:1544
+#: src/ui/window.rs:2142
 msgid "Opus audio"
 msgstr "Opus audio"
 
-#: src/ui/window.rs:1545
+#: src/ui/window.rs:2143
 msgid "FLAC audio"
 msgstr "FLAC audio"
 
-#: src/ui/window.rs:1567
+#: src/ui/window.rs:2165
 msgid "Flat"
 msgstr "Ravno"
 
-#: src/ui/window.rs:1568
+#: src/ui/window.rs:2166
 msgid "Voice clarity"
 msgstr "Jasnoća glasa"
 
-#: src/ui/window.rs:1569
+#: src/ui/window.rs:2167
 msgid "Warm"
 msgstr "Toplo"
 
-#: src/ui/window.rs:1570
+#: src/ui/window.rs:2168
 msgid "Bright"
 msgstr "Svijetlo"
 
-#: src/ui/window.rs:1571
+#: src/ui/window.rs:2169
 msgid "Bass cut"
 msgstr "Uklanjanje basa"
 
-#: src/ui/window.rs:1573
+#: src/ui/window.rs:2171
 msgid "Preset"
 msgstr "Pretpostavka"
 
-#: src/ui/window.rs:1733
+#: src/ui/window.rs:2331
 msgid "The audio task stopped unexpectedly."
 msgstr "Zvučni zadatak neočekivano je zaustavljen."
 
-#: src/ui/window.rs:1751
+#: src/ui/window.rs:2349
 msgid "Recording exported"
 msgstr "Snimka izvezena"
 
-#: src/ui/window.rs:1752
+#: src/ui/window.rs:2350
 msgid "The file was exported successfully."
 msgstr "Datoteka je uspješno izvezena."
 
-#: src/ui/window.rs:1758
+#: src/ui/window.rs:2356
 msgid "The export task stopped unexpectedly."
 msgstr "Zadatak izvoza neočekivano je zaustavljen."
 
-#: src/ui/window.rs:1768
+#: src/ui/window.rs:2366
 msgid "Apply"
 msgstr "Primijeni"
 
-#: src/ui/window.rs:2166
+#: src/ui/window.rs:2764
 msgid "Trim the selected recording"
 msgstr "Obreži odabranu snimku"
 
-#: src/ui/window.rs:2167
+#: src/ui/window.rs:2765
 msgid "Change the selected recording volume"
 msgstr "Promijeni glasnoću odabrane snimke"
 
-#: src/ui/window.rs:2168
+#: src/ui/window.rs:2766
 msgid "Change the selected recording speed"
 msgstr "Promijeni brzinu odabrane snimke"
 
-#: src/ui/window.rs:2169
+#: src/ui/window.rs:2767
 msgid "Change the selected recording pitch"
 msgstr "Promijeni visinu tona odabrane snimke"
 
-#: src/ui/window.rs:2170
+#: src/ui/window.rs:2768
 msgid "Apply a voice effect to the selected recording"
 msgstr "Primijeni glasovni efekt na odabranu snimku"
 
-#: src/ui/window.rs:2171
+#: src/ui/window.rs:2769
 msgid "Adjust the selected recording frequency bands"
 msgstr "Prilagodi frekvencijske pojaseve odabrane snimke"
 
-#: src/ui/window.rs:2172
+#: src/ui/window.rs:2770
 msgid "Reverse the selected recording"
 msgstr "Obrni odabranu snimku"
 
-#: src/ui/window.rs:2173
+#: src/ui/window.rs:2771
 msgid "Merge the selected recording with another recording"
 msgstr "Spoji odabranu snimku s drugom snimkom"
 
-#: src/ui/window.rs:2174
+#: src/ui/window.rs:2772
 msgid "Export the selected recording"
 msgstr "Izvezi odabranu snimku"
 
-#: src/ui/window.rs:2213
-#, rust-format
-msgid "Duration {duration}"
-msgstr "Trajanje {duration}"
-
-#: src/ui/window.rs:2218
+#: src/ui/window.rs:2808
 msgid "Saved recording"
 msgstr "Spremljena snimka"
 
-#: src/ui/window.rs:2350
+#: src/ui/window.rs:3015
 msgid "OK"
 msgstr "U redu"
+
+#~ msgid "Recordings are saved in Music/BigRecorder"
+#~ msgstr "Snimke se spremaju u Music/BigRecorder"
+
+#, rust-format
+#~ msgid "Recording to {path}"
+#~ msgstr "Snimanje u {path}"
+
+#, rust-format
+#~ msgid "Saved to {path}"
+#~ msgstr "Spremljeno u {path}"
+
+#~ msgid "Start seconds"
+#~ msgstr "Početne sekunde"
+
+#~ msgid "End seconds"
+#~ msgstr "Završne sekunde"
+
+#, rust-format
+#~ msgid "Duration {duration}"
+#~ msgstr "Trajanje {duration}"

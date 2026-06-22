@@ -5,8 +5,7 @@ use std::rc::Rc;
 
 use gtk::prelude::*;
 
-const PLAYBACK_BINS: usize = 96;
-const MIN_VISIBLE_LEVEL: f64 = 0.03;
+const PLAYBACK_BINS: usize = 52;
 const MIN_PROGRESS_DELTA: f64 = 0.00005;
 
 #[derive(Clone)]
@@ -21,7 +20,7 @@ impl PlaybackBar {
         let segments = Rc::new(analyze_path(path).unwrap_or_else(default_segments));
 
         let area = gtk::DrawingArea::builder()
-            .height_request(12)
+            .height_request(30)
             .hexpand(true)
             .build();
         area.add_css_class("playback-progress");
@@ -69,65 +68,37 @@ fn draw_playback_bar(
         return;
     }
 
-    let padding = 2.0;
+    let padding = 1.0;
     let available_width = (width - padding * 2.0).max(1.0);
     let slot = available_width / segments.len() as f64;
-    let gap = (slot * 0.34).clamp(1.0, 3.0);
-    let segment_width = (slot - gap).max(1.0);
+    let bar_width = (slot * 0.58).clamp(1.5, 3.0);
     let center_y = height / 2.0;
+    let max_height = (height - 4.0).max(2.0);
     let progress_x = padding + available_width * progress.clamp(0.0, 1.0);
-    let fg = css_color(widget, "window_fg_color", (0.70, 0.75, 0.84));
-    let accent = css_color(widget, "accent_bg_color", (0.80, 0.84, 0.35));
+    let accent = css_color(widget, "accent_bg_color", (0.20, 0.55, 0.96));
+    let secondary = css_color(widget, "accent_color", (0.46, 0.78, 1.0));
 
     context.set_line_cap(gtk::cairo::LineCap::Round);
-    context.set_line_width(3.5);
+    context.set_line_width(bar_width);
 
     for (index, segment) in segments.iter().enumerate() {
-        if *segment <= 0.0 {
-            continue;
-        }
+        let level = segment.clamp(0.0, 1.0);
+        let x = padding + index as f64 * slot + slot / 2.0;
+        // A subtle baseline keeps even quiet regions readable as a waveform.
+        let bar_height = (max_height * level).max(2.5);
+        let y1 = center_y - bar_height / 2.0;
+        let y2 = center_y + bar_height / 2.0;
 
-        let x1 = padding + index as f64 * slot;
-        let x2 = (x1 + segment_width).min(padding + available_width);
-        let alpha = if *segment >= MIN_VISIBLE_LEVEL {
-            0.54
+        // Played bars are bright; upcoming bars are dimmed but still visible.
+        let (color, alpha) = if x <= progress_x {
+            (secondary, 0.95)
         } else {
-            0.22
+            (accent, 0.42 + level * 0.18)
         };
 
-        context.set_source_rgba(fg.0, fg.1, fg.2, alpha);
-        context.move_to(x1, center_y);
-        context.line_to(x2, center_y);
-        let _ = context.stroke();
-    }
-
-    for (index, segment) in segments.iter().enumerate() {
-        if *segment < MIN_VISIBLE_LEVEL {
-            continue;
-        }
-
-        let x1 = padding + index as f64 * slot;
-        if x1 >= progress_x {
-            break;
-        }
-
-        let x2 = (x1 + segment_width).min(padding + available_width);
-        let clipped_x2 = x2.min(progress_x);
-        if clipped_x2 <= x1 {
-            continue;
-        }
-
-        context.set_source_rgba(accent.0, accent.1, accent.2, 0.78 + segment * 0.18);
-        context.move_to(x1, center_y);
-        context.line_to(clipped_x2, center_y);
-        let _ = context.stroke();
-    }
-
-    if (0.01..0.99).contains(&progress) {
-        context.set_line_width(4.5);
-        context.set_source_rgba(accent.0, accent.1, accent.2, 0.96);
-        context.move_to(progress_x, center_y - 5.0);
-        context.line_to(progress_x, center_y + 5.0);
+        context.set_source_rgba(color.0, color.1, color.2, alpha);
+        context.move_to(x, y1);
+        context.line_to(x, y2);
         let _ = context.stroke();
     }
 }

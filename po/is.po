@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bigrecorder 0.1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-27 22:09-0300\n"
+"POT-Creation-Date: 2026-06-21 23:18-0300\n"
 "PO-Revision-Date: 2026-05-27 20:47\n"
 "Last-Translator: BigLinux Team\n"
 "Language-Team: Icelandic <is@li.org>\n"
@@ -12,491 +12,621 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/ui/window.rs:167
-msgid "Local voice recorder"
-msgstr "Staðbundinn raddupptökutæki"
-
-#: src/ui/window.rs:172
-msgid "Menu"
-msgstr "Valmynd"
-
-#: src/ui/window.rs:175
-msgid "About"
-msgstr "Um"
-
-#: src/ui/window.rs:176
-msgid "Close"
-msgstr "Loka"
-
-#: src/ui/window.rs:213
-msgid "Recordings"
-msgstr "Upptökur"
-
-#: src/ui/window.rs:220
-msgid "No recordings yet"
-msgstr "Engar upptökur ennþá"
-
-#: src/ui/window.rs:237 src/ui/window.rs:305 src/ui/window.rs:316
-#: src/ui/window.rs:722
+#: src/i18n.rs:241 src/ui/window.rs:554
 msgid "Record"
 msgstr "Taka upp"
 
-#: src/ui/window.rs:267 src/ui/window.rs:719
+#: src/ui/window.rs:174
+msgid "Local voice recorder"
+msgstr "Staðbundinn raddupptökutæki"
+
+#: src/ui/window.rs:179
+msgid "Menu"
+msgstr "Valmynd"
+
+#: src/ui/window.rs:182
+msgid "About"
+msgstr "Um"
+
+#: src/ui/window.rs:183
+msgid "Close"
+msgstr "Loka"
+
+#: src/ui/window.rs:226
+msgid "Recordings"
+msgstr "Upptökur"
+
+#: src/ui/window.rs:238
+msgid "Search recordings"
+msgstr ""
+
+#: src/ui/window.rs:245
+msgid "List view"
+msgstr ""
+
+#: src/ui/window.rs:253
+msgid "Grid view"
+msgstr ""
+
+#: src/ui/window.rs:281
+msgid "No recordings yet"
+msgstr "Engar upptökur ennþá"
+
+#: src/ui/window.rs:310 src/ui/window.rs:1015
 msgid "Ready"
 msgstr "Tilbúið"
 
-#: src/ui/window.rs:326 src/ui/window.rs:336
+#: src/ui/window.rs:322
+msgid "Recording time"
+msgstr ""
+
+#: src/ui/window.rs:347 src/ui/window.rs:357 src/ui/window.rs:1023
+#: src/ui/window.rs:1024
+msgid "Pause"
+msgstr "Hlé"
+
+#: src/ui/window.rs:365 src/ui/window.rs:375
 msgid "Stop"
 msgstr "Stöðva"
 
-#: src/ui/window.rs:346
-msgid "Recordings are saved in Music/BigRecorder"
-msgstr "Upptökur eru vistaðar í Music/BigRecorder"
-
-#: src/ui/window.rs:378 src/ui/window.rs:441 src/ui/window.rs:447
+#: src/ui/window.rs:422 src/ui/window.rs:520 src/ui/window.rs:525
 msgid "Tools"
 msgstr "Verkfæri"
 
-#: src/ui/window.rs:392
+#: src/ui/window.rs:425
+msgid "Apply effects to the selected recording"
+msgstr ""
+
+#: src/ui/window.rs:431
+msgid "Restore"
+msgstr ""
+
+#: src/ui/window.rs:435
+msgid "Restore the original recording"
+msgstr ""
+
+#: src/ui/window.rs:436
+msgid "Undo"
+msgstr ""
+
+#: src/ui/window.rs:455
 msgid "Trim"
 msgstr "Klippa"
 
-#: src/ui/window.rs:395
+#: src/ui/window.rs:456
+msgid "Remove part of the audio"
+msgstr ""
+
+#: src/ui/window.rs:461
 msgid "Volume"
 msgstr "Hljóðstyrkur"
 
-#: src/ui/window.rs:400
+#: src/ui/window.rs:462
+msgid "Adjust the loudness"
+msgstr ""
+
+#: src/ui/window.rs:467
 msgid "Speed"
 msgstr "Hraði"
 
-#: src/ui/window.rs:405
+#: src/ui/window.rs:468
+msgid "Speed up or slow down"
+msgstr ""
+
+#: src/ui/window.rs:473
 msgid "Pitch"
 msgstr "Tónhæð"
 
-#: src/ui/window.rs:410
+#: src/ui/window.rs:474
+msgid "Change the pitch"
+msgstr ""
+
+#: src/ui/window.rs:479
 msgid "Effects"
 msgstr "Áhrif"
 
-#: src/ui/window.rs:415 src/ui/window.rs:1265
+#: src/ui/window.rs:480
+msgid "Apply a voice effect"
+msgstr ""
+
+#: src/ui/window.rs:485 src/ui/window.rs:1863
 msgid "Equalizer"
 msgstr "Jafnari"
 
-#: src/ui/window.rs:420 src/ui/window.rs:1299
+#: src/ui/window.rs:486
+msgid "Tune frequency bands"
+msgstr ""
+
+#: src/ui/window.rs:491 src/ui/window.rs:1897
 msgid "Reverse"
 msgstr "Snúa við"
 
-#: src/ui/window.rs:423
+#: src/ui/window.rs:492
+msgid "Play the audio backwards"
+msgstr ""
+
+#: src/ui/window.rs:497
 msgid "Merge"
 msgstr "Sameina"
 
-#: src/ui/window.rs:426 src/ui/window.rs:1424 src/ui/window.rs:1451
+#: src/ui/window.rs:498
+msgid "Join with another recording"
+msgstr ""
+
+#: src/ui/window.rs:503 src/ui/window.rs:1293 src/ui/window.rs:2022
+#: src/ui/window.rs:2049
 msgid "Export"
 msgstr "Flytja út"
 
-#: src/ui/window.rs:515
+#: src/ui/window.rs:504
+msgid "Save in another format"
+msgstr ""
+
+#: src/ui/window.rs:566 src/ui/window.rs:571
+msgid "Ready to record"
+msgstr ""
+
+#: src/ui/window.rs:574
+msgid "Default microphone"
+msgstr ""
+
+#: src/ui/window.rs:722
+msgid "Recording in"
+msgstr ""
+
+#: src/ui/window.rs:746
+msgid "Open recordings folder"
+msgstr ""
+
+#: src/ui/window.rs:776
+msgid "Could not open recordings folder"
+msgstr ""
+
+#: src/ui/window.rs:817
 msgid "Local voice recorder built with Rust, GTK4, libadwaita, and GStreamer."
 msgstr ""
 "Staðbundinn raddupptökutæki smíðað með Rust, GTK4, libadwaita og GStreamer."
 
-#: src/ui/window.rs:615 src/ui/window.rs:931 src/ui/window.rs:1701
-#: src/ui/window.rs:1720
+#: src/ui/window.rs:917 src/ui/window.rs:1447 src/ui/window.rs:2299
+#: src/ui/window.rs:2318
 msgid "Could not stop playback"
 msgstr "Gat ekki stöðvað spilun"
 
-#: src/ui/window.rs:625
-#, rust-format
-msgid "Recording to {path}"
-msgstr "Upptaka á {path}"
-
-#: src/ui/window.rs:630
+#: src/ui/window.rs:927
 msgid "Could not start recording"
 msgstr "Gat ekki hafið upptöku"
 
-#: src/ui/window.rs:651
+#: src/ui/window.rs:948
 msgid "Could not pause"
 msgstr "Gat ekki gert hlé"
 
-#: src/ui/window.rs:658
+#: src/ui/window.rs:955
 msgid "Could not resume"
 msgstr "Gat ekki haldið áfram"
 
-#: src/ui/window.rs:683
-#, rust-format
-msgid "Saved to {path}"
-msgstr "Vistað í {path}"
-
-#: src/ui/window.rs:694
+#: src/ui/window.rs:985
 msgid "Could not finish recording"
 msgstr "Gat ekki lokið upptöku"
 
-#: src/ui/window.rs:730 src/ui/window.rs:2206
+#: src/ui/window.rs:1020 src/ui/window.rs:2804
 msgid "Recording"
 msgstr "Tekur upp"
 
-#: src/ui/window.rs:733 src/ui/window.rs:735
-msgid "Pause"
-msgstr "Hlé"
-
-#: src/ui/window.rs:743
+#: src/ui/window.rs:1029
 msgid "Paused"
 msgstr "Í bið"
 
-#: src/ui/window.rs:746 src/ui/window.rs:748
+#: src/ui/window.rs:1032 src/ui/window.rs:1033
 msgid "Resume"
 msgstr "Halda áfram"
 
-#: src/ui/window.rs:822
+#: src/ui/window.rs:1079
+msgid "1 recording"
+msgstr ""
+
+#: src/ui/window.rs:1082
+msgid "{count} recordings"
+msgstr ""
+
+#: src/ui/window.rs:1161
 msgid "Play"
 msgstr "Spila"
 
-#: src/ui/window.rs:835 src/ui/window.rs:915
+#: src/ui/window.rs:1171 src/ui/window.rs:1298 src/ui/window.rs:1431
 msgid "Move to Trash"
 msgstr "Færa í ruslið"
 
-#: src/ui/window.rs:897
+#: src/ui/window.rs:1244
 msgid "Could not play recording"
 msgstr "Gat ekki spilað upptöku"
 
-#: src/ui/window.rs:908
-msgid "Move recording to trash?"
-msgstr "Færa upptökuna í ruslið?"
+#: src/ui/window.rs:1275
+msgid "More options"
+msgstr ""
 
-#: src/ui/window.rs:910
-#, rust-format
-msgid "{recording} will be moved to the system trash."
-msgstr "{recording} verður færð í kerfisruslið."
+#: src/ui/window.rs:1288 src/ui/window.rs:1369
+msgid "Rename"
+msgstr ""
 
-#: src/ui/window.rs:914 src/ui/window.rs:1298 src/ui/window.rs:1423
-#: src/ui/window.rs:1452 src/ui/window.rs:1767
+#: src/ui/window.rs:1356
+msgid "Rename recording"
+msgstr ""
+
+#: src/ui/window.rs:1368 src/ui/window.rs:1430 src/ui/window.rs:1896
+#: src/ui/window.rs:2021 src/ui/window.rs:2050 src/ui/window.rs:2365
 msgid "Cancel"
 msgstr "Hætta við"
 
-#: src/ui/window.rs:940
+#: src/ui/window.rs:1402 src/ui/window.rs:1415
+msgid "Could not rename recording"
+msgstr ""
+
+#: src/ui/window.rs:1403
+msgid "A recording with that name already exists."
+msgstr ""
+
+#: src/ui/window.rs:1424
+msgid "Move recording to trash?"
+msgstr "Færa upptökuna í ruslið?"
+
+#: src/ui/window.rs:1426
+msgid "{recording} will be moved to the system trash."
+msgstr "{recording} verður færð í kerfisruslið."
+
+#: src/ui/window.rs:1456
 msgid "Could not move recording to trash"
 msgstr "Ekki tókst að færa upptökuna í ruslið"
 
-#: src/ui/window.rs:1042
+#: src/ui/window.rs:1559
 msgid "Select a recording first"
 msgstr "Veldu fyrst upptöku"
 
-#: src/ui/window.rs:1043
+#: src/ui/window.rs:1560
 msgid "Click a recording in the list before using a tool."
 msgstr "Smelltu á upptöku í listanum áður en þú notar tól."
 
-#: src/ui/window.rs:1059 src/ui/window.rs:1065 src/ui/window.rs:1098
+#: src/ui/window.rs:1576 src/ui/window.rs:1582 src/ui/window.rs:1656
 msgid "Could not trim recording"
 msgstr "Gat ekki klippt upptöku"
 
-#: src/ui/window.rs:1060
+#: src/ui/window.rs:1577
 msgid "This recording has no audio data."
 msgstr "Þessi upptaka inniheldur engin hljóðgögn."
 
-#: src/ui/window.rs:1076
-msgid "Start seconds"
-msgstr "Byrjunarsekúndur"
+#: src/ui/window.rs:1600
+msgid "Selected duration"
+msgstr ""
 
-#: src/ui/window.rs:1077
-msgid "End seconds"
-msgstr "Lokasekúndur"
+#: src/ui/window.rs:1608
+msgid "Initial seconds"
+msgstr ""
 
-#: src/ui/window.rs:1081
+#: src/ui/window.rs:1609
+msgid "Remove from the start of the recording"
+msgstr ""
+
+#: src/ui/window.rs:1613
+msgid "Final seconds"
+msgstr ""
+
+#: src/ui/window.rs:1614
+msgid "Remove from the end of the recording"
+msgstr ""
+
+#: src/ui/window.rs:1639
 msgid "Trim recording"
 msgstr "Klippa upptöku"
 
-#: src/ui/window.rs:1112
+#: src/ui/window.rs:1710
 msgid "Volume percent"
 msgstr "Hljóðstyrkur í prósentum"
 
-#: src/ui/window.rs:1115
+#: src/ui/window.rs:1713
 msgid "Change volume"
 msgstr "Breyta hljóðstyrk"
 
-#: src/ui/window.rs:1131
+#: src/ui/window.rs:1729
 msgid "Could not change volume"
 msgstr "Gat ekki breytt hljóðstyrk"
 
-#: src/ui/window.rs:1145
+#: src/ui/window.rs:1743
 msgid "Speed factor"
 msgstr "Hraðastuðull"
 
-#: src/ui/window.rs:1148
+#: src/ui/window.rs:1746
 msgid "Change speed"
 msgstr "Breyta hraða"
 
-#: src/ui/window.rs:1164
+#: src/ui/window.rs:1762
 msgid "Could not change speed"
 msgstr "Gat ekki breytt hraða"
 
-#: src/ui/window.rs:1179
+#: src/ui/window.rs:1777
 msgid "Semitones"
 msgstr "Hálftónar"
 
-#: src/ui/window.rs:1182
+#: src/ui/window.rs:1780
 msgid "Change pitch"
 msgstr "Breyta tónhæð"
 
-#: src/ui/window.rs:1198
+#: src/ui/window.rs:1796
 msgid "Could not change pitch"
 msgstr "Gat ekki breytt tónhæð"
 
-#: src/ui/window.rs:1211
+#: src/ui/window.rs:1809
 msgid "Child voice"
 msgstr "Barnarödd"
 
-#: src/ui/window.rs:1212
+#: src/ui/window.rs:1810
 msgid "Deep voice"
 msgstr "Djúp rödd"
 
-#: src/ui/window.rs:1213
+#: src/ui/window.rs:1811
 msgid "Robot voice"
 msgstr "Vélmennarödd"
 
-#: src/ui/window.rs:1214
+#: src/ui/window.rs:1812
 msgid "Radio voice"
 msgstr "Útvarpsrödd"
 
-#: src/ui/window.rs:1215
+#: src/ui/window.rs:1813
 msgid "Echo voice"
 msgstr "Bergmálsrödd"
 
-#: src/ui/window.rs:1225
+#: src/ui/window.rs:1823
 msgid "Effect"
 msgstr "Áhrif"
 
-#: src/ui/window.rs:1226
+#: src/ui/window.rs:1824
 msgid "Intensity"
 msgstr "Styrkur"
 
-#: src/ui/window.rs:1230
+#: src/ui/window.rs:1828
 msgid "Voice effects"
 msgstr "Raddáhrif"
 
-#: src/ui/window.rs:1247
+#: src/ui/window.rs:1845
 msgid "Could not apply voice effect"
 msgstr "Gat ekki beitt raddeffekt"
 
-#: src/ui/window.rs:1281
+#: src/ui/window.rs:1879
 msgid "Could not equalize recording"
 msgstr "Gat ekki jafnað upptöku"
 
-#: src/ui/window.rs:1293
+#: src/ui/window.rs:1891
 msgid "Reverse recording"
 msgstr "Öfug upptaka"
 
-#: src/ui/window.rs:1294
+#: src/ui/window.rs:1892
 msgid "Create a new recording with the audio reversed."
 msgstr "Búðu til nýja upptöku með hljóðinu öfugu."
 
-#: src/ui/window.rs:1315
+#: src/ui/window.rs:1913
 msgid "Could not reverse recording"
 msgstr "Gat ekki snúið við upptöku"
 
-#: src/ui/window.rs:1335 src/ui/window.rs:1371
+#: src/ui/window.rs:1933 src/ui/window.rs:1969
 msgid "Could not merge recordings"
 msgstr "Gat ekki sameinað upptökur"
 
-#: src/ui/window.rs:1336
+#: src/ui/window.rs:1934
 msgid "There is no second recording to merge."
 msgstr "Engin önnur upptaka er til staðar til að sameina."
 
-#: src/ui/window.rs:1348
+#: src/ui/window.rs:1946
 msgid "Append recording"
 msgstr "Bæta við upptöku"
 
-#: src/ui/window.rs:1351
+#: src/ui/window.rs:1949
 msgid "Merge recordings"
 msgstr "Sameina upptökur"
 
-#: src/ui/window.rs:1383
+#: src/ui/window.rs:1981
 msgid "MP3 audio (.mp3)"
 msgstr "MP3 hljóð (.mp3)"
 
-#: src/ui/window.rs:1384
+#: src/ui/window.rs:1982
 msgid "WAV audio (.wav)"
 msgstr "WAV hljóð (.wav)"
 
-#: src/ui/window.rs:1385
+#: src/ui/window.rs:1983
 msgid "Opus audio (.opus)"
 msgstr "Opus hljóð (.opus)"
 
-#: src/ui/window.rs:1386
+#: src/ui/window.rs:1984
 msgid "FLAC audio (.flac)"
 msgstr "FLAC hljóð (.flac)"
 
-#: src/ui/window.rs:1390
+#: src/ui/window.rs:1988
 msgid "Low"
 msgstr "Lágt"
 
-#: src/ui/window.rs:1391
+#: src/ui/window.rs:1989
 msgid "Medium"
 msgstr "Miðlungs"
 
-#: src/ui/window.rs:1392
+#: src/ui/window.rs:1990
 msgid "High"
 msgstr "Hátt"
 
-#: src/ui/window.rs:1396 src/ui/window.rs:1402
+#: src/ui/window.rs:1994 src/ui/window.rs:2000
 msgid "Original"
 msgstr "Upprunalegt"
 
-#: src/ui/window.rs:1397
+#: src/ui/window.rs:1995
 msgid "Mono"
 msgstr "Mónó"
 
-#: src/ui/window.rs:1398
+#: src/ui/window.rs:1996
 msgid "Stereo"
 msgstr "Stereo"
 
-#: src/ui/window.rs:1403
+#: src/ui/window.rs:2001
 msgid "48 kHz"
 msgstr "48 kHz"
 
-#: src/ui/window.rs:1404
+#: src/ui/window.rs:2002
 msgid "44.1 kHz"
 msgstr "44,1 kHz"
 
-#: src/ui/window.rs:1405
+#: src/ui/window.rs:2003
 msgid "24 kHz"
 msgstr "24 kHz"
 
-#: src/ui/window.rs:1406
+#: src/ui/window.rs:2004
 msgid "16 kHz"
 msgstr "16 kHz"
 
-#: src/ui/window.rs:1412
+#: src/ui/window.rs:2010
 msgid "Format"
 msgstr "Snið"
 
-#: src/ui/window.rs:1413
+#: src/ui/window.rs:2011
 msgid "Quality"
 msgstr "Gæði"
 
-#: src/ui/window.rs:1414
+#: src/ui/window.rs:2012
 msgid "Channels"
 msgstr "Rásir"
 
-#: src/ui/window.rs:1415
+#: src/ui/window.rs:2013
 msgid "Sample rate"
 msgstr "Tíðnisvið"
 
-#: src/ui/window.rs:1419 src/ui/window.rs:1448
+#: src/ui/window.rs:2017 src/ui/window.rs:2046
 msgid "Export recording"
 msgstr "Flytja út upptöku"
 
-#: src/ui/window.rs:1468 src/ui/window.rs:1480 src/ui/window.rs:1754
-#: src/ui/window.rs:1757
+#: src/ui/window.rs:2066 src/ui/window.rs:2078 src/ui/window.rs:2352
+#: src/ui/window.rs:2355
 msgid "Could not export recording"
 msgstr "Gat ekki flutt út upptöku"
 
-#: src/ui/window.rs:1469 src/ui/window.rs:1481
+#: src/ui/window.rs:2067 src/ui/window.rs:2079
 msgid "The selected destination is not a local file."
 msgstr "Valinn áfangastaður er ekki staðbundin skrá."
 
-#: src/ui/window.rs:1542
+#: src/ui/window.rs:2140
 msgid "WAV audio"
 msgstr "WAV hljóð"
 
-#: src/ui/window.rs:1543
+#: src/ui/window.rs:2141
 msgid "MP3 audio"
 msgstr "MP3 hljóð"
 
-#: src/ui/window.rs:1544
+#: src/ui/window.rs:2142
 msgid "Opus audio"
 msgstr "Opus hljóð"
 
-#: src/ui/window.rs:1545
+#: src/ui/window.rs:2143
 msgid "FLAC audio"
 msgstr "FLAC hljóð"
 
-#: src/ui/window.rs:1567
+#: src/ui/window.rs:2165
 msgid "Flat"
 msgstr "Flat"
 
-#: src/ui/window.rs:1568
+#: src/ui/window.rs:2166
 msgid "Voice clarity"
 msgstr "Raddskýrleiki"
 
-#: src/ui/window.rs:1569
+#: src/ui/window.rs:2167
 msgid "Warm"
 msgstr "Hlýr"
 
-#: src/ui/window.rs:1570
+#: src/ui/window.rs:2168
 msgid "Bright"
 msgstr "Bjartur"
 
-#: src/ui/window.rs:1571
+#: src/ui/window.rs:2169
 msgid "Bass cut"
 msgstr "Bassaklipp"
 
-#: src/ui/window.rs:1573
+#: src/ui/window.rs:2171
 msgid "Preset"
 msgstr "Forstilling"
 
-#: src/ui/window.rs:1733
+#: src/ui/window.rs:2331
 msgid "The audio task stopped unexpectedly."
 msgstr "Hljóðverkefnið stöðvaðist óvænt."
 
-#: src/ui/window.rs:1751
+#: src/ui/window.rs:2349
 msgid "Recording exported"
 msgstr "Upptaka flutt út"
 
-#: src/ui/window.rs:1752
+#: src/ui/window.rs:2350
 msgid "The file was exported successfully."
 msgstr "Skránni var flutt út með góðum árangri."
 
-#: src/ui/window.rs:1758
+#: src/ui/window.rs:2356
 msgid "The export task stopped unexpectedly."
 msgstr "Útflutningsverkefnið stöðvaðist óvænt."
 
-#: src/ui/window.rs:1768
+#: src/ui/window.rs:2366
 msgid "Apply"
 msgstr "Beita"
 
-#: src/ui/window.rs:2166
+#: src/ui/window.rs:2764
 msgid "Trim the selected recording"
 msgstr "Klippa valda upptöku"
 
-#: src/ui/window.rs:2167
+#: src/ui/window.rs:2765
 msgid "Change the selected recording volume"
 msgstr "Breyta hljóðstyrk valinnar upptöku"
 
-#: src/ui/window.rs:2168
+#: src/ui/window.rs:2766
 msgid "Change the selected recording speed"
 msgstr "Breyta hraða valinnar upptöku"
 
-#: src/ui/window.rs:2169
+#: src/ui/window.rs:2767
 msgid "Change the selected recording pitch"
 msgstr "Breyta tónhæð valinnar upptöku"
 
-#: src/ui/window.rs:2170
+#: src/ui/window.rs:2768
 msgid "Apply a voice effect to the selected recording"
 msgstr "Beita raddáhrifum á valda upptöku"
 
-#: src/ui/window.rs:2171
+#: src/ui/window.rs:2769
 msgid "Adjust the selected recording frequency bands"
 msgstr "Stilla tíðnisvið valinnar upptöku"
 
-#: src/ui/window.rs:2172
+#: src/ui/window.rs:2770
 msgid "Reverse the selected recording"
 msgstr "Snúa valinni upptöku við"
 
-#: src/ui/window.rs:2173
+#: src/ui/window.rs:2771
 msgid "Merge the selected recording with another recording"
 msgstr "Sameina valda upptöku við aðra upptöku"
 
-#: src/ui/window.rs:2174
+#: src/ui/window.rs:2772
 msgid "Export the selected recording"
 msgstr "Flytja út valda upptöku"
 
-#: src/ui/window.rs:2213
-#, rust-format
-msgid "Duration {duration}"
-msgstr "Lengd {duration}"
-
-#: src/ui/window.rs:2218
+#: src/ui/window.rs:2808
 msgid "Saved recording"
 msgstr "Vistuð upptaka"
 
-#: src/ui/window.rs:2350
+#: src/ui/window.rs:3015
 msgid "OK"
 msgstr "Í lagi"
+
+#~ msgid "Recordings are saved in Music/BigRecorder"
+#~ msgstr "Upptökur eru vistaðar í Music/BigRecorder"
+
+#, rust-format
+#~ msgid "Recording to {path}"
+#~ msgstr "Upptaka á {path}"
+
+#, rust-format
+#~ msgid "Saved to {path}"
+#~ msgstr "Vistað í {path}"
+
+#~ msgid "Start seconds"
+#~ msgstr "Byrjunarsekúndur"
+
+#~ msgid "End seconds"
+#~ msgstr "Lokasekúndur"
+
+#, rust-format
+#~ msgid "Duration {duration}"
+#~ msgstr "Lengd {duration}"

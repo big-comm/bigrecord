@@ -16,92 +16,172 @@ windowhandle,
   box-shadow: none;
 }
 
+.app-title {
+  font-weight: 800;
+}
+
+.app-subtitle {
+  color: alpha(@window_fg_color, 0.55);
+  font-size: 11px;
+}
+
+/* ---- Recordings page header ---- */
+
+.page-heading {
+  font-size: 19px;
+  font-weight: 800;
+  color: @window_fg_color;
+}
+
+.page-subheading {
+  color: alpha(@window_fg_color, 0.55);
+  font-size: 12px;
+}
+
+.search-field {
+  border-radius: 999px;
+  background-color: @card_bg_color;
+  border: 1px solid alpha(@window_fg_color, 0.10);
+  min-height: 34px;
+  padding: 0 6px;
+  color: @window_fg_color;
+}
+
+.search-field image {
+  color: alpha(@window_fg_color, 0.55);
+}
+
+.view-toggle {
+  min-width: 34px;
+  min-height: 34px;
+  padding: 0;
+  border-radius: 9px;
+  background-color: @card_bg_color;
+  color: alpha(@window_fg_color, 0.70);
+  border: 1px solid alpha(@window_fg_color, 0.10);
+  -gtk-icon-size: 16px;
+}
+
+.view-toggle:hover {
+  background-color: alpha(@accent_bg_color, 0.10);
+}
+
+.view-toggle:checked {
+  background-color: @accent_bg_color;
+  color: @accent_fg_color;
+  border-color: @accent_bg_color;
+}
+
+/* ---- Recording surface (recording in progress) ---- */
+
 .recorder-surface {
   background-color: @card_bg_color;
   color: @window_fg_color;
-  border: 1px solid alpha(@accent_bg_color, 0.26);
-  border-radius: 8px;
-  padding: 12px;
+  border: 1px solid alpha(@window_fg_color, 0.08);
+  border-radius: 18px;
+  padding: 22px;
 }
 
 .timer {
-  font-size: 34px;
-  font-weight: 500;
+  font-size: 52px;
+  font-weight: 700;
   font-feature-settings: "tnum";
   color: @window_fg_color;
 }
 
+.timer-caption {
+  color: alpha(@window_fg_color, 0.55);
+  font-size: 13px;
+}
+
 .status-pill {
-  background-color: alpha(@accent_bg_color, 0.12);
+  background-color: alpha(@accent_bg_color, 0.14);
   color: @accent_color;
-  border: 1px solid alpha(@accent_bg_color, 0.28);
   border-radius: 999px;
-  padding: 3px 10px;
-  font-weight: 650;
+  padding: 5px 16px 5px 12px;
+  font-weight: 700;
 }
 
 .status-pill.recording {
   background-color: alpha(@accent_bg_color, 0.18);
   color: @accent_color;
-  border-color: alpha(@accent_bg_color, 0.36);
 }
 
 .status-pill.paused {
-  background-color: alpha(@accent_bg_color, 0.12);
-  color: @accent_color;
-  border-color: alpha(@accent_bg_color, 0.30);
+  background-color: alpha(@window_fg_color, 0.10);
+  color: alpha(@window_fg_color, 0.78);
 }
 
-.record-fab {
-  min-width: 68px;
-  min-height: 68px;
+.status-dot {
+  min-width: 9px;
+  min-height: 9px;
   border-radius: 999px;
-  background-color: @destructive_bg_color;
-  color: @destructive_fg_color;
-  border: 0;
+  background-color: @accent_bg_color;
+}
+
+.status-pill.paused .status-dot {
+  background-color: alpha(@window_fg_color, 0.55);
+}
+
+/* ---- Record FAB (start) ---- */
+
+.record-fab {
+  min-width: 72px;
+  min-height: 72px;
+  border-radius: 999px;
+  background-color: @accent_bg_color;
+  color: @accent_fg_color;
+  border: 3px solid alpha(@window_bg_color, 0.9);
+  box-shadow: 0 4px 22px alpha(@accent_bg_color, 0.55);
   -gtk-icon-size: 28px;
 }
 
 .record-fab:hover {
-  background-color: shade(@destructive_bg_color, 1.08);
+  background-color: shade(@accent_bg_color, 1.08);
 }
 
+.record-fab:active {
+  background-color: shade(@accent_bg_color, 0.94);
+}
+
+/* ---- Recording controls (pause / stop) ---- */
+
 .control-pill {
-  min-width: 150px;
+  min-width: 132px;
   min-height: 52px;
   border-radius: 999px;
-  background-color: @card_bg_color;
+  background-color: alpha(@window_fg_color, 0.08);
   color: @window_fg_color;
-  border: 1px solid @borders;
-  padding: 0 18px;
-  -gtk-icon-size: 24px;
+  border: 0;
+  padding: 0 22px;
+  -gtk-icon-size: 18px;
 }
 
 .control-pill:hover {
-  background-color: alpha(@accent_bg_color, 0.10);
+  background-color: alpha(@window_fg_color, 0.14);
 }
 
 .control-pill.resume-pill {
-  background-color: alpha(@accent_bg_color, 0.12);
+  background-color: alpha(@accent_bg_color, 0.16);
   color: @accent_color;
 }
 
 .record-dot {
-  min-width: 18px;
-  min-height: 18px;
+  min-width: 16px;
+  min-height: 16px;
   border-radius: 999px;
-  background-color: alpha(black, 0.55);
+  background-color: @accent_fg_color;
 }
 
 .stop-pill {
-  min-width: 150px;
+  min-width: 132px;
   min-height: 52px;
   border-radius: 999px;
   background-color: @destructive_bg_color;
   color: @destructive_fg_color;
   border: 0;
-  padding: 0 18px;
-  -gtk-icon-size: 20px;
+  padding: 0 22px;
+  -gtk-icon-size: 16px;
 }
 
 .stop-pill:hover {
@@ -110,136 +190,332 @@ windowhandle,
 
 .control-label {
   font-size: 15px;
-  font-weight: 650;
+  font-weight: 700;
 }
 
 .waveform {
   background-color: @view_bg_color;
-  border-radius: 8px;
+  border-radius: 14px;
+}
+
+/* ---- Folder location row ---- */
+
+.folder-row {
+  background-color: alpha(@window_fg_color, 0.05);
+  border: 1px solid alpha(@window_fg_color, 0.08);
+  border-radius: 12px;
+  padding: 10px 14px;
+  color: @window_fg_color;
+}
+
+.folder-row:hover {
+  background-color: alpha(@window_fg_color, 0.09);
+}
+
+.folder-row image {
+  color: @accent_color;
+}
+
+.folder-row .chevron {
+  color: alpha(@window_fg_color, 0.45);
+}
+
+.folder-caption {
+  color: alpha(@window_fg_color, 0.55);
+  font-size: 11px;
+}
+
+.folder-path {
+  color: @window_fg_color;
+  font-size: 13px;
 }
 
 .section-title {
-  font-weight: 700;
+  font-weight: 800;
   color: @window_fg_color;
-  margin-top: 2px;
 }
+
+/* ---- Bottom action bar ---- */
 
 .tools-footer {
   background-color: @window_bg_color;
-  padding: 6px 14px 10px;
+  padding: 8px 16px 12px;
+}
+
+.action-bar {
+  padding: 2px 2px;
 }
 
 .tools-panel {
-  min-width: 424px;
-  background-color: @card_bg_color;
-  border: 1px solid @borders;
-  border-radius: 8px;
-  padding: 10px;
+  /* Opaque surface: a translucent card tint composited over the solid window
+     background, so the list never shows through the floating panel. */
+  background-color: @window_bg_color;
+  background-image: linear-gradient(alpha(@window_fg_color, 0.06), alpha(@window_fg_color, 0.06));
+  border: 1px solid alpha(@window_fg_color, 0.12);
+  border-radius: 16px;
+  padding: 14px;
+  box-shadow: 0 -8px 32px alpha(black, 0.5);
+}
+
+.panel-subtitle {
+  color: alpha(@window_fg_color, 0.55);
+  font-size: 12px;
 }
 
 .tools-toggle {
-  min-width: 126px;
-  min-height: 36px;
-  border-radius: 999px;
-  background-color: @card_bg_color;
+  min-height: 48px;
+  border-radius: 14px;
+  padding: 0 18px;
+  font-weight: 700;
+  background-color: alpha(@window_fg_color, 0.08);
   color: @window_fg_color;
-  border: 1px solid @borders;
-  padding: 0 14px;
+  border: 0;
+}
+
+.tools-toggle:hover {
+  background-color: alpha(@window_fg_color, 0.14);
 }
 
 .tools-toggle:checked {
-  background-color: alpha(@accent_bg_color, 0.14);
+  background-color: alpha(@accent_bg_color, 0.16);
   color: @accent_color;
-  border-color: alpha(@accent_bg_color, 0.42);
+}
+
+.ready-pill {
+  min-height: 48px;
+  border-radius: 14px;
+  padding: 4px 14px;
+  background-color: alpha(@window_fg_color, 0.06);
+  border: 1px solid alpha(@window_fg_color, 0.08);
+}
+
+.ready-pill:hover {
+  background-color: alpha(@window_fg_color, 0.10);
+}
+
+.ready-title {
+  color: @success_color;
+  font-weight: 700;
+  font-size: 13px;
+}
+
+.ready-subtitle {
+  color: alpha(@window_fg_color, 0.50);
+  font-size: 11px;
+}
+
+.ready-pill .chevron {
+  color: alpha(@window_fg_color, 0.45);
 }
 
 .muted {
-  color: alpha(@window_fg_color, 0.62);
+  color: alpha(@window_fg_color, 0.55);
   font-size: 12px;
 }
 
 .empty-list {
-  color: alpha(@window_fg_color, 0.62);
-  padding: 18px;
+  color: alpha(@window_fg_color, 0.55);
+  padding: 36px 18px;
 }
+
+/* ---- Recording row card ---- */
 
 .recording-row {
   background-color: @card_bg_color;
   color: @window_fg_color;
-  border: 1px solid @borders;
-  border-radius: 8px;
+  border: 1px solid alpha(@window_fg_color, 0.07);
+  border-radius: 14px;
   padding: 12px 14px;
 }
 
+.recording-row:hover {
+  background-color: shade(@card_bg_color, 1.04);
+}
+
 .recording-row.selected {
-  background-color: alpha(@accent_bg_color, 0.12);
-  box-shadow: inset 0 0 0 1px alpha(@accent_bg_color, 0.48);
+  background-color: alpha(@accent_bg_color, 0.10);
+  border-color: alpha(@accent_bg_color, 0.55);
+}
+
+.row-icon {
+  min-width: 44px;
+  min-height: 44px;
+  border-radius: 12px;
+  background-color: alpha(@window_fg_color, 0.07);
+  color: alpha(@window_fg_color, 0.85);
+  -gtk-icon-size: 20px;
+}
+
+.recording-row.selected .row-icon {
+  background-color: alpha(@accent_bg_color, 0.20);
+  color: @accent_color;
 }
 
 .recording-title {
   color: @window_fg_color;
-  font-size: 15px;
-  font-weight: 650;
+  font-size: 13px;
+  font-weight: 700;
 }
 
 .recording-subtitle,
-.recording-duration {
-  color: alpha(@window_fg_color, 0.62);
+.recording-meta {
+  color: alpha(@window_fg_color, 0.55);
+  font-size: 11px;
 }
 
-.recording-duration {
+.recording-meta {
   font-feature-settings: "tnum";
 }
 
+.recording-meta image {
+  color: alpha(@window_fg_color, 0.45);
+  -gtk-icon-size: 13px;
+}
+
 .row-play-button,
-.row-delete-button {
-  min-width: 44px;
-  min-height: 52px;
+.row-delete-button,
+.row-menu-button {
+  min-width: 32px;
+  min-height: 32px;
   padding: 0;
-  border-radius: 8px;
-  background-color: transparent;
+  border-radius: 9px;
   border: 0;
+  -gtk-icon-size: 15px;
 }
 
 .row-play-button {
-  color: @accent_color;
-}
-
-.row-delete-button {
-  color: @destructive_color;
+  background-color: @accent_bg_color;
+  color: @accent_fg_color;
 }
 
 .row-play-button:hover {
-  background-color: alpha(@accent_bg_color, 0.12);
+  background-color: shade(@accent_bg_color, 1.08);
+}
+
+.row-delete-button {
+  background-color: alpha(@destructive_color, 0.12);
+  color: @destructive_color;
 }
 
 .row-delete-button:hover {
-  background-color: alpha(@destructive_bg_color, 0.12);
+  background-color: alpha(@destructive_color, 0.20);
+}
+
+.row-menu-button {
+  background-color: transparent;
+  color: alpha(@window_fg_color, 0.55);
+}
+
+.row-menu-button:hover {
+  background-color: alpha(@window_fg_color, 0.10);
+}
+
+/* ---- Grid view ---- */
+
+.recordings-flow.grid-view .recording-row {
+  padding: 16px;
 }
 
 .playback-progress {
-  min-height: 12px;
+  min-height: 14px;
 }
 
-.tool-grid button {
-  min-width: 126px;
-  min-height: 34px;
-  border-radius: 8px;
-  background-color: @card_bg_color;
+/* ---- Tools grid (cards with icon + title + description) ---- */
+
+.tool-card {
+  min-height: 50px;
+  border-radius: 11px;
+  background-color: alpha(@window_fg_color, 0.05);
   color: @window_fg_color;
-  border: 1px solid @borders;
-  padding: 0 8px;
+  border: 1px solid alpha(@window_fg_color, 0.07);
+  padding: 7px 9px;
 }
 
-.tool-grid button:hover {
+.tool-card:hover {
   background-color: alpha(@accent_bg_color, 0.12);
+  border-color: alpha(@accent_bg_color, 0.30);
+}
+
+.tool-card-icon {
+  min-width: 36px;
+  min-height: 36px;
+  border-radius: 9px;
+  background-color: alpha(@accent_bg_color, 0.16);
+  color: @accent_color;
+  -gtk-icon-size: 16px;
 }
 
 .tool-label {
   font-size: 12px;
-  font-weight: 650;
+  font-weight: 700;
 }
 
+.tool-desc {
+  color: alpha(@window_fg_color, 0.55);
+  font-size: 10px;
+}
+
+.panel-action {
+  min-height: 28px;
+  padding: 2px 12px;
+  border-radius: 8px;
+  background-color: alpha(@window_fg_color, 0.07);
+  color: @window_fg_color;
+  border: 0;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.panel-action:hover {
+  background-color: alpha(@window_fg_color, 0.12);
+}
+
+.panel-action:disabled {
+  color: alpha(@window_fg_color, 0.32);
+  background-color: alpha(@window_fg_color, 0.04);
+}
+
+/* ---- Trim dialog steppers ---- */
+
+.stepper-row {
+  background-color: alpha(@window_fg_color, 0.05);
+  border: 1px solid alpha(@window_fg_color, 0.08);
+  border-radius: 12px;
+  padding: 10px 14px;
+}
+
+.stepper-title {
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.stepper-desc {
+  color: alpha(@window_fg_color, 0.55);
+  font-size: 11px;
+}
+
+.stepper-icon {
+  color: @accent_color;
+  -gtk-icon-size: 16px;
+}
+
+.selected-duration {
+  font-size: 22px;
+  font-weight: 800;
+  font-feature-settings: "tnum";
+  color: @accent_color;
+}
+
+.selected-duration-caption {
+  color: alpha(@window_fg_color, 0.55);
+  font-size: 11px;
+}
+
+.range-readout {
+  color: @accent_color;
+  font-weight: 700;
+  font-feature-settings: "tnum";
+}
 
 .message-content {
   min-width: 240px;

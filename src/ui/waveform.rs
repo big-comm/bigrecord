@@ -137,35 +137,75 @@ fn draw_waveform(
     let center = height / 2.0;
     let available_width = width - padding * 2.0;
     let slot = available_width / peaks.len() as f64;
+    let bar_width = (slot * 0.34).clamp(1.6, 3.0);
+    let max_bar = (height - padding * 2.0).max(2.0);
     let view_bg = css_color(widget, "view_bg_color", (0.075, 0.082, 0.110));
-    let accent = css_color(widget, "accent_bg_color", (0.30, 0.84, 1.0));
 
     context.set_source_rgb(view_bg.0, view_bg.1, view_bg.2);
     context.rectangle(0.0, 0.0, width, height);
     let _ = context.fill();
 
     context.set_line_cap(gtk::cairo::LineCap::Round);
-    context.set_line_width((slot * 0.50).clamp(4.0, 7.0));
+
+    let last = peaks.len().saturating_sub(1).max(1) as f64;
     for (index, peak) in peaks.iter().enumerate() {
-        if *peak <= 0.0 {
+        let bar_height = if active {
+            (max_bar * peak).max(3.0)
+        } else {
+            max_bar * peak
+        };
+        if bar_height <= 0.5 {
             continue;
         }
 
-        let bar_height = ((height - padding * 2.0) * peak).max(if active { 5.0 } else { 0.0 });
+        // Smooth blue -> purple -> pink gradient across the whole waveform.
+        let (r, g, b) = spectrum_color(index as f64 / last);
         let x = padding + index as f64 * slot + slot / 2.0;
         let y1 = center - bar_height / 2.0;
         let y2 = center + bar_height / 2.0;
 
-        if index % 2 == 0 {
-            context.set_source_rgba(accent.0, accent.1, accent.2, 0.86 + level * 0.10);
-        } else {
-            context.set_source_rgba(0.76, 0.47, 1.0, 0.84 + level * 0.10);
-        }
+        // Neon halo: a few translucent passes of decreasing width build the glow.
+        context.set_line_width(bar_width * 4.0);
+        context.set_source_rgba(r, g, b, 0.10 + level * 0.06);
+        context.move_to(x, y1);
+        context.line_to(x, y2);
+        let _ = context.stroke();
 
+        context.set_line_width(bar_width * 2.2);
+        context.set_source_rgba(r, g, b, 0.22 + level * 0.08);
+        context.move_to(x, y1);
+        context.line_to(x, y2);
+        let _ = context.stroke();
+
+        // Crisp core bar.
+        context.set_line_width(bar_width);
+        context.set_source_rgba(r, g, b, 0.95);
         context.move_to(x, y1);
         context.line_to(x, y2);
         let _ = context.stroke();
     }
+}
+
+/// Maps a position in `0.0..=1.0` to the blue -> purple -> pink neon gradient.
+fn spectrum_color(t: f64) -> (f64, f64, f64) {
+    const BLUE: (f64, f64, f64) = (0.25, 0.49, 1.0);
+    const PURPLE: (f64, f64, f64) = (0.66, 0.33, 1.0);
+    const PINK: (f64, f64, f64) = (1.0, 0.39, 0.78);
+
+    let t = t.clamp(0.0, 1.0);
+    if t < 0.5 {
+        lerp(BLUE, PURPLE, t * 2.0)
+    } else {
+        lerp(PURPLE, PINK, (t - 0.5) * 2.0)
+    }
+}
+
+fn lerp(a: (f64, f64, f64), b: (f64, f64, f64), t: f64) -> (f64, f64, f64) {
+    (
+        a.0 + (b.0 - a.0) * t,
+        a.1 + (b.1 - a.1) * t,
+        a.2 + (b.2 - a.2) * t,
+    )
 }
 
 fn css_color(widget: &gtk::DrawingArea, name: &str, fallback: (f64, f64, f64)) -> (f64, f64, f64) {

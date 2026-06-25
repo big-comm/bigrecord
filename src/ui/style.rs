@@ -144,6 +144,12 @@ windowhandle,
   background-color: shade(@accent_bg_color, 0.94);
 }
 
+.record-fab:disabled {
+  background-color: alpha(@window_fg_color, 0.12);
+  color: alpha(@window_fg_color, 0.40);
+  box-shadow: none;
+}
+
 /* ---- Recording controls (pause / stop) ---- */
 
 .control-pill {
@@ -293,10 +299,23 @@ windowhandle,
   background-color: alpha(@window_fg_color, 0.10);
 }
 
+.ready-pill.input-unavailable {
+  background-color: alpha(@destructive_color, 0.10);
+  border-color: alpha(@destructive_color, 0.24);
+}
+
+.ready-pill.input-unavailable:hover {
+  background-color: alpha(@destructive_color, 0.15);
+}
+
 .ready-title {
   color: @success_color;
   font-weight: 700;
   font-size: 13px;
+}
+
+.ready-pill.input-unavailable .ready-title {
+  color: @destructive_color;
 }
 
 .ready-subtitle {
@@ -304,8 +323,17 @@ windowhandle,
   font-size: 11px;
 }
 
+.ready-pill.input-unavailable .ready-subtitle {
+  color: alpha(@destructive_color, 0.82);
+}
+
 .ready-pill .chevron {
   color: alpha(@window_fg_color, 0.45);
+}
+
+.ready-pill.input-unavailable .chevron,
+.input-warning-icon {
+  color: @destructive_color;
 }
 
 .mic-list {

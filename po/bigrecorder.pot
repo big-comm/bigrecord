@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bigrecorder\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-22 17:18-0300\n"
+"POT-Creation-Date: 2026-06-24 21:25-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,636 +18,678 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/i18n.rs:241
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:554
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:576
 msgid "Record"
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:174
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:196
 msgid "Local voice recorder"
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:179
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:201
 msgid "Menu"
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:182
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:204
 msgid "About"
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:183
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:205
 msgid "Close"
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:226
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:248
 msgid "Recordings"
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:238
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:260
 msgid "Search recordings"
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:245
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:267
 msgid "List view"
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:253
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:275
 msgid "Grid view"
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:281
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:303
 msgid "No recordings yet"
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:310
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1084
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:332
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1271
 msgid "Ready"
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:322
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:344
 msgid "Recording time"
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:347
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:357
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1092
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1093
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:369
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:379
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1279
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1280
 msgid "Pause"
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:365
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:375
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:387
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:397
 msgid "Stop"
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:422
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:520
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:525
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:444
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:542
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:547
 msgid "Tools"
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:425
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:447
 msgid "Apply effects to the selected recording"
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:431
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:453
 msgid "Restore"
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:435
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:457
 msgid "Restore the original recording"
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:436
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:458
 msgid "Undo"
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:455
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:477
 msgid "Trim"
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:456
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:478
 msgid "Remove part of the audio"
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:461
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:483
 msgid "Volume"
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:462
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:484
 msgid "Adjust the loudness"
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:467
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:489
 msgid "Speed"
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:468
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:490
 msgid "Speed up or slow down"
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:473
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:495
 msgid "Pitch"
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:474
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:496
 msgid "Change the pitch"
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:479
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:501
 msgid "Effects"
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:480
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:502
 msgid "Apply a voice effect"
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:485
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1932
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:507
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2123
 msgid "Equalizer"
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:486
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:508
 msgid "Tune frequency bands"
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:491
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1966
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:513
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2157
 msgid "Reverse"
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:492
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:514
 msgid "Play the audio backwards"
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:497
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:519
 msgid "Merge"
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:498
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:520
 msgid "Join with another recording"
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:503
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1362
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2091
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2118
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:525
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1549
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2282
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2309
 msgid "Export"
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:504
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:526
 msgid "Save in another format"
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:566
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:592
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:854
 msgid "Choose input device"
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:571
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:607
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:862
 msgid "Ready to record"
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:574
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:603
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:610
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:659
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:844
 msgid "Default microphone"
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:791
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:651
+msgid "No input devices found"
+msgstr ""
+
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:872
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:876
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1155
+msgid "No microphone available"
+msgstr ""
+
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:879
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1156
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1164
+msgid "Connect or enable an input device"
+msgstr ""
+
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:888
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:893
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1152
+msgid "Unmute the microphone to record"
+msgstr ""
+
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:890
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1151
+msgid "Microphone muted"
+msgstr ""
+
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:904
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:911
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1160
+msgid "Choose another input device"
+msgstr ""
+
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:908
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1159
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1163
+msgid "Microphone unavailable"
+msgstr ""
+
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:941
 msgid "Recording in"
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:815
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:965
 msgid "Open recordings folder"
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:845
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:995
 msgid "Could not open recordings folder"
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:886
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1036
 msgid "Local voice recorder built with Rust, GTK4, libadwaita, and GStreamer."
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:986
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1516
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2368
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2387
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1172
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1707
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2559
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2578
 msgid "Could not stop playback"
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:996
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1182
 msgid "Could not start recording"
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1017
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1203
 msgid "Could not pause"
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1024
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1210
 msgid "Could not resume"
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1054
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1240
 msgid "Could not finish recording"
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1089
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2873
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1276
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:3064
 msgid "Recording"
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1098
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1285
 msgid "Paused"
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1101
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1102
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1288
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1289
 msgid "Resume"
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1148
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1335
 msgid "1 recording"
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1151
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1338
 #, rust-format
 msgid "{count} recordings"
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1230
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1417
 msgid "Play"
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1240
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1367
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1500
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1427
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1554
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1691
 msgid "Move to Trash"
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1313
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1500
 msgid "Could not play recording"
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1344
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1531
 msgid "More options"
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1357
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1438
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1544
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1625
 msgid "Rename"
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1425
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1612
 msgid "Rename recording"
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1437
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1499
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1965
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2090
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2119
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2434
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1624
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1690
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2156
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2281
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2310
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2625
 msgid "Cancel"
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1471
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1484
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1658
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1675
 msgid "Could not rename recording"
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1472
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1659
 msgid "A recording with that name already exists."
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1493
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1684
 msgid "Move recording to trash?"
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1495
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1686
 #, rust-format
 msgid "{recording} will be moved to the system trash."
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1525
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1716
 msgid "Could not move recording to trash"
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1628
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1819
 msgid "Select a recording first"
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1629
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1820
 msgid "Click a recording in the list before using a tool."
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1645
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1651
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1725
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1836
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1842
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1916
 msgid "Could not trim recording"
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1646
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1837
 msgid "This recording has no audio data."
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1669
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1860
 msgid "Selected duration"
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1677
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1868
 msgid "Initial seconds"
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1678
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1869
 msgid "Remove from the start of the recording"
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1682
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1873
 msgid "Final seconds"
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1683
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1874
 msgid "Remove from the end of the recording"
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1708
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1899
 msgid "Trim recording"
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1779
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1970
 msgid "Volume percent"
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1782
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1973
 msgid "Change volume"
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1798
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1989
 msgid "Could not change volume"
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1812
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2003
 msgid "Speed factor"
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1815
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2006
 msgid "Change speed"
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1831
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2022
 msgid "Could not change speed"
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1846
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2037
 msgid "Semitones"
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1849
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2040
 msgid "Change pitch"
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1865
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2056
 msgid "Could not change pitch"
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1878
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2069
 msgid "Child voice"
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1879
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2070
 msgid "Deep voice"
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1880
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2071
 msgid "Robot voice"
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1881
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2072
 msgid "Radio voice"
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1882
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2073
 msgid "Echo voice"
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1892
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2083
 msgid "Effect"
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1893
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2084
 msgid "Intensity"
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1897
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2088
 msgid "Voice effects"
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1914
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2105
 msgid "Could not apply voice effect"
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1948
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2139
 msgid "Could not equalize recording"
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1960
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2151
 msgid "Reverse recording"
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1961
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2152
 msgid "Create a new recording with the audio reversed."
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:1982
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2173
 msgid "Could not reverse recording"
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2002
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2038
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2193
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2229
 msgid "Could not merge recordings"
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2003
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2194
 msgid "There is no second recording to merge."
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2015
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2206
 msgid "Append recording"
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2018
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2209
 msgid "Merge recordings"
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2050
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2241
 msgid "MP3 audio (.mp3)"
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2051
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2242
 msgid "WAV audio (.wav)"
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2052
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2243
 msgid "Opus audio (.opus)"
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2053
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2244
 msgid "FLAC audio (.flac)"
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2057
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2248
 msgid "Low"
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2058
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2249
 msgid "Medium"
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2059
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2250
 msgid "High"
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2063
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2069
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2254
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2260
 msgid "Original"
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2064
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2255
 msgid "Mono"
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2065
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2256
 msgid "Stereo"
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2070
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2261
 msgid "48 kHz"
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2071
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2262
 msgid "44.1 kHz"
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2072
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2263
 msgid "24 kHz"
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2073
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2264
 msgid "16 kHz"
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2079
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2270
 msgid "Format"
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2080
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2271
 msgid "Quality"
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2081
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2272
 msgid "Channels"
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2082
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2273
 msgid "Sample rate"
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2086
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2115
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2277
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2306
 msgid "Export recording"
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2135
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2147
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2421
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2424
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2326
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2338
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2612
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2615
 msgid "Could not export recording"
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2136
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2148
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2327
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2339
 msgid "The selected destination is not a local file."
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2209
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2400
 msgid "WAV audio"
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2210
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2401
 msgid "MP3 audio"
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2211
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2402
 msgid "Opus audio"
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2212
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2403
 msgid "FLAC audio"
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2234
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2425
 msgid "Flat"
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2235
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2426
 msgid "Voice clarity"
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2236
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2427
 msgid "Warm"
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2237
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2428
 msgid "Bright"
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2238
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2429
 msgid "Bass cut"
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2240
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2431
 msgid "Preset"
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2400
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2591
 msgid "The audio task stopped unexpectedly."
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2418
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2609
 msgid "Recording exported"
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2419
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2610
 msgid "The file was exported successfully."
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2425
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2616
 msgid "The export task stopped unexpectedly."
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2435
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2626
 msgid "Apply"
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2833
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:3024
 msgid "Trim the selected recording"
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2834
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:3025
 msgid "Change the selected recording volume"
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2835
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:3026
 msgid "Change the selected recording speed"
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2836
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:3027
 msgid "Change the selected recording pitch"
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2837
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:3028
 msgid "Apply a voice effect to the selected recording"
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2838
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:3029
 msgid "Adjust the selected recording frequency bands"
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2839
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:3030
 msgid "Reverse the selected recording"
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2840
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:3031
 msgid "Merge the selected recording with another recording"
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2841
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:3032
 msgid "Export the selected recording"
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:2877
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:3068
 msgid "Saved recording"
 msgstr ""
 
-#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:3094
+#: /home/talesam/Servidor/GitHub/BigCommunity/bigrecorder/src/ui/window.rs:3286
 msgid "OK"
 msgstr ""

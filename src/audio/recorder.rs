@@ -1,5 +1,6 @@
 use std::fs;
 use std::path::{Path, PathBuf};
+use std::process::Command;
 use std::time::{Duration, Instant};
 
 use anyhow::{Context, Result, anyhow};
@@ -246,6 +247,33 @@ pub fn input_devices() -> Vec<(String, gst::Device)> {
         .collect()
 }
 
+pub fn default_input_is_muted() -> Option<bool> {
+    let output = Command::new("wpctl")
+        .args(["get-volume", "@DEFAULT_AUDIO_SOURCE@"])
+        .output()
+        .ok()?;
+
+    if !output.status.success() {
+        return None;
+    }
+
+    default_input_mute_from_wpctl(&String::from_utf8_lossy(&output.stdout))
+}
+
+fn default_input_mute_from_wpctl(output: &str) -> Option<bool> {
+    let line = output
+        .lines()
+        .find(|line| line.trim_start().starts_with("Volume:"))?;
+    let muted = line.to_ascii_uppercase().contains("MUTED");
+    let zero_volume = line
+        .split_whitespace()
+        .nth(1)
+        .and_then(|volume| volume.parse::<f64>().ok())
+        .is_some_and(|volume| volume <= 0.001);
+
+    Some(muted || zero_volume)
+}
+
 fn source_from_device(device: &gst::Device) -> Result<gst::Element> {
     let source = device
         .create_element(None)
@@ -421,4 +449,20 @@ fn display_amplitude(amplitude: f64) -> f64 {
     ((amplitude - NOISE_FLOOR).max(0.0) * DISPLAY_GAIN)
         .clamp(0.0, 1.0)
         .powf(0.72)
+}
+
+#[cfg(test)]
+mod tests {
+    use super::default_input_mute_from_wpctl;
+
+    #[test]
+    fn parses_wpctl_default_input_mute_state() {
+        assert_eq!(default_input_mute_from_wpctl("Volume: 0.60\n"), Some(false));
+        assert_eq!(default_input_mute_from_wpctl("Volume: 0.00\n"), Some(true));
+        assert_eq!(
+            default_input_mute_from_wpctl("Volume: 0.60 [MUTED]\n"),
+            Some(true)
+        );
+        assert_eq!(default_input_mute_from_wpctl("unrelated\n"), None);
+    }
 }

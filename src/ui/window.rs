@@ -1,4 +1,4 @@
-use std::cell::RefCell;
+use std::cell::{Cell, RefCell};
 use std::path::{Path, PathBuf};
 use std::rc::Rc;
 use std::time::{Duration, Instant};
@@ -13,7 +13,7 @@ use crate::audio::processing::{
     self, EQUALIZER_BANDS, ExportChannelMode, ExportFormat, ExportOptions, ExportQuality,
     ExportSampleRate, VoiceEffectPreset,
 };
-use crate::audio::recorder::{Recorder, saved_recordings};
+use crate::audio::recorder::{Recorder, default_input_is_muted, input_devices, saved_recordings};
 use crate::i18n::{format_message, gettext};
 use crate::ui::playback_bar::PlaybackBar;
 use crate::ui::waveform::Waveform;
@@ -38,6 +38,7 @@ struct RecorderWidgets {
     page_stack: gtk::Stack,
     start_button: gtk::Button,
     ready_pill: gtk::Widget,
+    input_controls: InputControls,
     record_button: gtk::Button,
     record_symbol: gtk::Stack,
     record_label: gtk::Label,
@@ -65,11 +66,32 @@ struct ModeControls {
     page_stack: gtk::Stack,
     start_button: gtk::Button,
     ready_pill: gtk::Widget,
+    input_ready: Rc<Cell<bool>>,
     record_button: gtk::Button,
     record_symbol: gtk::Stack,
     record_label: gtk::Label,
     stop_button: gtk::Button,
     status_label: gtk::Label,
+}
+
+#[derive(Clone)]
+struct InputControls {
+    ready_pill: gtk::Button,
+    icon_stack: gtk::Stack,
+    ready_title: gtk::Label,
+    ready_subtitle: gtk::Label,
+    start_button: gtk::Button,
+    selected_mic: Rc<RefCell<Option<String>>>,
+    input_ready: Rc<Cell<bool>>,
+    block_reason: Rc<Cell<InputBlockReason>>,
+}
+
+#[derive(Clone, Copy, Eq, PartialEq)]
+enum InputBlockReason {
+    None,
+    NoDevice,
+    Muted,
+    SelectedUnavailable,
 }
 
 #[derive(Clone, Copy)]
@@ -559,13 +581,27 @@ pub fn build(app: &adw::Application) {
     start_button.set_child(Some(&start_icon));
     start_button.add_css_class("record-fab");
 
+    let selected_mic: Rc<RefCell<Option<String>>> = Rc::new(RefCell::new(None));
+    let input_ready = Rc::new(Cell::new(false));
+    let input_block_reason = Rc::new(Cell::new(InputBlockReason::NoDevice));
+
     // "Ready to record" device pill — opens a microphone picker popover.
     let ready_pill = gtk::Button::new();
     ready_pill.add_css_class("ready-pill");
     ready_pill.set_valign(gtk::Align::Center);
     ready_pill.set_tooltip_text(Some(&gettext("Choose input device")));
     let ready_content = gtk::Box::new(gtk::Orientation::Horizontal, 10);
-    ready_content.append(&level_icon());
+    let ready_icon_stack = gtk::Stack::new();
+    ready_icon_stack.set_size_request(20, 20);
+    ready_icon_stack.set_valign(gtk::Align::Center);
+    let ready_level_icon = level_icon();
+    ready_icon_stack.add_named(&ready_level_icon, Some("ready"));
+    let warning_icon = gtk::Image::from_icon_name("dialog-warning-symbolic");
+    warning_icon.set_pixel_size(18);
+    warning_icon.add_css_class("input-warning-icon");
+    ready_icon_stack.add_named(&warning_icon, Some("unavailable"));
+    ready_icon_stack.set_visible_child_name("ready");
+    ready_content.append(&ready_icon_stack);
     let ready_text = gtk::Box::new(gtk::Orientation::Vertical, 0);
     ready_text.set_valign(gtk::Align::Center);
     let ready_title = gtk::Label::new(Some(&gettext("Ready to record")));
@@ -585,6 +621,17 @@ pub fn build(app: &adw::Application) {
     ready_content.append(&ready_chevron);
     ready_pill.set_child(Some(&ready_content));
 
+    let input_controls = InputControls {
+        ready_pill: ready_pill.clone(),
+        icon_stack: ready_icon_stack.clone(),
+        ready_title: ready_title.clone(),
+        ready_subtitle: ready_subtitle.clone(),
+        start_button: start_button.clone(),
+        selected_mic: Rc::clone(&selected_mic),
+        input_ready: Rc::clone(&input_ready),
+        block_reason: Rc::clone(&input_block_reason),
+    };
+
     let mic_popover = gtk::Popover::new();
     mic_popover.add_css_class("mic-popover");
     mic_popover.set_position(gtk::PositionType::Top);
@@ -593,42 +640,53 @@ pub fn build(app: &adw::Application) {
     // The picker is rebuilt every time it opens so freshly plugged-in
     // microphones show up. The choice applies to the next recording.
     let mic_recorder = Rc::clone(&recorder);
-    let selected_mic: Rc<RefCell<Option<String>>> = Rc::new(RefCell::new(None));
-    let mic_subtitle = ready_subtitle.clone();
+    let picker_controls = input_controls.clone();
     let popup_popover = mic_popover.clone();
     ready_pill.connect_clicked(move |_| {
         let list = gtk::Box::new(gtk::Orientation::Vertical, 2);
         list.add_css_class("mic-list");
 
-        let default_label = gettext("Default microphone");
-        let default_item = mic_menu_item(&default_label, selected_mic.borrow().is_none());
-        let default_recorder = Rc::clone(&mic_recorder);
-        let default_selected = Rc::clone(&selected_mic);
-        let default_subtitle = mic_subtitle.clone();
-        let default_popover = popup_popover.clone();
-        let default_text = default_label.clone();
-        default_item.connect_clicked(move |_| {
-            default_selected.replace(None);
-            default_recorder.borrow_mut().set_device(None);
-            default_subtitle.set_label(&default_text);
-            default_popover.popdown();
-        });
-        list.append(&default_item);
-
-        for (name, device) in crate::audio::recorder::input_devices() {
-            let checked = selected_mic.borrow().as_deref() == Some(name.as_str());
-            let item = mic_menu_item(&name, checked);
-            let item_recorder = Rc::clone(&mic_recorder);
-            let item_selected = Rc::clone(&selected_mic);
-            let item_subtitle = mic_subtitle.clone();
-            let item_popover = popup_popover.clone();
-            item.connect_clicked(move |_| {
-                item_selected.replace(Some(name.clone()));
-                item_recorder.borrow_mut().set_device(Some(device.clone()));
-                item_subtitle.set_label(&name);
-                item_popover.popdown();
+        let devices = input_devices();
+        if devices.is_empty() {
+            let empty_label = gtk::Label::new(Some(&gettext("No input devices found")));
+            empty_label.add_css_class("muted");
+            empty_label.set_margin_top(8);
+            empty_label.set_margin_bottom(8);
+            empty_label.set_margin_start(10);
+            empty_label.set_margin_end(10);
+            list.append(&empty_label);
+        } else {
+            let default_label = gettext("Default microphone");
+            let default_item = mic_menu_item(
+                &default_label,
+                picker_controls.selected_mic.borrow().is_none(),
+            );
+            let default_recorder = Rc::clone(&mic_recorder);
+            let default_controls = picker_controls.clone();
+            let default_popover = popup_popover.clone();
+            default_item.connect_clicked(move |_| {
+                default_controls.selected_mic.replace(None);
+                default_recorder.borrow_mut().set_device(None);
+                refresh_input_controls(&default_controls);
+                default_popover.popdown();
             });
-            list.append(&item);
+            list.append(&default_item);
+
+            for (name, device) in devices {
+                let checked =
+                    picker_controls.selected_mic.borrow().as_deref() == Some(name.as_str());
+                let item = mic_menu_item(&name, checked);
+                let item_recorder = Rc::clone(&mic_recorder);
+                let item_controls = picker_controls.clone();
+                let item_popover = popup_popover.clone();
+                item.connect_clicked(move |_| {
+                    item_controls.selected_mic.replace(Some(name.clone()));
+                    item_recorder.borrow_mut().set_device(Some(device.clone()));
+                    refresh_input_controls(&item_controls);
+                    item_popover.popdown();
+                });
+                list.append(&item);
+            }
         }
 
         popup_popover.set_child(Some(&list));
@@ -687,6 +745,7 @@ pub fn build(app: &adw::Application) {
     });
 
     load_saved_recordings(&tool_context);
+    refresh_input_controls(&input_controls);
 
     connect_controls(
         RecorderWidgets {
@@ -694,6 +753,7 @@ pub fn build(app: &adw::Application) {
             page_stack,
             start_button,
             ready_pill: ready_pill.upcast::<gtk::Widget>(),
+            input_controls,
             record_button,
             record_symbol,
             record_label,
@@ -761,6 +821,96 @@ fn mic_menu_item(label: &str, checked: bool) -> gtk::Button {
     button.add_css_class("mic-item");
     button.set_child(Some(&row));
     button
+}
+
+enum InputStatus {
+    Ready(String),
+    NoDevice,
+    Muted,
+    SelectedUnavailable,
+}
+
+fn refresh_input_controls(controls: &InputControls) {
+    let devices = input_devices();
+    let selected_mic = controls.selected_mic.borrow().clone();
+    let default_muted = selected_mic.is_none() && default_input_is_muted().unwrap_or(false);
+    let status = match selected_mic.as_deref() {
+        Some(name) if devices.iter().any(|(device_name, _)| device_name == name) => {
+            InputStatus::Ready(name.to_string())
+        }
+        Some(_) => InputStatus::SelectedUnavailable,
+        None if devices.is_empty() => InputStatus::NoDevice,
+        None if default_muted => InputStatus::Muted,
+        None => InputStatus::Ready(gettext("Default microphone")),
+    };
+
+    apply_input_status(controls, status);
+}
+
+fn apply_input_status(controls: &InputControls, status: InputStatus) {
+    controls.ready_pill.remove_css_class("input-unavailable");
+    controls
+        .ready_pill
+        .set_tooltip_text(Some(&gettext("Choose input device")));
+
+    match status {
+        InputStatus::Ready(device_name) => {
+            controls.input_ready.set(true);
+            controls.block_reason.set(InputBlockReason::None);
+            controls.start_button.set_sensitive(true);
+            controls.icon_stack.set_visible_child_name("ready");
+            controls.ready_title.set_label(&gettext("Ready to record"));
+            controls.ready_subtitle.set_label(&device_name);
+        }
+        InputStatus::NoDevice => {
+            controls.input_ready.set(false);
+            controls.block_reason.set(InputBlockReason::NoDevice);
+            controls.start_button.set_sensitive(false);
+            controls.ready_pill.add_css_class("input-unavailable");
+            controls
+                .ready_pill
+                .set_tooltip_text(Some(&gettext("No microphone available")));
+            controls.icon_stack.set_visible_child_name("unavailable");
+            controls
+                .ready_title
+                .set_label(&gettext("No microphone available"));
+            controls
+                .ready_subtitle
+                .set_label(&gettext("Connect or enable an input device"));
+        }
+        InputStatus::Muted => {
+            controls.input_ready.set(false);
+            controls.block_reason.set(InputBlockReason::Muted);
+            controls.start_button.set_sensitive(false);
+            controls.ready_pill.add_css_class("input-unavailable");
+            controls
+                .ready_pill
+                .set_tooltip_text(Some(&gettext("Unmute the microphone to record")));
+            controls.icon_stack.set_visible_child_name("unavailable");
+            controls.ready_title.set_label(&gettext("Microphone muted"));
+            controls
+                .ready_subtitle
+                .set_label(&gettext("Unmute the microphone to record"));
+        }
+        InputStatus::SelectedUnavailable => {
+            controls.input_ready.set(false);
+            controls
+                .block_reason
+                .set(InputBlockReason::SelectedUnavailable);
+            controls.start_button.set_sensitive(false);
+            controls.ready_pill.add_css_class("input-unavailable");
+            controls
+                .ready_pill
+                .set_tooltip_text(Some(&gettext("Choose another input device")));
+            controls.icon_stack.set_visible_child_name("unavailable");
+            controls
+                .ready_title
+                .set_label(&gettext("Microphone unavailable"));
+            controls
+                .ready_subtitle
+                .set_label(&gettext("Choose another input device"));
+        }
+    }
 }
 
 fn status_pill(label: &gtk::Label) -> gtk::Box {
@@ -958,10 +1108,21 @@ fn connect_controls(
         glib::ControlFlow::Continue
     });
 
+    let input_controls = widgets.input_controls.clone();
+    let input_session = Rc::clone(&session);
+    glib::timeout_add_seconds_local(2, move || {
+        if input_session.borrow().mode == RecordingMode::Idle {
+            refresh_input_controls(&input_controls);
+        }
+
+        glib::ControlFlow::Continue
+    });
+
     let mode_controls = ModeControls {
         page_stack: widgets.page_stack.clone(),
         start_button: widgets.start_button.clone(),
         ready_pill: widgets.ready_pill.clone(),
+        input_ready: Rc::clone(&widgets.input_controls.input_ready),
         record_button: widgets.record_button.clone(),
         record_symbol: widgets.record_symbol.clone(),
         record_label: widgets.record_label.clone(),
@@ -976,9 +1137,34 @@ fn connect_controls(
     let player_clone = Rc::clone(&player);
     let session_clone = Rc::clone(&session);
     let recording_rows_clone = Rc::clone(&recording_rows);
+    let input_controls_clone = widgets.input_controls.clone();
 
     widgets.start_button.connect_clicked(move |_| {
         if session_clone.borrow().mode != RecordingMode::Idle {
+            return;
+        }
+
+        refresh_input_controls(&input_controls_clone);
+        if !input_controls_clone.input_ready.get() {
+            let (heading, body) = match input_controls_clone.block_reason.get() {
+                InputBlockReason::Muted => (
+                    gettext("Microphone muted"),
+                    gettext("Unmute the microphone to record"),
+                ),
+                InputBlockReason::NoDevice => (
+                    gettext("No microphone available"),
+                    gettext("Connect or enable an input device"),
+                ),
+                InputBlockReason::SelectedUnavailable => (
+                    gettext("Microphone unavailable"),
+                    gettext("Choose another input device"),
+                ),
+                InputBlockReason::None => (
+                    gettext("Microphone unavailable"),
+                    gettext("Connect or enable an input device"),
+                ),
+            };
+            show_message(&window_clone, &heading, &body, MessageKind::Error);
             return;
         }
 
@@ -1061,6 +1247,7 @@ fn apply_mode(mode: RecordingMode, controls: &ModeControls) {
     let page_stack = &controls.page_stack;
     let start_button = &controls.start_button;
     let ready_pill = &controls.ready_pill;
+    let input_ready = &controls.input_ready;
     let record_button = &controls.record_button;
     let record_symbol = &controls.record_symbol;
     let record_label = &controls.record_label;
@@ -1080,7 +1267,7 @@ fn apply_mode(mode: RecordingMode, controls: &ModeControls) {
     match mode {
         RecordingMode::Idle => {
             page_stack.set_visible_child_name("recordings");
-            start_button.set_sensitive(true);
+            start_button.set_sensitive(input_ready.get());
             status_label.set_label(&gettext("Ready"));
             stop_button.set_sensitive(false);
         }
@@ -1477,7 +1664,11 @@ fn rename_recording(context: &ToolContext, path: &Path, new_name: &str) {
     match std::fs::rename(path, &target) {
         Ok(()) => {
             reload_recordings(context);
-            select_recording(&context.recording_rows, &context.selected_recording, &target);
+            select_recording(
+                &context.recording_rows,
+                &context.selected_recording,
+                &target,
+            );
         }
         Err(err) => show_message(
             &context.window,
@@ -2900,8 +3091,9 @@ fn recording_duration(path: &Path) -> Option<Duration> {
             u32::from_le_bytes(bytes.get(offset + 4..offset + 8)?.try_into().ok()?) as usize;
         match chunk_id {
             b"fmt " => {
-                byte_rate =
-                    Some(u32::from_le_bytes(bytes.get(offset + 16..offset + 20)?.try_into().ok()?));
+                byte_rate = Some(u32::from_le_bytes(
+                    bytes.get(offset + 16..offset + 20)?.try_into().ok()?,
+                ));
             }
             b"data" => {
                 data_size = Some(chunk_size);

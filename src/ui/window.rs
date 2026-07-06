@@ -296,6 +296,11 @@ pub fn build(app: &adw::Application) {
         .column_spacing(10)
         .homogeneous(false)
         .hexpand(true)
+        // Anchor at the top with natural height: a FlowBox stretches its
+        // lines to fill whatever height it is allocated, which made each
+        // card grow to split the whole page when only a few recordings
+        // existed. Rows must stay compact and stack from the top.
+        .valign(gtk::Align::Start)
         .build();
     recordings_flow.add_css_class("recordings-flow");
     recordings_flow.add_css_class("list-view");
